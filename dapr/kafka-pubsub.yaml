@@ -1,0 +1,27 @@
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: pubsub
+#  namespace: default
+spec:
+  type: pubsub.kafka
+  version: v1
+  metadata:
+  - name: brokers # Required. Kafka broker connection setting
+    value: "localhost:9092"
+#  - name: consumerGroup # Optional. Used for input bindings.
+#    value: "test"
+#  - name: clientID # Optional. Used as client tracing ID by Kafka brokers.
+#    value: "my-dapr-app-id"
+#  - name: authType # Required.
+  - name: authRequired
+    value: "false"
+  - name: maxMessageBytes # Optional.
+    value: 1024
+  - name: consumeRetryInterval # Optional.
+    value: 200ms
+#  - name: version # Optional.
+#    value: 0.10.2.0
+  - name: disableTls # Optional. Disable TLS. This is not safe for production!! You should read the `Mutual TLS` section for how to use TLS.
+    value: "true"
+

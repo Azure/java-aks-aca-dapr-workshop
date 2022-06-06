@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: simulation
+  name: simulation
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: simulation
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: simulation
+    spec:
+      containers:
+      - image: daprworkshopjava.azurecr.io/simulation:latest
+        name: simulation
+        resources: {}
+        env:
+        - name: TRAFFIC_CONTROL_SERVICE
+          value: trafficcontrolservice
+status: {}

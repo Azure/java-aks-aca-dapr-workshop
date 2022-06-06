@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: trafficcontrolservice
+  name: trafficcontrolservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: trafficcontrolservice
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: trafficcontrolservice
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "trafficcontrolservice"
+        dapr.io/app-port: "6000"        
+    spec:
+      containers:
+      - image: daprworkshopjava.azurecr.io/traffic-control-service:latest
+        name: traffic-control-service
+        resources: {}
+status: {}

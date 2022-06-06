@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: vehicleregistrationservice
+  name: vehicleregistrationservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vehicleregistrationservice
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: vehicleregistrationservice
+    spec:
+      containers:
+      - image: daprworkshopjava.azurecr.io/vehicle-registration-service:latest
+        name: vehicle-registration-service
+        resources: {}
+status: {}

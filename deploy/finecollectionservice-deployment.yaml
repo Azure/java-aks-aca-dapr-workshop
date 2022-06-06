@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: finecollectionservice
+  name: finecollectionservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: finecollectionservice
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: finecollectionservice
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "finecollectionservice"
+        dapr.io/app-port: "6001"
+    spec:
+      containers:
+      - image: daprworkshopjava.azurecr.io/fine-collection-service:latest
+        name: fine-collection-service
+        resources: {}
+        env:
+        - name: VEHICLE_REGISTRATION_SERVICE
+          value: vehicleregistrationservice
+status: {}

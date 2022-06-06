@@ -1,0 +1,11 @@
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: servicebus-binding
+  namespace: default
+spec:
+  type: pubsub.azure.servicebus
+  version: v1
+  metadata:
+  - name: connectionString # Required when not using Azure Authentication.
+    value: "Endpoint=sb://dapr-workshop-java.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=x+BLyQc1bOsPU5FB2xa3hrM6Co646ZjYnZ+V97DLZ9w="

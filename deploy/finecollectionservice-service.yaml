@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: finecollectionservice
+  name: finecollectionservice
+spec:
+  ports:
+  - name: 6001-6001
+    port: 6001
+    protocol: TCP
+    targetPort: 6001
+  selector:
+    app: finecollectionservice
+  type: ClusterIP
+status:
+  loadBalancer: {}
