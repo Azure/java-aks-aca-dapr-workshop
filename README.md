@@ -1,4 +1,4 @@
-# Dapr Workshop for Pub/Sub and Observability in Java
+# Dapr Workshop for Pub/Sub and Observability in Java 
 
 ## Introduction
 
