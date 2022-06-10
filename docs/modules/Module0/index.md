@@ -1,4 +1,4 @@
-# Prerequisites
+# Assignment 0 - Prerequisites
 
 Make sure you have the following prerequisites installed on your machine:
 
@@ -11,7 +11,7 @@ Make sure you have the following prerequisites installed on your machine:
   - Make sure that Maven uses the correct Java runtime by running `mvn -version`.
 - Apache Kafka - either run as a docker container (see below) or install and run on your machine ([download](https://kafka.apache.org/downloads))
 
-#### Running Kafka using Docker Desktop
+## Running Kafka using Docker Desktop
 
 From the root of this repository, run the following command to configure and start Kafka from your locally installed Docker Desktop
 
@@ -21,7 +21,7 @@ docker-compose up -d
 
 This command will read the docker-compose.yml file located within the root folder and download and run Kafka containers for this workshop.
 
-#### Prevent port collisions
+## Prevent port collisions
 
 During the workshop you will run the services in the solution on your local machine. To prevent port-collisions, all services listen on a different HTTP port. When running the services with Dapr, you need additional ports for HTTP and gRPC communication with the sidecars. By default these ports are `3500` and `50001`. But to prevent confusion, you'll use totally different port numbers in the assignments. If you follow the instructions, the services will use the following ports for their Dapr sidecars to prevent port collisions:
 
@@ -53,13 +53,14 @@ netsh int ipv4 add excludedportrange protocol=tcp startport=6000 numberofports=3
 netsh int ipv4 add excludedportrange protocol=tcp startport=3600 numberofports=3
 netsh int ipv4 add excludedportrange protocol=tcp startport=60000 numberofports=3
 dism.exe /Online /Enable-Feature:Microsoft-Hyper-V /All
+```
 
 Follow the instructions below to get started:
 
 1. Clone the source code repository:
 
-   ```console
-   git clone https://github.com/azure/dapr-java-pubsub.git
-   ```
+```bash
+git clone https://github.com/azure/dapr-java-pubsub.git
+```
 
    **From now on, this folder is referred to as the 'source code' folder.**
