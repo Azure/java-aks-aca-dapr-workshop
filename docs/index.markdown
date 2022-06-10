@@ -1,8 +1,8 @@
-# Dapr Workshop for Pub/Sub and Observability in Java
+# Workshop to implement Pub/Sub and Observability in Java Applications using Dapr
 
 ## Introduction
 
-This workshop teaches you how to apply [Dapr](https://dapr.io) to a Java microservices application using Pub/Sub with Kafka.
+This workshop teaches you how to apply [Dapr](https://dapr.io) to a Java microservices application using Pub/Sub with Kafka. It also demonstrates Dapr's builtin support for [distributed tracing](https://docs.dapr.io/concepts/observability-concept/) using any backend monitoring tools. Finally, the workshop provides hands on experience in using [Azure Kubernetes Service (AKS) GitOps cluster extension](https://docs.microsoft.com/en-us/azure/aks/cluster-extensions) to automated configuration management.
 
 ### The domain
 
