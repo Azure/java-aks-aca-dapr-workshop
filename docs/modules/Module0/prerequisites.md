@@ -1,3 +1,10 @@
+---
+title: Prerequisites
+parent: Basic Concepts and Prerequisites
+has_children: false
+nav_order: 1
+---
+
 # Assignment 0 - Prerequisites
 
 Make sure you have the following prerequisites installed on your machine:
