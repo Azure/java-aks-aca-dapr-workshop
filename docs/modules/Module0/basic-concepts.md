@@ -11,7 +11,7 @@ Dapr is a portable, serverless, event-driven runtime that makes it easy for deve
 
 Dapr codifies the *best practices* for building microservice applications into open, independent, building blocks that enable you to build portable applications with the language and framework of your choice. Each building block is independent and you can use one, some, or all of them in your application.
 
-![Dapr overview](assets/images/overview.png)
+![Dapr overview](../../assets/images/overview.png)
 
 ## How it works
 
