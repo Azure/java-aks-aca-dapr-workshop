@@ -1,4 +1,4 @@
-# Dapr Workshop for Pub/Sub and Observability in Java
+# Dapr Workshop for Pub/Sub and Observability in Java 
 
 ## Introduction
 
@@ -534,6 +534,34 @@ You should see the same logs as before. Obviously, the behavior of the applicati
 
 ## Assignment 4 - Observability with Dapr using Zipkin
 
+In this assignment we will look at how to access and view telemetry data being collected through Dapr to a distributed tracing system called Zipkin.
+
+### Step 1: Ensure Zipkin container is installed and running
+
+When Dapr is initialized (`dapr init`) in self-hosted mode, several containers are deployed to your local Docker runtime.  Run the following command to view all containers running locally on your machine.  Ensure the Zipkin container is up and running and note the port it's running on (Default is 9411)
+
+```console
+docker ps
+```
+
+### Step 2: Use Zipkin to inspect telemetry within a browser
+
+In your browser of choice, open a new tab and navigate to the following url.
+
+```html
+http://localhost:9411
+```
+
+The Zipkin web application should render where you can begin to search and view telemetry that has been logged through the Dapr observability building block.
+
+Click on the `Run Query` button to initiate a search.
+
+Depending on when you completed Assignment 3 and stopped the services included in that assignment, you'll need to make sure the search filters are set correctly in order to have telemetry returned for inspection.
+
+> The default search criteria is set to all telemetry collected within the last 15 mins.  If no telemetry is returned, increase the time filter within the settings section.
+
+From the list of telemetry items, click the `Show` button to view an individual item and inspect the details of the trace.
+
 ## Assignment 5A - Deploying Applications to AKS with Dapr Extension
 
 ### Setup
@@ -675,6 +703,231 @@ kubectl delete -k deploy
 ```
 
 ## Assignment 5B - Observability with Dapr using OpenTelemetry
+
+In this section, you will deploy the [OpenTelemetry Collector](https://github.com/open-telemetry/opentelemetry-collector) to our new AKS cluster and configure Dapr to send telemetry to the vendor agnostic collector implementation. The collector will be configured to send telemetry to an Application Insights resource that we will create within our existing Azure resource group.
+
+### Step 1: Create Application Insights resource
+
+Run the following Azure CLI command to create the Application Insights resource in Azure.
+
+```azure cli
+az monitor app-insights component create --app dapr-workshop-java-aks --location eastus --kind web -g dapr-workshop-java --application-type web
+```
+
+> You may receive a message to install the application-insights extension, if so please install the extension for this exercise.
+
+After the command completes, the output from the command will contain a property called "instrumentationKey" that will contain a unique identifier you will need to copy and save for later.
+
+### Step 2: Configure OpenTelemetry Collector
+
+Create a new file called `open-telemetry-collector-appinsights.yaml` at the root of the solution and copy the following contents into the file and save.
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: otel-collector-conf
+  labels:
+    app: opentelemetry
+    component: otel-collector-conf
+data:
+  otel-collector-config: |
+    receivers:
+      zipkin:
+        endpoint: 0.0.0.0:9411
+    extensions:
+      health_check:
+      pprof:
+        endpoint: :1888
+      zpages:
+        endpoint: :55679
+    exporters:
+      logging:
+        loglevel: debug
+      azuremonitor:
+        endpoint: "https://dc.services.visualstudio.com/v2/track"
+        instrumentation_key: "<INSTRUMENTATION-KEY>"
+        # maxbatchsize is the maximum number of items that can be
+        # queued before calling to the configured endpoint
+        maxbatchsize: 100
+        # maxbatchinterval is the maximum time to wait before calling
+        # the configured endpoint.
+        maxbatchinterval: 10s
+    service:
+      extensions: [pprof, zpages, health_check]
+      pipelines:
+        traces:
+          receivers: [zipkin]
+          exporters: [azuremonitor,logging]
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: otel-collector
+  labels:
+    app: opencesus
+    component: otel-collector
+spec:
+  ports:
+  - name: zipkin # Default endpoint for Zipkin receiver.
+    port: 9411
+    protocol: TCP
+    targetPort: 9411
+  selector:
+    component: otel-collector
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: otel-collector
+  labels:
+    app: opentelemetry
+    component: otel-collector
+spec:
+  replicas: 1  # scale out based on your usage
+  selector:
+    matchLabels:
+      app: opentelemetry
+  template:
+    metadata:
+      labels:
+        app: opentelemetry
+        component: otel-collector
+    spec:
+      containers:
+      - name: otel-collector
+        image: otel/opentelemetry-collector-contrib:0.50.0
+        command:
+          - "/otelcol-contrib"
+          - "--config=/conf/otel-collector-config.yaml"
+        resources:
+          limits:
+            cpu: 1
+            memory: 2Gi
+          requests:
+            cpu: 200m
+            memory: 400Mi
+        ports:
+          - containerPort: 9411 # Default endpoint for Zipkin receiver.
+        volumeMounts:
+          - name: otel-collector-config-vol
+            mountPath: /conf
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 13133
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 13133
+      volumes:
+        - configMap:
+            name: otel-collector-conf
+            items:
+              - key: otel-collector-config
+                path: otel-collector-config.yaml
+          name: otel-collector-config-vol
+```
+
+Next, find the Instrumentation Key value you copied from the previous step and replace the `<INSTRUMENTATION-KEY>` placeholder with this value and save.
+
+Apply this configuration to your AKS cluster using the following command
+
+```console
+kubectl apply -f open-telemetry-collector-appinsights.yaml
+```
+
+### Step 3: Configure Dapr to send tracing to OpenTelemetry Collector
+
+Next, we need to configure Dapr to send tracing information to our newly deployed OpenTelemetry Collector using the following configuration file.
+
+Create a new file called `collector-config.yaml` at the root of the solution and copy the text below into it and save.
+
+```yaml
+apiVersion: dapr.io/v1alpha1
+kind: Configuration
+metadata:
+  name: appconfig
+  namespace: default
+spec:
+  tracing:
+    samplingRate: "1"
+    zipkin:
+      endpointAddress: "http://otel-collector.default.svc.cluster.local:9411/api/v2/spans"
+
+```
+
+Apply this configuration to your AKS cluster using the following command
+
+```console
+kubectl apply -f collector-config.yaml
+```
+
+### Step 4: Configure Java Deployments to use Dapr
+
+The Java deployments that are currently running in AKS need to be configured to use the new `appConfig` configuration that was just applied.
+
+Add the following annotations to each of the java deployments that will be participating sending tracing telemetry to the OpenTelemetry Collector endpoint.
+
+#### TrafficControlService
+
+Find the `trafficcontrolservice-deployment.yaml file created in the previous assignment and make sure the annotations look like below.
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  ...
+spec:
+  ...
+  template:
+    metadata:
+      ...
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "trafficcontrolservice"
+        dapr.io/app-port: "6000"
+        dapr.io/config: "appconfig"
+```
+
+#### FineCollectionService
+
+Find the `finecollectionservice-deployment.yaml file created in the previous assignment and make sure the annotations look like below.
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  ...
+spec:
+  ...
+  template:
+    metadata:
+      ...
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "finecollectionservice"
+        dapr.io/app-port: "6001"
+        dapr.io/config: "appconfig"
+```
+
+Apply these two configurations to AKS using the following two commands.
+
+```console
+kubectl apply -f deploy/trafficcontrolservice-deployment.yaml
+```
+
+```console
+kubectl apply -f deploy/finecollectionservice-deployment.yaml
+```
+
+### Step 5: Verify telemetry in Application Insights
+
+Open the Azure Portal and navigate to the Application Insights resource within your resource group.
+
+Open the Application Insights blade and click on the `Search` button in the navigation and run query.
+
+If configured correctly, tracing data should show up in the search results.
 
 ## Assignment 6 - Enable GitOps addon and use it to deploy applications
 
