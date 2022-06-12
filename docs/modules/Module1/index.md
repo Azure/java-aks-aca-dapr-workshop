@@ -9,6 +9,8 @@ To complete this assignment, you must reach the following goals:
 - All services are running.
 - The logging indicates that all services are working correctly.
 
+**Ensure Kafka server is running on localhost on port 9092, as specified in [prerequisites](../Module0/index.md)**
+
 ## Step 1. Run the VehicleRegistration service
 
 1. Open the source code folder in Eclipse. This guide assumes Eclipse, but feel free to use an editor or IDE you're comfortable with.
