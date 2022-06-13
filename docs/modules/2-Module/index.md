@@ -1,3 +1,9 @@
+---
+title: Assignment 2 - Using Dapr for pub/sub with Kafka
+has_children: false
+nav_order: 4
+---
+
 # Assignment 2 - Using Dapr for pub/sub with Kafka
 
 In this assignment, you're going to replace direct Spring Kafka producer and consumer implementation with Dapr **publish/subscribe** messaging to send messages from the TrafficControlService to the FineCollectionService. If you want to get more detailed information, read the [overview of this building block](https://docs.dapr.io/developing-applications/building-blocks/pubsub/pubsub-overview/) in the Dapr documentation.

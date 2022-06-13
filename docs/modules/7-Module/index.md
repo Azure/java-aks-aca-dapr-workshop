@@ -1,3 +1,9 @@
+---
+title: Assignment 7 - Enable GitOps addon and use it to deploy applications
+has_children: false
+nav_order: 7
+---
+
 # Assignment 7 - Enable GitOps addon and use it to deploy applications
 
 1. Fork this repository on your personal GitHub account.
