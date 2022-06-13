@@ -1,7 +1,7 @@
 ---
 title: Assignment 7 - Enable GitOps addon and use it to deploy applications
 has_children: false
-nav_order: 7
+nav_order: 9
 ---
 
 # Assignment 7 - Enable GitOps addon and use it to deploy applications
