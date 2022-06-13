@@ -1,7 +1,7 @@
 ---
 title: Assignment 1 - Running Applications with Kafka without using Dapr
 has_children: true
-nav_order: 4
+nav_order: 2
 ---
 
 ## Assignment 1 - Running Applications with Kafka without using Dapr
