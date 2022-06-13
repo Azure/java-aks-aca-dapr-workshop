@@ -1,6 +1,6 @@
 ---
-title: Running Applications without using Dapr
-parent: Running Applications with Kafka without using Dapr
+title: Assignment 1 - Running Applications without using Dapr
+parent: Assignment 1 - Running Applications with Kafka without using Dapr
 has_children: false
 nav_order: 1
 ---
