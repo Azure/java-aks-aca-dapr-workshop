@@ -41,3 +41,4 @@ Depending on when you completed Assignment 3 and stopped the services included i
 
 From the list of telemetry items, click the `Show` button to view an individual item and inspect the details of the trace.
 
+![Zipkin UI](../../assets/images/zipkin-screenshot.png)
