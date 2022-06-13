@@ -16,6 +16,13 @@ When Dapr is initialized (`dapr init`) in self-hosted mode, several containers a
 docker ps
 ```
 
+```console
+CONTAINER ID   IMAGE               COMMAND                  CREATED        STATUS                 PORTS                              NAMES
+a29918435d42   redis               "docker-entrypoint.s…"   2 months ago   Up 2 hours             0.0.0.0:6379->6379/tcp             dapr_redis
+3ba8c5264af1   openzipkin/zipkin   "start-zipkin"           2 months ago   Up 2 hours (healthy)   9410/tcp, 0.0.0.0:9411->9411/tcp   dapr_zipkin
+f414fa5d89e6   daprio/dapr:1.6.1   "./placement"            2 months ago   Up 2 hours             0.0.0.0:6050->50005/tcp            dapr_placement
+```
+
 ## Step 2: Use Zipkin to inspect telemetry within a browser
 
 In your browser of choice, open a new tab and navigate to the following url.
