@@ -1,3 +1,9 @@
+---
+title: Assignment 3 - Using Dapr for pub/sub with RabbitMQ
+has_children: false
+nav_order: 5
+---
+
 # Assignment 3 - Using Dapr for pub/sub with RabbitMQ
 
 Stop Simulation, TrafficControlService and FineCollectionService, and VehicleRegistrationService by pressing Crtl-C in the respective terminal windows.

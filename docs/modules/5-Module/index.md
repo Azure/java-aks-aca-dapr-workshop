@@ -1,3 +1,9 @@
+---
+title: Assignment 5 - Deploying Applications to AKS with Dapr Extension
+has_children: false
+nav_order: 6
+---
+
 # Assignment 5 - Deploying Applications to AKS with Dapr Extension
 
 ## Setup
