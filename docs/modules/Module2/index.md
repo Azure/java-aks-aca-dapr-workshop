@@ -12,7 +12,7 @@ To complete this assignment, you must reach the following goals:
 
 1. Open the file `dapr/kafka-pubsub.yaml` in Eclipse.
 
-1. Inspect this file. As you can see, it specifies the type of the message broker to use (`pubsub.kafka`) and specifies information on how to connect to the Kafka server in the `metadata` section.
+1. Inspect this file. As you can see, it specifies the type of the message broker to use (`pubsub.kafka`) and specifies information on how to connect to the Kafka server you started in step 1 (running on localhost on port `9092`) in the `metadata` section.
 
 ```yaml
 apiVersion: dapr.io/v1alpha1
@@ -46,29 +46,34 @@ spec:
   - finecollectionservice
 ```
 
-As you can see, you specify a different type of pub/sub component (`pubsub.kafka`) and you specify in the `metadata` how to connect to the Kafka server you started in step 1 (running on localhost on port `9092`). In the `scopes` section, you specify that only the TrafficControlService and FineCollectionService should use the pub/sub building block.
+In the `scopes` section, you specify that only the TrafficControlService and FineCollectionService should use the pub/sub building block.
 
-1. **Copy or Move** this file `dapr/kafka-pubsub.yaml` to `dapr/components/` folder.
+1. **Copy or Move** this file `dapr/kafka-pubsub.yaml` to `dapr/components/` folder. (when starting Dapr applications from command line, we specify a folder `dapr/components/` where Dapr component definitions are located)
 
 ## Step 1: Receive messages in the FineCollectionService
 
 With the Dapr pub/sub building block, you use a *topic* to send and receive messages. The producer sends messages to the topic and one or more consumers subscribe to this topic to receive those messages. First you are going to prepare the TrafficControlService so it can send messages using Dapr pub/sub.
 
-One way of subscribing to pub/sub events in Dapr is the programmatic way. Dapr will call your service on the well known endpoint `/dapr/subscribe` to retrieve the subscriptions for that service. You will implement this endpoint and return the subscription for the `speedingviolations` topic.
+Dapr provides two methods by which you can subscribe to topics:
+
+* **Declaratively**, where subscriptions are defined in an external file.
+* **Programmatically**, where subscriptions are defined in user code, using language specific SDK's.
+
+This example demonstrates a **declarative** subscription.. Dapr will call your service on a `POST` endpoint `/collectfine` to retrieve the subscriptions for that service. You will implement this endpoint and return the subscription for the `test` topic.
 
 1. Open the file `FineCollectionService/src/main/java/dapr/fines/violation/ViolationController.java` in Eclipse.
 
-1. uncomment the code line below
+1. Uncomment the code line below
 
 ```java
 //@RestController
 ```
 
-1. uncomment the code snippet below
+1. Uncomment the code snippet below
 
 ```java
 // @PostMapping(path = "/collectfine")
-// @Topic(name = "test", pubsubName = "kafka-binding")
+// @Topic(name = "test", pubsubName = "pubsub")
 // public ResponseEntity<Void> registerViolation(@RequestBody final CloudEvent<SpeedingViolation> event) {
 // 	var violation = event.getData();
 // 	violationProcessor.processSpeedingViolation(violation);
@@ -78,13 +83,13 @@ One way of subscribing to pub/sub events in Dapr is the programmatic way. Dapr w
 
 1. Open the file `FineCollectionService/src/main/java/dapr/fines/violation/KafkaViolationConsumer.java` in Eclipse.
 
-1. comment out @KafkaLister annotation line
+1. Comment out @KafkaLister annotation line
 
 ```java
 @KafkaListener(topics = "test", groupId = "test", containerFactory = "kafkaListenerContainerFactory")
 ```
 
-1. Open the file, **TrafficControlService/src/main/java/dapr/traffic/fines/DaprFineCollectionClient.java** and in Eclipse, and inspect it
+1. Open the file, **TrafficControlService/src/main/java/dapr/traffic/fines/DaprFineCollectionClient.java** in Eclipse, and inspect it
 
 1. It implements the `FineCollectionClient` interface.
 
@@ -100,17 +105,11 @@ public class DaprFineCollectionClient implements FineCollectionClient{
 	public void submitForFine(SpeedingViolation speedingViolation) {
 		
 		
-		daprClient.publishEvent("kafka-binding",  "test", speedingViolation).block();
+		daprClient.publishEvent("pubsub",  "test", speedingViolation).block();
 	}
 
 }
 ```
-
-1. Check all your code-changes are correct by building the code. Execute the following command in the terminal window:
-
-   ```console
-   mvn package
-   ```
 
 1. Open the file `TrafficControlService/src/main/java/dapr/traffic/TrafficControlConfiguration.java` in Eclipse
 
@@ -123,6 +122,15 @@ public class DaprFineCollectionClient implements FineCollectionClient{
 	        OBJECT_MAPPER.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
 	    }
 	}
+```
+
+1. **Comment out** following @Bean method
+
+```java
+    @Bean
+    public FineCollectionClient fineCollectionClient() {
+        return new KafkaFineCollectionClient();
+    }
 ```
 
 1. **Uncomment** following @Bean method
@@ -143,15 +151,6 @@ public class DaprFineCollectionClient implements FineCollectionClient{
 //                .withObjectSerializer(new JsonObjectSerializer())
 //                .build();
 //    }
-```
-
-1. **Comment out** following @Bean method
-
-```java
-    @Bean
-    public FineCollectionClient fineCollectionClient() {
-        return new KafkaFineCollectionClient();
-    }
 ```
 
 1. Check all your code-changes are correct by building the code. Execute the following command in the terminal window:
@@ -200,11 +199,11 @@ You're going to start all the services now.
    mvn spring-boot:run
    ```
 
-You should see the same logs as before. Obviously, the behavior of the application is exactly the same as before.
+You should see the same logs as **Assignment 1**. Obviously, the behavior of the application is exactly the same as before.
 
 ## Step 3: Debug Dapr applications in Eclipse
 
-The steps below are tailered to debug TrafficControlService, but would be the same for debugging any Dapr application in Eclipse.
+The steps below are tailored to debug TrafficControlService, but would be the same for debugging any Dapr application in Eclipse.
 
 1. Click `Run > External Tools > External Tools Configuration..`
 2. Click `New Launch Configuration` icon
