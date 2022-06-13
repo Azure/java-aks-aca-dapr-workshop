@@ -61,7 +61,7 @@ kubectl apply -f collector-config.yaml
 
 The Java deployments that are currently running in AKS need to be configured to use the new `appConfig` configuration that was just applied.
 
-Add the following annotations to each of the java deployments that will be participating sending tracing telemetry to the OpenTelemetry Collector endpoint.
+Add the following annotation `dapr.io/config: "appconfig"` to each of the java deployments that will be participating sending tracing telemetry to the OpenTelemetry Collector endpoint.
 
 ### TrafficControlService
 
