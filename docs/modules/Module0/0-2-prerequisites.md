@@ -1,8 +1,8 @@
 ---
-title: Prerequisites
-parent: Basic Concepts and Prerequisites
+title: Assignment 0 - Prerequisites
+parent: Assignment 0 - Basic Concepts and Prerequisites
 has_children: false
-nav_order: 1
+nav_order: 2
 ---
 
 # Assignment 0 - Prerequisites

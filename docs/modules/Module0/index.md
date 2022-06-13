@@ -1,5 +1,5 @@
 ---
-title: Basic Concepts and Prerequisites
+title: Assignment 0 - Basic Concepts and Prerequisites
 has_children: true
 nav_order: 4
 ---
