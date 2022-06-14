@@ -929,6 +929,8 @@ Open the Application Insights blade and click on the `Search` button in the navi
 
 If configured correctly, tracing data should show up in the search results.
 
+Find the Application Map feature within the lefthand navigation of the Application Insights blade and click to show the mapping of telemetry calls between services.
+
 ## Assignment 6 - Enable GitOps addon and use it to deploy applications
 
 1. Fork this repository on your personal GitHub account.
