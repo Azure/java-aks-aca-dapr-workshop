@@ -10,7 +10,7 @@ nav_order: 2
 Make sure you have the following prerequisites installed on your machine:
 
 - Git ([download](https://git-scm.com/))
-- Eclipse IDE for Java Developers ([download](https://www.eclipse.org/downloads/))
+- Eclipse IDE for Java Developers ([download])(https://www.eclipse.org/downloads/))
 - Docker for desktop ([download](https://www.docker.com/products/docker-desktop)) or Rancher Desktop ([download](https://rancherdesktop.io/))
 - [Install the Dapr CLI](https://docs.dapr.io/getting-started/install-dapr-cli/) and [initialize Dapr locally](https://docs.dapr.io/getting-started/install-dapr-selfhost/)
 - Java 16 or above ([download](https://adoptopenjdk.net/?variant=openjdk16))
