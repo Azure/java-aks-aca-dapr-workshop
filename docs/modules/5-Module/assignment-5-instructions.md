@@ -120,6 +120,7 @@ docker push daprworkshopjava.azurecr.io/simulation:latest
 ## Step 3 - Deploy Kubernetes manifest files for applications to AKS
 
 1. From the root folder/directory of the repo, run the following command
+Please note below the `kubectl apply` is with **-k** option, which is applying `kustomize.yaml` file in the `deploy` folder
 
 ```bash
 kubectl apply -k deploy
