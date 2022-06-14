@@ -41,4 +41,4 @@ In order to simulate this in code, the following services are defined:
 
 After completing all the assignments, the architecture has been changed to work with Dapr and should look like this:
 
-![End State with Dapr Telemetry](assets/images/application-with-dapr-telemetry.png)
+![End State with Dapr Telemetry](assets/images/application-with-dapr-zipkin.png)
