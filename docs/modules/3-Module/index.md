@@ -45,26 +45,6 @@ Status: Downloaded newer image for rabbitmq:3-management-alpine
 
 > If you see any errors, make sure you have access to the Internet and are able to download images from Docker Hub. See [Docker Hub](https://hub.docker.com/) for more info.
 
-The container will keep running in the background. If you want to stop it, enter the following command:
-
-```console
-docker stop dtc-rabbitmq
-```
-
-You can then start the container later by entering the following command:
-
-```console
-docker start dtc-rabbitmq
-```
-
-If you are done using the container, you can also remove it by entering the following command:
-
-```console
-docker rm dtc-rabbitmq -f
-```
-
-Once you have removed it, you need to start it again with the `docker run` command shown at the beginning of this step.
-
 ## Step 2: Configure the pub/sub component
 
 1. Open the file `dapr/rabbitmq-pubsub.yaml` in Eclipse.
