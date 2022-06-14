@@ -403,7 +403,7 @@ Stop Simulation, TrafficControlService and FineCollectionService, and VehicleReg
 
 In the example, you will use RabbitMQ as the message broker with the Dapr pub/sub building block. You're going to pull a standard Docker image containing RabbitMQ to your machine and start it as a container.
 
-1. Open the terminal window in VS Code.
+1. Open a terminal window.
 
 1. Start a RabbitMQ message broker by entering the following command:
 
