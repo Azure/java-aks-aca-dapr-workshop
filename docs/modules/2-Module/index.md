@@ -6,7 +6,18 @@ nav_order: 4
 
 # Assignment 2 - Using Dapr for pub/sub with Kafka
 
-In this assignment, you're going to replace direct Spring Kafka producer and consumer implementation with Dapr **publish/subscribe** messaging to send messages from the TrafficControlService to the FineCollectionService. If you want to get more detailed information, read the [overview of this building block](https://docs.dapr.io/developing-applications/building-blocks/pubsub/pubsub-overview/) in the Dapr documentation.
+In this assignment, you're going to replace direct Spring Kafka producer and consumer implementation with Dapr **publish/subscribe** messaging to send messages from the TrafficControlService to the FineCollectionService. 
+
+With the Dapr pub/sub building block, you use a *topic* to send and receive messages. The producer sends messages to the topic and one or more consumers subscribe to this topic to receive those messages. First you are going to prepare the TrafficControlService so it can send messages using Dapr pub/sub.
+
+Dapr provides two methods by which you can subscribe to topics:
+
+* **Declaratively**, where subscriptions are defined in an external file.
+* **Programmatically**, where subscriptions are defined in user code, using language specific SDK's.
+
+This example demonstrates a **declarative** subscription..
+
+If you want to get more detailed information, read the [overview of this building block](https://docs.dapr.io/developing-applications/building-blocks/pubsub/pubsub-overview/) in the Dapr documentation.
 
 To complete this assignment, you must reach the following goals:
 
@@ -56,44 +67,7 @@ In the `scopes` section, you specify that only the TrafficControlService and Fin
 
 1. **Copy or Move** this file `dapr/kafka-pubsub.yaml` to `dapr/components/` folder. (when starting Dapr applications from command line, we specify a folder `dapr/components/` where Dapr component definitions are located)
 
-## Step 1: Receive messages in the FineCollectionService
-
-With the Dapr pub/sub building block, you use a *topic* to send and receive messages. The producer sends messages to the topic and one or more consumers subscribe to this topic to receive those messages. First you are going to prepare the TrafficControlService so it can send messages using Dapr pub/sub.
-
-Dapr provides two methods by which you can subscribe to topics:
-
-* **Declaratively**, where subscriptions are defined in an external file.
-* **Programmatically**, where subscriptions are defined in user code, using language specific SDK's.
-
-This example demonstrates a **declarative** subscription.. Dapr will call your service on a `POST` endpoint `/collectfine` to retrieve the subscriptions for that service. You will implement this endpoint and return the subscription for the `test` topic.
-
-1. Open the file `FineCollectionService/src/main/java/dapr/fines/violation/ViolationController.java` in Eclipse.
-
-1. Uncomment the code line below
-
-```java
-//@RestController
-```
-
-1. Uncomment the code snippet below
-
-```java
-// @PostMapping(path = "/collectfine")
-// @Topic(name = "test", pubsubName = "pubsub")
-// public ResponseEntity<Void> registerViolation(@RequestBody final CloudEvent<SpeedingViolation> event) {
-// 	var violation = event.getData();
-// 	violationProcessor.processSpeedingViolation(violation);
-//     return ResponseEntity.ok().build();
-// }
-```
-
-1. Open the file `FineCollectionService/src/main/java/dapr/fines/violation/KafkaViolationConsumer.java` in Eclipse.
-
-1. Comment out @KafkaLister annotation line
-
-```java
-@KafkaListener(topics = "test", groupId = "test", containerFactory = "kafkaListenerContainerFactory")
-```
+## Step 1: Publish messages in the TrafficControlService 
 
 1. Open the file, **TrafficControlService/src/main/java/dapr/traffic/fines/DaprFineCollectionClient.java** in Eclipse, and inspect it
 
@@ -159,7 +133,39 @@ public class DaprFineCollectionClient implements FineCollectionClient{
 //    }
 ```
 
-1. Check all your code-changes are correct by building the code. Execute the following command in the terminal window:
+## Step 2: Receive messages in the FineCollectionService
+
+Dapr will call your service on a `POST` endpoint `/collectfine` to retrieve the subscriptions for that service. You will implement this endpoint and return the subscription for the `test` topic.
+
+1. Open the file `FineCollectionService/src/main/java/dapr/fines/violation/ViolationController.java` in Eclipse.
+
+1. Uncomment the code line below
+
+```java
+//@RestController
+```
+
+1. Uncomment the code snippet below
+
+```java
+// @PostMapping(path = "/collectfine")
+// @Topic(name = "test", pubsubName = "pubsub")
+// public ResponseEntity<Void> registerViolation(@RequestBody final CloudEvent<SpeedingViolation> event) {
+// 	var violation = event.getData();
+// 	violationProcessor.processSpeedingViolation(violation);
+//     return ResponseEntity.ok().build();
+// }
+```
+
+1. Open the file `FineCollectionService/src/main/java/dapr/fines/violation/KafkaViolationConsumer.java` in Eclipse.
+
+1. Comment out @KafkaLister annotation line
+
+```java
+@KafkaListener(topics = "test", groupId = "test", containerFactory = "kafkaListenerContainerFactory")
+```
+
+Check all your code changes are correct by building the code. Execute the following command in the terminal window:
 
    ```console
    mvn package
@@ -167,7 +173,7 @@ public class DaprFineCollectionClient implements FineCollectionClient{
 
 Now you can test the application
 
-## Step 2: Test the application
+## Step 3: Test the application
 
 You're going to start all the services now. 
 
@@ -207,7 +213,7 @@ You're going to start all the services now.
 
 You should see the same logs as **Assignment 1**. Obviously, the behavior of the application is exactly the same as before.
 
-## Step 3: Debug Dapr applications in Eclipse
+## Step 4: Debug Dapr applications in Eclipse
 
 The steps below are tailored to debug TrafficControlService, but would be the same for debugging any Dapr application in Eclipse.
 
