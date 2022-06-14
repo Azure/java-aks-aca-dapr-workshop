@@ -223,7 +223,9 @@ The steps below are tailored to debug TrafficControlService, but would be the sa
   * Location = c:\dapr\dapr.exe
   * Working Directory = ${workspace_loc:/TrafficControlService}
   * Arguments = run --app-id finecollectionservice --app-port 6001 --dapr-http-port 3601 --dapr-grpc-port 60001 --components-path ../dapr/components
-[Eclipse External Tools Configuration](../../assets/images/eclipse-external-tools-configurations.png)
+
+![Eclipse External Tools Configuration](../../assets/images/eclipse-external-tools-configurations.png)
+
 3. Apply
 4. Run
 5. Set breakpoints in your code as you normally would in Eclipse
