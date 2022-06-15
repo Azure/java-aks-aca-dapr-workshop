@@ -13,12 +13,21 @@ In this assignment, you'll run the application to make sure everything works cor
 
 To complete this assignment, you must reach the following goals:
 
+- Apache Kafka - either run as a docker container (see below) or install and run on your machine ([download](https://kafka.apache.org/downloads))
 - All services are running.
 - The logging indicates that all services are working correctly.
 
-**Ensure Kafka server is running on localhost on port 9092, as specified in [prerequisites](../Module0/index.md)**
+## Step 1. Running Kafka using Docker or Rancher Desktop
 
-## Step 1. Run the VehicleRegistration service
+From the root of **source code** folder, run the following command to configure and start Kafka from your locally installed Docker or Rancher Desktop
+
+```console
+docker-compose up -d
+```
+
+This command will read the docker-compose.yml file located within the root folder and download and run Kafka containers for this workshop.
+
+## Step 2. Run the VehicleRegistration service
 
 1. Open the source code folder in Eclipse. This guide assumes Eclipse, but feel free to use an editor or IDE you're comfortable with.
 
@@ -30,7 +39,7 @@ To complete this assignment, you must reach the following goals:
 
 > If you receive an error here, please double-check whether or not you have installed all the [prerequisites](../Module0/index.md) for the workshop!
 
-## Step 2. Run the FineCollection service
+## Step 3. Run the FineCollection service
 
 1. Make sure the VehicleRegistrationService service is running (result of step 1).
 
@@ -40,7 +49,7 @@ To complete this assignment, you must reach the following goals:
 
 1. Start the service using `mvn spring-boot:run`.
 
-## Step 3. Run the TrafficControl service
+## Step 4. Run the TrafficControl service
 
 1. Make sure the VehicleRegistrationService and FineCollectionService are running (results of step 1 and 2).
 
@@ -48,7 +57,7 @@ To complete this assignment, you must reach the following goals:
 
 1. Start the service using `mvn spring-boot:run`.
 
-## Step 4. Run the simulation
+## Step 5. Run the simulation
 
 Now you're going to run the simulation that actually simulates cars driving on the highway. The simulation will simulate 3 entry- and exit-cameras (one for each lane).
 

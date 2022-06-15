@@ -18,7 +18,7 @@ spec:
         app: vehicleregistrationservice
     spec:
       containers:
-      - image: daprworkshopjava.azurecr.io/vehicle-registration-service:latest
+      - image: ghcr.io/ahmedbham/vehicle-registration-service:latest
         name: vehicle-registration-service
         resources: {}
 status: {}
