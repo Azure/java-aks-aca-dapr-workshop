@@ -18,7 +18,7 @@ spec:
         app: simulation
     spec:
       containers:
-      - image: ghcr.io/ahmedbham/simulation:latest
+      - image: daprworkshopjava.azurecr.io/simulation:latest
         name: simulation
         resources: {}
         env:
