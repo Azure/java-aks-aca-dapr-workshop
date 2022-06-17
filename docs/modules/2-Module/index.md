@@ -15,7 +15,7 @@ Dapr provides two methods by which you can subscribe to topics:
 * **Declaratively**, where subscriptions are defined in an external file.
 * **Programmatically**, where subscriptions are defined in user code, using language specific SDK's.
 
-This example demonstrates a **declarative** subscription..
+This example demonstrates a **programmatic** approach using Dapr's Java SDK.
 
 If you want to get more detailed information, read the [overview of this building block](https://docs.dapr.io/developing-applications/building-blocks/pubsub/pubsub-overview/) in the Dapr documentation.
 
