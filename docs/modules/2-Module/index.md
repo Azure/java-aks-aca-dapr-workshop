@@ -77,7 +77,7 @@ cp dapr/kafka-pubsub.yaml dapr/components/
 
 1. Open the file, **TrafficControlService/src/main/java/dapr/traffic/fines/DaprFineCollectionClient.java** in Eclipse, and inspect it
 
-1. It implements the `FineCollectionClient` interface.
+2. It implements the `FineCollectionClient` interface.
 
 ```java
 public class DaprFineCollectionClient implements FineCollectionClient{
@@ -97,9 +97,9 @@ public class DaprFineCollectionClient implements FineCollectionClient{
 }
 ```
 
-1. Open the file `TrafficControlService/src/main/java/dapr/traffic/TrafficControlConfiguration.java` in Eclipse
+3. Open the file `TrafficControlService/src/main/java/dapr/traffic/TrafficControlConfiguration.java` in Eclipse
 
-1. The default JSON serialization is not suitable for todays goal, so you need to customize the Jackson `ObjectMapper` that it uses. You do so by adding a static inner class to configure the JSON serialization:
+The default JSON serialization is not suitable for todays goal, so you need to customize the Jackson `ObjectMapper` that it uses. You do so by adding a static inner class to configure the JSON serialization:
 
 ```java
 	static class JsonObjectSerializer extends DefaultObjectSerializer {
@@ -110,7 +110,7 @@ public class DaprFineCollectionClient implements FineCollectionClient{
 	}
 ```
 
-1. **Comment out** following @Bean method
+4. **Comment out** following @Bean method
 
 ```java
     @Bean
@@ -119,7 +119,7 @@ public class DaprFineCollectionClient implements FineCollectionClient{
     }
 ```
 
-1. **Uncomment** following @Bean method
+5. **Uncomment** following @Bean method
 
 ```java
 //    @Bean
@@ -128,7 +128,7 @@ public class DaprFineCollectionClient implements FineCollectionClient{
 //    }
 ```
 
-1. **Uncomment** following @Bean method
+6. **Uncomment** following @Bean method
 
 ```java
 //    @Bean
@@ -139,19 +139,25 @@ public class DaprFineCollectionClient implements FineCollectionClient{
 //    }
 ```
 
+7. Check all your code changes are correct by building the code. Execute the following command in the terminal window:
+
+   ```console
+   mvn package
+   ```
+
 ## Step 2: Receive messages in the FineCollectionService
 
 Dapr will call your service on a `POST` endpoint `/collectfine` to retrieve the subscriptions for that service. You will implement this endpoint and return the subscription for the `test` topic.
 
 1. Open the file `FineCollectionService/src/main/java/dapr/fines/violation/ViolationController.java` in Eclipse.
 
-1. Uncomment the code line below
+2. Uncomment the code line below
 
 ```java
 //@RestController
 ```
 
-1. Uncomment the code snippet below
+3. Uncomment the code snippet below
 
 ```java
 // @PostMapping(path = "/collectfine")
@@ -163,15 +169,15 @@ Dapr will call your service on a `POST` endpoint `/collectfine` to retrieve the 
 // }
 ```
 
-1. Open the file `FineCollectionService/src/main/java/dapr/fines/violation/KafkaViolationConsumer.java` in Eclipse.
+4. Open the file `FineCollectionService/src/main/java/dapr/fines/violation/KafkaViolationConsumer.java` in Eclipse.
 
-1. Comment out @KafkaLister annotation line
+5. Comment out @KafkaLister annotation line
 
 ```java
 @KafkaListener(topics = "test", groupId = "test", containerFactory = "kafkaListenerContainerFactory")
 ```
 
-Check all your code changes are correct by building the code. Execute the following command in the terminal window:
+6. Check all your code changes are correct by building the code. Execute the following command in the terminal window:
 
    ```console
    mvn package
@@ -185,33 +191,33 @@ You're going to start all the services now.
 
 1. Make sure no services from previous tests are running (close the command-shell windows).
 
-1. Open the terminal window and make sure the current folder is `VehicleRegistrationService`.
+2. Open the terminal window and make sure the current folder is `VehicleRegistrationService`.
 
-1. Enter the following command to run the VehicleRegistrationService with a Dapr sidecar:
+3. Enter the following command to run the VehicleRegistrationService with a Dapr sidecar:
 
    ```console
    mvn spring-boot:run
    ```
 
-1. Open a **new** terminal window and change the current folder to `FineCollectionService`.
+4. Open a **new** terminal window and change the current folder to `FineCollectionService`.
 
-1. Enter the following command to run the FineCollectionService with a Dapr sidecar:
+5. Enter the following command to run the FineCollectionService with a Dapr sidecar:
 
    ```console
    dapr run --app-id finecollectionservice --app-port 6001 --dapr-http-port 3601 --dapr-grpc-port 60001 --components-path ../dapr/components mvn spring-boot:run
    ```
 
-1. Open a **new** terminal window and change the current folder to `TrafficControlService`.
+6. Open a **new** terminal window and change the current folder to `TrafficControlService`.
 
-1. Enter the following command to run the TrafficControlService with a Dapr sidecar:
+7. Enter the following command to run the TrafficControlService with a Dapr sidecar:
 
    ```console
    dapr run --app-id trafficcontrolservice --app-port 6000 --dapr-http-port 3600 --dapr-grpc-port 60000 --components-path ../dapr/components mvn spring-boot:run
    ```
 
-1. Open a **new** terminal window and change the current folder to `Simulation`.
+8. Open a **new** terminal window and change the current folder to `Simulation`.
 
-1. Start the simulation:
+9. Start the simulation:
 
    ```console
    mvn spring-boot:run
