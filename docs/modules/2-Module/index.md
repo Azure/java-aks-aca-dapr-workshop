@@ -202,6 +202,7 @@ You're going to start all the services now.
 4. Open a **new** terminal window and change the current folder to `FineCollectionService`.
 
 5. Enter the following command to run the FineCollectionService with a Dapr sidecar:
+  * Ensure you have run `dapr init` command prior to running the below command
 
    ```console
    dapr run --app-id finecollectionservice --app-port 6001 --dapr-http-port 3601 --dapr-grpc-port 60001 --components-path ../dapr/components mvn spring-boot:run
