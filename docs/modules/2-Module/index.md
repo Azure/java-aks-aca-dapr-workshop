@@ -66,6 +66,12 @@ spec:
 In the `scopes` section, you specify that only the TrafficControlService and FineCollectionService should use the pub/sub building block.
 
 1. **Copy or Move** this file `dapr/kafka-pubsub.yaml` to `dapr/components/` folder. (when starting Dapr applications from command line, we specify a folder `dapr/components/` where Dapr component definitions are located)
+  * from the root folder, run the following command:
+
+```bash
+mkdir dapr/components
+cp dapr/kafka-pubsub.yaml dapr/components/
+```
 
 ## Step 1: Publish messages in the TrafficControlService 
 
