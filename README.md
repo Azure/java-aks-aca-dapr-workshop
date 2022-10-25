@@ -595,7 +595,7 @@ az acr create --name daprworkshopjava --sku Basic
 
 4. Create an AKS cluster with the ACR attached
 
-```bash
+```azurecli
 az aks create \
     --name dapr-workshop-java-aks \
     --generate-ssh-keys \
@@ -604,6 +604,32 @@ az aks create \
 ```
 
 5. Update AKS with Dapr extension
+
+Install `k8s-extension` Azure CLI extension by running the following command:
+
+```azurecli
+az extension add --name k8s-extension
+```
+
+If the extension is already installed, update it to the latest version by running the following command:
+
+```azurecli
+az extension update --name k8s-extension
+```
+
+Register the `Microsoft.KubernetesConfiguration` resource provider by running the following command:
+
+```azurecli
+az provider register --namespace Microsoft.KubernetesConfiguration
+```
+
+To check the status of the registration (i.e. *RegistrationState* should be *Registred*), run the following command:
+
+```azurecli
+az provider show -n Microsoft.KubernetesConfiguration -o table
+```
+
+Create the Dapr extension by running the following command:
 
 ```azurecli
 az k8s-extension create --cluster-type managedClusters \
@@ -643,7 +669,7 @@ kubectl apply -f kafka-pubsub.yaml
 az acr login --name daprworkshopjava
 ```
 
-2. In the root folder/directory of each of the TravelRegistrationService microservice, run the following command
+2. In the root folder/directory of each of the VehicleRegistrationService microservice, run the following command
 
 ```bash
 mvn spring-boot:build-image
