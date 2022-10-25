@@ -643,7 +643,7 @@ kubectl apply -f kafka-pubsub.yaml
 az acr login --name daprworkshopjava
 ```
 
-2. In the root folder/directory of each of the TravelRegistrationService microservice, run the following command
+2. In the root folder/directory of the TravelRegistrationService microservice, run the following command
 
 ```bash
 mvn spring-boot:build-image
@@ -651,14 +651,15 @@ docker tag vehicle-registration-service:1.0-SNAPSHOT daprworkshopjava.azurecr.io
 docker push daprworkshopjava.azurecr.io/vehicle-registration-service:latest
 ```
 
-3. In the root folder/directory of each of the FineCollectionService microservice, run the following command
+3. In the root folder/directory of the FineCollectionService microservice, run the following command
 
 ```bash
 mvn spring-boot:build-image
 docker tag fine-collection-service:1.0-SNAPSHOT daprworkshopjava.azurecr.io/fine-collection-service:latest
 docker push daprworkshopjava.azurecr.io/fine-collection-service:latest
 ```
-4. In the root folder/directory of each of the TrafficControlService microservice, run the following command
+
+4. In the root folder/directory of the TrafficControlService microservice, run the following command
 
 ```bash
 mvn spring-boot:build-image
@@ -666,7 +667,7 @@ docker tag traffic-control-service:1.0-SNAPSHOT daprworkshopjava.azurecr.io/traf
 docker push daprworkshopjava.azurecr.io/traffic-control-service:latest
 ```
 
-5. In the root folder/directory of each of the SimulationService microservice, run the following command
+5. In the root folder/directory of the SimulationService microservice, run the following command
 
 ```bash
 mvn spring-boot:build-image
@@ -1056,6 +1057,60 @@ You're going to start all the services now.
    ```
 
 You should see the same logs as before. Obviously, the behavior of the application is exactly the same as before.
+
+### Step 3: Deploy service-to-service invocation to AKS
+
+1. Open `deploy/vehicleregistrationservice.yaml` in your IDE and **uncomment** the following lines:
+
+```yaml
+      # annotations:
+        # dapr.io/enabled: "true"
+        # dapr.io/app-id: "vehicleregistrationservice"
+        # dapr.io/app-port: "6002"
+```
+
+to give Vehicle Registration Service an `id` and a `port` known to [Dapr](https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-overview/#adding-dapr-to-a-kubernetes-deployment).
+
+2. Delete the image from local docker and from the Azure Container Registry
+
+```console
+docker rmi fine-collection-service:1.0-SNAPSHOT
+az acr repository delete -n daprworkshopjava --image fine-collection-service:latest
+```
+
+3. In the root folder/directory of the FineCollectionService microservice, run the following command
+
+```bash
+mvn spring-boot:build-image
+docker tag fine-collection-service:1.0-SNAPSHOT daprworkshopjava.azurecr.io/fine-collection-service:latest
+docker push daprworkshopjava.azurecr.io/fine-collection-service:latest
+```
+
+4. From the root folder/directory of the repo, run the following command
+
+```bash
+kubectl apply -k deploy
+```
+
+### Step 4. Test the applications running in AKS
+
+1. run the following command to identify the name of each microservice pod
+
+```bash
+kubectl get pods
+```
+
+2. look at the log file of each application pod to see the same output as seen when running on your laptop. For example,
+
+```bash
+kubectl logs finecollectionservice-ccf8c9cf5-vr8hr -c fine-collection-service
+```
+
+3. delete all application deployments
+
+```azurecli
+kubectl delete -k deploy
+```
 
 ## Assignment 8 - Using Redis to store the state of the vehicle
 
