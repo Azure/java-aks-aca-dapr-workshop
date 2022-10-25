@@ -1058,7 +1058,7 @@ You're going to start all the services now.
 
 You should see the same logs as before. Obviously, the behavior of the application is exactly the same as before.
 
-### Step 3: Deploy service-to-service invocation to AKS
+### Step 3: Deploy service-to-service communication to AKS
 
 1. Open `deploy/vehicleregistrationservice.yaml` in your IDE and **uncomment** the following lines:
 
@@ -1187,3 +1187,91 @@ You're going to start all the services now.
    ```
 
 You should see the same logs as before. Obviously, the behavior of the application is exactly the same as before.
+
+### Step 3: Deploy Redis state store to AKS
+
+1. Deploy Redis to kubernetes using helm chart
+
+```bash
+helm repo add azure-marketplace https://marketplace.azurecr.io/helm/v1/repo
+helm install redis azure-marketplace/redis
+```
+
+2. **Copy** this file `dapr/statestore.yaml` to `deploy/` folder.
+
+3. **Update** the `deploy/statestore.yaml` file to use the Redis instance deployed in the previous step
+
+```yaml
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: statestore
+spec:
+  type: state.redis
+  version: v1
+  metadata:
+  - name: redisHost
+    value: redis-master.default.svc.cluster.local:6379
+  - name: redisPassword
+    secretKeyRef:
+      name: redis
+      key: redis-password
+  - name: actorStateStore
+    value: "true"
+scopes:
+  - trafficcontrolservice
+```
+
+The `redisHost` is set to the host name of the Redis instance deployed in the previous step: `redis-master.default.svc.cluster.local:6379`. The master is used because replicas are read-only. The value is given when the helm chart is installed.
+
+The `redisPassword` is set to the password of the Redis instance deployed in the previous step. The password is stored in a secret named `redis` and the key is `redis-password`. This secret is created when the helm chart is installed. To check that the secret exists, run the following command:
+
+```bash
+kubectl describe secret redis
+```
+
+> *NOTE*
+>
+> Never integrate secret in a kubernetes manifest directly, use kubernetes secret instead.
+>
+
+4. Delete the image from local docker and from the Azure Container Registry
+
+```console
+docker rmi traffic-control-service:1.0-SNAPSHOT
+az acr repository delete -n daprworkshopjava --image traffic-control-service:latest
+```
+
+5. In the root folder/directory of the TrafficControlService microservice, run the following command
+
+```bash
+mvn spring-boot:build-image
+docker tag traffic-control-service:1.0-SNAPSHOT daprworkshopjava.azurecr.io/traffic-control-service:latest
+docker push daprworkshopjava.azurecr.io/traffic-control-service:latest
+```
+
+4. From the root folder/directory of the repo, run the following command
+
+```bash
+kubectl apply -k deploy
+```
+
+### Step 4. Test the applications running in AKS
+
+1. run the following command to identify the name of each microservice pod
+
+```bash
+kubectl get pods
+```
+
+2. look at the log file of each application pod to see the same output as seen when running on your laptop. For example,
+
+```bash
+kubectl logs finecollectionservice-ccf8c9cf5-vr8hr -c fine-collection-service
+```
+
+3. delete all application deployments
+
+```azurecli
+kubectl delete -k deploy
+```
