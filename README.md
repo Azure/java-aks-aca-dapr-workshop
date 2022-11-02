@@ -1142,7 +1142,7 @@ kubectl delete -k deploy
 
 ### Step 1: Add Redis as state store
 
-1. **Copy or Move** this file `dapr/statestore.yaml` to `dapr/components/` folder.
+1. **Copy or Move** this file `dapr/redis-statestore.yaml` to `dapr/components/` folder.
 
 2. Open the `TrafficControlService` project in your IDE and navigate to the `TrafficControlConfiguration` class.
 
@@ -1223,9 +1223,9 @@ helm repo add azure-marketplace https://marketplace.azurecr.io/helm/v1/repo
 helm install redis azure-marketplace/redis
 ```
 
-2. **Copy** this file `dapr/statestore.yaml` to `deploy/` folder.
+2. **Copy** this file `dapr/redis-statestore.yaml` to `deploy/` folder.
 
-3. **Update** the `deploy/statestore.yaml` file to use the Redis instance deployed in the previous step
+3. **Update** the `deploy/redis-statestore.yaml` file to use the Redis instance deployed in the previous step
 
 ```yaml
 apiVersion: dapr.io/v1alpha1
