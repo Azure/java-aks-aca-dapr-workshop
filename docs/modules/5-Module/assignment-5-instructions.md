@@ -10,7 +10,7 @@ nav_order: 2
 ## Setup
 
 1. Install [Helm](https://helm.sh/docs/intro/install/)
-2. login to azure
+2. Login to azure
 
 ```azurecli
 az login
@@ -18,7 +18,7 @@ az login
 
 3. Create an Azure Container Registry (ACR) resource
 
-  - create Resource Group
+  - create Resource Group (if not already created)
   
 ```bash
 az group create --name dapr-workshop-java --location eastus
