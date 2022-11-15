@@ -109,7 +109,7 @@ You're going to start all the services now.
 1. Enter the following command to run the VehicleRegistrationService with a Dapr sidecar:
 
    ```console
-   mvn spring-boot:run
+   dapr run --app-id vehicleregistrationservice --app-port 6002 --dapr-http-port 3602 --dapr-grpc-port 60002 mvn spring-boot:run
    ```
 
 1. Open a terminal window and change the current folder to `FineCollectionService`.
