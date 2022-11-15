@@ -136,6 +136,6 @@ You're going to start all the services now.
    mvn spring-boot:run
    ```
 
-You should see the same logs as before. Obviously, the behavior of the application is exactly the same as before. But now, instead of messages being published and subscribed via kafka topic, are being processed through RabbitMQ.
+You should see the same logs as before. Obviously, the behavior of the application is exactly the same as before. But now, instead of messages being published and subscribed via kafka topic, are being processed through Redis streams.
 
     
