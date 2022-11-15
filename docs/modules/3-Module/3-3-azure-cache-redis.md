@@ -39,7 +39,7 @@ In the example, you will use Azure Cache for Redis as the message broker with th
 
       # Create a Basic C0 (256 MB) Redis Cache
       echo "Creating $cache"
-      az redis create --name $cache --resource-group $resourceGroup --location "$location" --sku $sku --vm-size $size
+      az redis create --name $cache --resource-group $resourceGroup --location "$location" --sku $sku --vm-size $size --redis-version 6
 
       # Get details of an Azure Cache for Redis
       echo "Showing details of $cache"
