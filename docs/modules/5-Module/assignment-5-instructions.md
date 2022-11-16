@@ -1,6 +1,6 @@
 ---
 title: Deploying Applications to AKS with Dapr Extension
-parent: Assignment 5 - Deploying Applications to AKS with Dapr Extension
+parent: Assignment 5 - Deploying Applications to AKS and Azure Container Apps with Dapr
 has_children: false
 nav_order: 2
 ---
