@@ -19,7 +19,7 @@ In the example, you will use Azure Cache for Redis as the message broker with th
     ```
 
 
-2. Create a CO Redis Cache
+2. Create a C0 Redis Cache
 
     ```azurecli
       # Create and manage a C0 Redis Cache
