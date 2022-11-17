@@ -221,21 +221,67 @@ mvn spring-boot:build-image
 docker tag traffic-control-service:1.0-SNAPSHOT ""$REGISTRY".azurecr.io/traffic-control-service:latest"
 docker push ""$REGISTRY".azurecr.io/traffic-control-service:latest"
 ```
-  Create a Container App for the TrafficControlService
+
+5. Copy the ../dapr/aca-redis-pubsub.yaml file to ../dapr/components folder. Do note that the DAPR component structure for ACA is different from the standard DAPR component yaml structure and hence the need for a new component yaml file.
+
+  6. Create a Container App for the TrafficControlService, FineCollectionService and VehicleRegistrationService
 
   ```
-    TRAFFICCONTROL_SERVICE="trafficcontrol-service"
-    FINECOLLECTION_SERVICE="finecollection-service"
-    VEHICLEREGISTRATION_SERVICE="vehicleregistration-service"
+      TRAFFICCONTROL_SERVICE="trafficcontrol-service"
+      FINECOLLECTION_SERVICE="finecollection-service"
+      VEHICLEREGISTRATION_SERVICE="vehicleregistration-service"
 
-       az containerapp create -n "$TRAFFICCONTROL_SERVICE" -g "$RESOURCE_GROUP" \
-              --image ""$REGISTRY".azurecr.io/traffic-control-service:latest" -e "$CONTAINERAPPS_ENVIRONMENT" \
-              --enable-dapr --dapr-app-port 6000 \
-              --dapr-app-id trafficcontrolservice \
-              --dapr-components ../dapr/components
+       az containerapp env dapr-component set \
+          --name "$CONTAINERAPPS_ENVIRONMENT" --resource-group $RESOURCE_GROUP \
+          --dapr-component-name pubsub \
+           --yaml ../dapr/components/aca-redis-pubsub.yaml
+           
+        az containerapp create \
+            --name trafficcontrolservice \
+            --resource-group $RESOURCE_GROUP \
+            --environment $CONTAINERAPPS_ENVIRONMENT \
+            --image "$REGISTRY_URL"/traffic-control-service:latest \
+            --target-port 6000 \
+            --ingress 'internal' \
+            --min-replicas 1 \
+            --max-replicas 1 \
+            --enable-dapr \
+            --dapr-app-id trafficcontrolservice \
+            --dapr-app-port 6000 \
+            --env-vars 'APP_PORT=6000'
+          
+          az containerapp create \
+            --name $FINECOLLECTION_SERVICE \
+            --resource-group $RESOURCE_GROUP \
+            --environment $CONTAINERAPPS_ENVIRONMENT \
+            --image "$REGISTRY_URL"/fine-collection-service:latest \
+            --target-port 6001 \
+            --ingress 'internal' \
+            --min-replicas 1 \
+            --max-replicas 1 \
+            --enable-dapr \
+            --dapr-app-id $FINECOLLECTION_SERVICE \
+            --dapr-app-port 6001 \
+            --env-vars 'APP_PORT=6001'
+            
+            az containerapp create \
+            --name $VEHICLEREGISTRATION_SERVICE \
+            --resource-group $RESOURCE_GROUP \
+            --environment $CONTAINERAPPS_ENVIRONMENT \
+            --image "$REGISTRY_URL"/vehicle-registration-service:latest \
+            --target-port 6001 \
+            --ingress 'internal' \
+            --min-replicas 1 \
+            --max-replicas 1 \
+            --enable-dapr \
+            --dapr-app-id $VEHICLEREGISTRATION_SERVICE \
+            --dapr-app-port 6002 \
+            --env-vars 'APP_PORT=6002'
+          
+         
   ```
 
-5. In the root folder/directory of each of the SimulationService microservice, run the following command
+7. In the root folder/directory of each of the SimulationService microservice, run the following command
 
 ```bash
 mvn spring-boot:build-image
@@ -245,50 +291,23 @@ docker push daprworkshopjava.azurecr.io/simulation:latest
 
 
 
-The `create` command returns the URL for the container apps.
-You can also get the URLs with the following commands:
-
-[source,shell]
-----
-include::{workshop-github-raw}/scripts/infra/deploy.sh[tag=adocIngressHosts, indent=0]
-----
-
-
-2. Configure Dapr to use kafka for pubsub
-
-```bash
-cd deploy
-kubectl apply -f kafka-pubsub.yaml
-```
-
-
-
-## Step 3 - Deploy Kubernetes manifest files for applications to AKS
-
-1. From the root folder/directory of the repo, run the following command.
-
-Please note below the `kubectl apply` is with **-k** option, which is applying `kustomize.yaml` file in the `deploy` folder
-
-```bash
-kubectl apply -k deploy
-```
-
-## Step 4 - Test the applications running in AKS
+## Test the applications running in ACA
 
 1. run the following command to identify the name of each microservice pod
 
 ```bash
-kubectl get pods
+az containerapp revision list -n trafficcontrolservice -g rg-dapr-java-aca-workshop -o table
 ```
 
-2. look at the log file of each application pod to see the same output as seen when running on your laptop. For example,
+2. Run the following Log Analytics Query to see the same output as seen when running on your laptop. For example,
 
 ```bash
-kubectl logs trafficcontrolservice-7d8f48b778-rx8l8 -c traffic-control-service
+ContainerAppConsoleLogs_CL
+| where ContainerName_s == "trafficcontrolservice"
 ```
 
 3. delete all application deployments
 
 ```azurecli
-kubectl delete -k deploy
+TBD
 ```
