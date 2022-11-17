@@ -1,0 +1,10 @@
+# pubsub.yaml for Azure Cache for Redis component
+componentType: pubsub.redis
+version: v1
+metadata:
+  - name: redisHost
+    value: <replace>.redis.cache.windows.net:6380
+  - name: redisPassword
+    value: "<replaceWithRedisKey>"
+  - name: enableTLS
+    value: "true"
