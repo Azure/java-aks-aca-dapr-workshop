@@ -27,7 +27,7 @@ To complete this assignment, you must reach the following goals:
 
 ## Instructions
 
-1. Open the file `dapr/kafka-pubsub.yaml` in Eclipse.
+1. Open the file `dapr/kafka-pubsub.yaml` in your code editor.
 
 1. Inspect this file. As you can see, it specifies the type of the message broker to use (`pubsub.kafka`) and specifies information on how to connect to the Kafka server you started in step 1 (running on localhost on port `9092`) in the `metadata` section.
 
@@ -65,7 +65,7 @@ spec:
 
 In the `scopes` section, you specify that only the TrafficControlService and FineCollectionService should use the pub/sub building block.
 
-1. **Copy or Move** this file `dapr/kafka-pubsub.yaml` to `dapr/components/` folder. (when starting Dapr applications from command line, we specify a folder `dapr/components/` where Dapr component definitions are located)
+1. **Copy or Move** this file `dapr/kafka-pubsub.yaml` to `dapr/components/` folder (when starting Dapr applications from command line, we specify a folder `dapr/components/` where Dapr component definitions are located).
   * from the root folder, run the following command:
 
 ```bash
@@ -75,7 +75,7 @@ cp dapr/kafka-pubsub.yaml dapr/components/
 
 ## Step 1: Publish messages in the TrafficControlService 
 
-1. Open the file, **TrafficControlService/src/main/java/dapr/traffic/fines/DaprFineCollectionClient.java** in Eclipse, and inspect it
+1. Open the file, **TrafficControlService/src/main/java/dapr/traffic/fines/DaprFineCollectionClient.java** in your code editor, and inspect it
 
 2. It implements the `FineCollectionClient` interface.
 
@@ -97,7 +97,7 @@ public class DaprFineCollectionClient implements FineCollectionClient{
 }
 ```
 
-3. Open the file `TrafficControlService/src/main/java/dapr/traffic/TrafficControlConfiguration.java` in Eclipse
+3. Open the file `TrafficControlService/src/main/java/dapr/traffic/TrafficControlConfiguration.java` in your code editor
 
 The default JSON serialization is not suitable for todays goal, so you need to customize the Jackson `ObjectMapper` that it uses. You do so by adding a static inner class to configure the JSON serialization:
 
@@ -149,7 +149,7 @@ The default JSON serialization is not suitable for todays goal, so you need to c
 
 Dapr will call your service on a `POST` endpoint `/collectfine` to retrieve the subscriptions for that service. You will implement this endpoint and return the subscription for the `test` topic.
 
-1. Open the file `FineCollectionService/src/main/java/dapr/fines/violation/ViolationController.java` in Eclipse.
+1. Open the file `FineCollectionService/src/main/java/dapr/fines/violation/ViolationController.java` in your code editor.
 
 2. Uncomment the code line below
 
@@ -169,7 +169,7 @@ Dapr will call your service on a `POST` endpoint `/collectfine` to retrieve the 
 // }
 ```
 
-4. Open the file `FineCollectionService/src/main/java/dapr/fines/violation/KafkaViolationConsumer.java` in Eclipse.
+4. Open the file `FineCollectionService/src/main/java/dapr/fines/violation/KafkaViolationConsumer.java` in your code editor.
 
 5. Comment out @KafkaLister annotation line
 
@@ -193,7 +193,7 @@ You're going to start all the services now.
 
 2. Open the terminal window and make sure the current folder is `VehicleRegistrationService`.
 
-3. Enter the following command to run the VehicleRegistrationService with a Dapr sidecar:
+3. Enter the following command to run the VehicleRegistrationService:
 
    ```console
    mvn spring-boot:run
@@ -208,17 +208,17 @@ You're going to start all the services now.
    dapr run --app-id finecollectionservice --app-port 6001 --dapr-http-port 3601 --dapr-grpc-port 60001 --components-path ../dapr/components mvn spring-boot:run
    ```
 
-6. Open a **new** terminal window and change the current folder to `TrafficControlService`.
+1. Open a **new** terminal window and change the current folder to `TrafficControlService`.
 
-7. Enter the following command to run the TrafficControlService with a Dapr sidecar:
+2. Enter the following command to run the TrafficControlService with a Dapr sidecar:
 
    ```console
    dapr run --app-id trafficcontrolservice --app-port 6000 --dapr-http-port 3600 --dapr-grpc-port 60000 --components-path ../dapr/components mvn spring-boot:run
    ```
 
-8. Open a **new** terminal window and change the current folder to `Simulation`.
+3. Open a **new** terminal window and change the current folder to `Simulation`.
 
-9. Start the simulation:
+4. Start the simulation:
 
    ```console
    mvn spring-boot:run
