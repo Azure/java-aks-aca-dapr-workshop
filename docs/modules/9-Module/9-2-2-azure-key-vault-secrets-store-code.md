@@ -92,34 +92,35 @@ You're going to start all the services now.
 
 1. Make sure no services from previous tests are running (close the command-shell windows).
 
-2. Open the terminal window and make sure the current folder is `VehicleRegistrationService`.
+1. Open the terminal window and make sure the current folder is `VehicleRegistrationService`.
 
-3. Enter the following command to run the VehicleRegistrationService with a Dapr sidecar:
-
-   ```console
-   mvn spring-boot:run
-   ```
-
-4. Open a **new** terminal window and change the current folder to `FineCollectionService`.
-
-5. Enter the following command to run the FineCollectionService with a Dapr sidecar:
-  * Ensure you have run `dapr init` command prior to running the below command
-
-   ```console
-   dapr run --app-id finecollectionservice --app-port 6001 --dapr-http-port 3601 --dapr-grpc-port 60001 --components-path ../dapr/components mvn spring-boot:run
-   ```
-
-6. Open a **new** terminal window and change the current folder to `TrafficControlService`.
-
-7. Enter the following command to run the TrafficControlService:
+1. Enter the following command to run the VehicleRegistrationService with a Dapr sidecar:
 
    ```console
    mvn spring-boot:run
    ```
 
-8. Open a **new** terminal window and change the current folder to `Simulation`.
+1. Open a **new** terminal window and change the current folder to `FineCollectionService`.
 
-9. Start the simulation:
+1. Enter the following command to run the FineCollectionService with a Dapr sidecar:
+   
+    * Ensure you have run `dapr init` command prior to running the below command
+
+    ```console
+    dapr run --app-id finecollectionservice --app-port 6001 --dapr-http-port 3601 --dapr-grpc-port 60001 --components-path ../dapr/components mvn spring-boot:run
+    ```
+
+1. Open a **new** terminal window and change the current folder to `TrafficControlService`.
+
+1. Enter the following command to run the TrafficControlService:
+
+   ```console
+   mvn spring-boot:run
+   ```
+
+1. Open a **new** terminal window and change the current folder to `Simulation`.
+
+1. Start the simulation:
 
    ```console
    mvn spring-boot:run
