@@ -885,7 +885,7 @@ With Dapr, services can invoke other services using their application id. This i
 ```java
 //    @Bean
 //    public VehicleRegistrationClient vehicleRegistrationClient(final DaprClient daprClient) {
-//        return new DaprVehicleRegistrationClient(daprClient);
+//        return new DaprVehicleRegistrationClient(daprClient, vehicleRegistrationServiceName);
 //    }
 ```
 
