@@ -17,5 +17,10 @@ simulation:
     minimum: 4
     maximum: 8
 
-traffic-control.entry.address: http://${TRAFFIC_CONTROL_SERVICE:localhost}:6000/entrycam
-traffic-control.exit.address: http://${TRAFFIC_CONTROL_SERVICE:localhost}:6000/exitcam
+# Traffic Control Service configuration
+# - For local development, use the default configuration => do not set anything
+# - For Kubernetes cluster the name of the service can be set to TRAFFIC_CONTROL_SERVICE.
+# - For Azure Container Apps with Ingress on Traffic Control Service or other deployments, you can use
+#   TRAFFIC_CONTROL_SERVICE_BASE_URL to set the URL of the service
+traffic-control.entry.address: ${TRAFFIC_CONTROL_SERVICE_BASE_URL:http://${TRAFFIC_CONTROL_SERVICE:localhost}:6000}/entrycam
+traffic-control.exit.address: ${TRAFFIC_CONTROL_SERVICE_BASE_URL:http://${TRAFFIC_CONTROL_SERVICE:localhost}:6000}/exitcam
