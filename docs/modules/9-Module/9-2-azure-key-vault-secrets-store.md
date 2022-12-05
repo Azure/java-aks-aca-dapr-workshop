@@ -1,11 +1,11 @@
 ---
-title: Use Azure Keyvault as a secrets store
+title: Use Azure Keyvault as a secret store
 parent: Bonus Assignments
 has_children: true
 nav_order: 2
 ---
 
-# Bonus Assigment: Use Azure Keyvault as a secrets store
+# Bonus Assigment: Use Azure Keyvault as a secret store
 
 This bonus assignment is about using Azure Key Vault as a [secret store](https://docs.dapr.io/operations/components/setup-secret-store/) for the `FineCollectionService`. You will use the [Azure Key Vault secret store component](https://docs.dapr.io/reference/components-reference/supported-secret-stores/azure-keyvault/) provided by Dapr.
 

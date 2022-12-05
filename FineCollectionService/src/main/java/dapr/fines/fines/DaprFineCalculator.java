@@ -13,9 +13,9 @@ public class DaprFineCalculator implements FineCalculator {
         if (daprClient == null) {
             throw new IllegalArgumentException("daprClient");
         }
-        final Map<String, String> licenseKeySecret = daprClient.getSecret("secretsstore", "license-key").block();
+        final Map<String, String> licenseKeySecret = daprClient.getSecret("secretstore", "license-key").block();
         if (licenseKeySecret == null || licenseKeySecret.isEmpty()) {
-            throw new RuntimeException("'license-key' is not part of the secrets store.");
+            throw new RuntimeException("'license-key' is not part of the secret store.");
         }
         this.fineCalculatorLicenseKey = licenseKeySecret.get("license-key");
         this.fineFines = new FineFines();

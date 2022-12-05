@@ -1,11 +1,11 @@
 ---
-title: Part 1 - Setup Azure Keyvault as a secrets store
-parent: Use Azure Keyvault as a secrets store
+title: Part 1 - Setup Azure Keyvault as a secret store
+parent: Use Azure Keyvault as a secret store
 has_children: false
 nav_order: 1
 ---
 
-# Part 1 - Setup Azure Key Vault as a secrets store
+# Part 1 - Setup Azure Key Vault as a secret store
 
 This bonus assignment is about using Azure Key Vault as a [secret store](https://docs.dapr.io/operations/components/setup-secret-store/). You will create the [Azure Key Vault secret store component](https://docs.dapr.io/reference/components-reference/supported-secret-stores/azure-keyvault/) provided by Dapr.
 
@@ -91,11 +91,11 @@ To create a secret in the Azure Key Vault, use the following command and replace
     az keyvault secret set --vault-name kv-dapr-java-workshop --name <secret-name> --value <secret-value>
     ```
 
-## Step 5: Set the Azure Key Vault secrets store component
+## Step 5: Set the Azure Key Vault secret store component
 
-1. **Copy or Moive** this file `dapr/azure-keyvault-secretsstore.yam` to `dapr/components/` folder.
+1. **Copy or Moive** this file `dapr/azure-keyvault-secretstore.yam` to `dapr/components/` folder.
 
-1. Open the copied file `dapr/components/azure-keyvault-secretsstore.yaml` in your code editor.
+1. Open the copied file `dapr/components/azure-keyvault-secretstore.yaml` in your code editor.
 
 1. Set the following values in the metadata section of the component:
     - `azureTenantId`: The value for `tenant` you noted down in step 1.
