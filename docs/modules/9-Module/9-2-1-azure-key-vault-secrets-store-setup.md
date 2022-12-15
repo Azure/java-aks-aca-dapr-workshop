@@ -93,7 +93,7 @@ To create a secret in the Azure Key Vault, use the following command and replace
 
 ## Step 5: Set the Azure Key Vault secret store component
 
-1. **Copy or Moive** this file `dapr/azure-keyvault-secretstore.yam` to `dapr/components/` folder.
+1. **Copy or Move** this file `dapr/azure-keyvault-secretstore.yam` to `dapr/components/` folder.
 
 1. Open the copied file `dapr/components/azure-keyvault-secretstore.yaml` in your code editor.
 
