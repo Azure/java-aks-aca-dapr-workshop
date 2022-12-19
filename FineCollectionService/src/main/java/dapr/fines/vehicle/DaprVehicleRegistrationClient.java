@@ -7,16 +7,18 @@ import java.time.Duration;
 
 public class DaprVehicleRegistrationClient implements VehicleRegistrationClient {
     private final DaprClient daprClient;
+		private final String vehicleRegistrationServiceName;
 
-    public DaprVehicleRegistrationClient(final DaprClient daprClient) {
-       this.daprClient = daprClient;
+    public DaprVehicleRegistrationClient(final DaprClient daprClient, final String vehicleRegistrationServiceName) {
+				this.daprClient = daprClient;
+				this.vehicleRegistrationServiceName = vehicleRegistrationServiceName;
     }
     
 	@Override
 	public VehicleInfo getVehicleInfo(String licenseNumber) {
 	    
 	    var result = daprClient.invokeMethod(
-	            "vehicle-registration-service",
+	            vehicleRegistrationServiceName,
 	            "vehicleinfo/" + licenseNumber,
 	            null,
 	            HttpExtension.GET,
