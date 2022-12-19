@@ -16,7 +16,7 @@ public class DaprVehicleRegistrationClient implements VehicleRegistrationClient 
 	public VehicleInfo getVehicleInfo(String licenseNumber) {
 	    
 	    var result = daprClient.invokeMethod(
-	            "vehicleregistrationservice",
+	            "vehicle-registration-service",
 	            "vehicleinfo/" + licenseNumber,
 	            null,
 	            HttpExtension.GET,

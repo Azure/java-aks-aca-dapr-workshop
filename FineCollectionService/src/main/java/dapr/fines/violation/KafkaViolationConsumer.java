@@ -12,7 +12,7 @@ public class KafkaViolationConsumer {
         this.violationProcessor = violationProcessor;
     }
 	
-	@KafkaListener(topics = "test", groupId = "test", containerFactory = "kafkaListenerContainerFactory")
+	//@KafkaListener(topics = "test", groupId = "test", containerFactory = "kafkaListenerContainerFactory")
     public void listen(SpeedingViolation violation) {
 
 		violationProcessor.processSpeedingViolation(violation);

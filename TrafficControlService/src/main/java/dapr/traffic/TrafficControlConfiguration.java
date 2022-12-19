@@ -48,8 +48,8 @@ public class TrafficControlConfiguration {
 
 
     @Bean
-    public VehicleStateRepository vehicleStateRepository() {
-        return new InMemoryVehicleStateRepository();
+    public VehicleStateRepository vehicleStateRepository(final DaprClient daprClient) {
+        return new DaprVehicleStateRepository(daprClient);
     }
 
     @Bean
@@ -57,20 +57,20 @@ public class TrafficControlConfiguration {
         return new DefaultSpeedingViolationCalculator(legalCorrection, speedLimit, roadId, sectionLength);
     }
 
-//    @Bean
-//    public FineCollectionClient fineCollectionClient(final DaprClient daprClient) {
-//        return new DaprFineCollectionClient(daprClient);
-//    }
+   @Bean
+   public FineCollectionClient fineCollectionClient(final DaprClient daprClient) {
+       return new DaprFineCollectionClient(daprClient);
+   }
     
-    @Bean
-    public FineCollectionClient fineCollectionClient() {
-        return new KafkaFineCollectionClient();
-    }
+    // @Bean
+    // public FineCollectionClient fineCollectionClient() {
+    //     return new KafkaFineCollectionClient();
+    // }
     
-//    @Bean
-//    public DaprClient daprClient() {
-//        return new DaprClientBuilder()
-//                .withObjectSerializer(new JsonObjectSerializer())
-//                .build();
-//    }
+   @Bean
+   public DaprClient daprClient() {
+       return new DaprClientBuilder()
+               .withObjectSerializer(new JsonObjectSerializer())
+               .build();
+   }
 }
