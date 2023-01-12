@@ -16,17 +16,17 @@ This bonus assignment is about using Azure Key Vault as a [secret store](https:/
 1. Open a terminal window.
    
 1. Create an Azure AD application
-    ```azurecli
+    ```bash
     az ad app create --display-name dapr-java-workshop-fine-collection-service
     ```
 
 1. Get the application ID and note it down. You will need it in the next step.
-    ```azurecli
+    ```bash
     az ad app list --display-name dapr-java-workshop-fine-collection-service --query [].appId -o tsv
     ```
 
 1. Create the client secret using the following command and replace `<appId>` with the application ID you noted down in the previous step:
-    ```azurecli
+    ```bash
     az ad app credential reset --id <appId> --years 2
     ```
     Take note of the values above, which will be used in the Dapr component's metadta to allow Dapr to authenticate with Azure:
@@ -37,12 +37,12 @@ This bonus assignment is about using Azure Key Vault as a [secret store](https:/
 ## Step 2: Create a Service Principal
 
 1. Create a Service Principal using the following command and replace `<appId>` with the application ID you noted down in the previous step:
-    ```azurecli
+    ```bash
     az ad sp create --id <appId>
     ```
 
 1. Get the Service Principal ID and note it down. You will need it to assign the role to access the Key Vault.
-    ```azurecli
+    ```bash
     az ad sp list --display-name dapr-java-workshop-fine-collection-service --query [].id -o tsv
     ```
 
@@ -51,17 +51,17 @@ This bonus assignment is about using Azure Key Vault as a [secret store](https:/
 1. Open a terminal window.
    
 1. Create an Azure Key Vault
-    ```azurecli
+    ```bash
     az keyvault create --name kv-dapr-java-workshop --resource-group dapr-workshop-java --location eastus --enable-rbac-authorization true
     ```
 
 1. Get the id of the subscription and note it down. You will need it in the next step.
-    ```azurecli
+    ```bash
     az account show --query id -o tsv
     ```
 
 1. Assign a role using RBAC to the Azure AD application to access the Key Vault. The role "Key Vault Secrets User" is sufficient for this workshop. Replace `<servicePrincipalId>` with the Service Principal ID you noted down and `<subscriptionId>` with the value you noted in the previous step:
-    ```azurecli
+    ```bash
     az role assignment create --role "Key Vault Secrets User" --assignee <servicePrincipalId> --scope "/subscriptions/<subscriptionid>/resourcegroups/dapr-workshop-java/providers/Microsoft.KeyVault/vaults/kv-dapr-java-workshop"
     ```
 
@@ -76,20 +76,20 @@ To assign to you the role of `Key Vault Secrets Officer`, follow these steps:
 1. Open a terminal window.
    
 1. Get your user id and note it down. You will need it in the next step.
-    ```azurecli
+    ```bash
     az ad user show --id <your-email-address> --query id -o tsv
     ```
     Replace `<your-email-address>` with your email address.
 
 1. Assign you `Key Vault Secrets Officer` role:
-    ```azurecli
+    ```bash
     az role assignment create --role "Key Vault Secrets Officer" --assignee <userId> --scope "/subscriptions/<subscriptionid>/resourcegroups/dapr-workshop-java/providers/Microsoft.KeyVault/vaults/kv-dapr-java-workshop"
     ```
     Replace `<userId>` with the value you noted down in the previous step.
     
 
 To create a secret in the Azure Key Vault, use the following command and replace `<secret-name>` and `<secret-value>` with the name and value of the secret you want to create:
-    ```azurecli
+    ```bash
     az keyvault secret set --vault-name kv-dapr-java-workshop --name <secret-name> --value <secret-value>
     ```
 

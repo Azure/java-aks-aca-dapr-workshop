@@ -1,8 +1,8 @@
 ---
 title: Using Dapr for pub/sub with Azure Cache for Redis
-parent: Assignment 3 - Using Dapr for pub/sub with other brokers
+parent: Assignment 3 - Using Dapr for pub/sub with Azure brokers
 has_children: false
-nav_order: 3
+nav_order: 2
 layout: default
 ---
 
@@ -15,14 +15,14 @@ In the example, you will use Azure Cache for Redis as the message broker with th
 
 1. Login to Azure
 
-    ```azurecli
+    ```bash
     az login
     ```
 
 
 2. Create a C0 Redis Cache
 
-    ```azurecli
+    ```bash
       # Create and manage a C0 Redis Cache
 
       # Variable block
@@ -109,7 +109,7 @@ You're going to start all the services now.
 
 1. Enter the following command to run the VehicleRegistrationService with a Dapr sidecar:
 
-   ```console
+   ```bash
    dapr run --app-id vehicleregistrationservice --app-port 6002 --dapr-http-port 3602 --dapr-grpc-port 60002 mvn spring-boot:run
    ```
 
@@ -117,7 +117,7 @@ You're going to start all the services now.
 
 1. Enter the following command to run the FineCollectionService with a Dapr sidecar:
 
-   ```console
+   ```bash
    dapr run --app-id finecollectionservice --app-port 6001 --dapr-http-port 3601 --dapr-grpc-port 60001 --components-path ../dapr/components mvn spring-boot:run
    ```
 
@@ -125,7 +125,7 @@ You're going to start all the services now.
 
 1. Enter the following command to run the TrafficControlService with a Dapr sidecar:
 
-   ```console
+   ```bash
    dapr run --app-id trafficcontrolservice --app-port 6000 --dapr-http-port 3600 --dapr-grpc-port 60000 --components-path ../dapr/components mvn spring-boot:run
    ```
 
@@ -133,7 +133,7 @@ You're going to start all the services now.
 
 1. Start the simulation:
 
-   ```console
+   ```bash
    mvn spring-boot:run
    ```
 

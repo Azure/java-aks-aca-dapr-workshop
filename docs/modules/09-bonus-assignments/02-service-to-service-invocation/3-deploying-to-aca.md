@@ -1,6 +1,6 @@
 ---
 title: Deploying service-to-service invocation to Azure Container Apps (ACA)
- parent: Service-to-service invocation using Dapr
+parent: Service-to-service invocation using Dapr
 grand_parent: Bonus Assignments
 has_children: false
 nav_order: 3

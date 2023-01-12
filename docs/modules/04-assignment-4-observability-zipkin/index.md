@@ -13,11 +13,11 @@ In this assignment we will look at how to access and view telemetry data being c
 
 When Dapr is initialized (`dapr init`) in self-hosted mode, several containers are deployed to your local Docker runtime.  Run the following command to view all containers running locally on your machine.  Ensure the Zipkin container is up and running and note the port it's running on (Default is 9411)
 
-```console
+```bash
 docker ps
 ```
 
-```console
+```bash
 CONTAINER ID   IMAGE               COMMAND                  CREATED        STATUS                 PORTS                              NAMES
 a29918435d42   redis               "docker-entrypoint.s…"   2 months ago   Up 2 hours             0.0.0.0:6379->6379/tcp             dapr_redis
 3ba8c5264af1   openzipkin/zipkin   "start-zipkin"           2 months ago   Up 2 hours (healthy)   9410/tcp, 0.0.0.0:9411->9411/tcp   dapr_zipkin

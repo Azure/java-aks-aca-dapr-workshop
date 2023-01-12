@@ -1,8 +1,8 @@
 ---
 title: Using Dapr for pub/sub with Azure Service Bus
-parent: Assignment 3 - Using Dapr for pub/sub with other brokers
+parent: Assignment 3 - Using Dapr for pub/sub with Azure brokers
 has_children: false
-nav_order: 2
+nav_order: 1
 layout: default
 ---
 
@@ -16,37 +16,37 @@ In the example, you will use Azure Service Bus as the message broker with the Da
 
 1. Login to Azure
 
-    ```azurecli
+    ```bash
     az login
     ```
 
 1. Create a resource group
 
-    ```azurecli
+    ```bash
     az group create --name dapr-workshop-java --location eastus
     ```
 
 1. Create a Service Bus messaging namespace
 
-    ```azurecli
+    ```bash
     az servicebus namespace create --resource-group dapr-workshop-java --name DaprWorkshopJavaNS --location eastus
     ```
 
 1. Create a Service Bus topic
 
-    ```azurecli
+    ```bash
     az servicebus topic create --resource-group dapr-workshop-java --namespace-name DaprWorkshopJavaNS --name test
     ```
 
 1. Create authorization rules for the Service Bus topic
 
-    ```azurecli
+    ```bash
     az servicebus topic authorization-rule create --resource-group dapr-workshop-java --namespace-name DaprWorkshopJavaNS --topic-name test --name DaprWorkshopJavaAuthRule --rights Manage Send Listen
     ```
 
 1. Get the connection string for the Service Bus topic and copy it to the clipboard
 
-    ```azurecli
+    ```bash
     az servicebus topic authorization-rule keys list --resource-group dapr-workshop-java --namespace-name DaprWorkshopJavaNS --topic-name test --name DaprWorkshopJavaAuthRule  --query primaryConnectionString --output tsv
     ```
 
@@ -90,7 +90,7 @@ You're going to start all the services now.
 
 1. Enter the following command to run the VehicleRegistrationService with a Dapr sidecar:
 
-   ```console
+   ```bash
    mvn spring-boot:run
    ```
 
@@ -98,7 +98,7 @@ You're going to start all the services now.
 
 1. Enter the following command to run the FineCollectionService with a Dapr sidecar:
 
-   ```console
+   ```bash
    dapr run --app-id finecollectionservice --app-port 6001 --dapr-http-port 3601 --dapr-grpc-port 60001 --components-path ../dapr/components mvn spring-boot:run
    ```
 
@@ -106,7 +106,7 @@ You're going to start all the services now.
 
 1. Enter the following command to run the TrafficControlService with a Dapr sidecar:
 
-   ```console
+   ```bash
    dapr run --app-id trafficcontrolservice --app-port 6000 --dapr-http-port 3600 --dapr-grpc-port 60000 --components-path ../dapr/components mvn spring-boot:run
    ```
 
@@ -114,7 +114,7 @@ You're going to start all the services now.
 
 1. Start the simulation:
 
-   ```console
+   ```bash
    mvn spring-boot:run
    ```
 

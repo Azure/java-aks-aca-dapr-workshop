@@ -24,7 +24,7 @@ export GITHUB_REPO=<your-repo>
 
 4. Run the following commands
 
-```azurecli
+```bash
 az feature register --namespace Microsoft.ContainerService --name AKS-ExtensionManager
 az provider register --namespace Microsoft.Kubernetes
 az provider register --namespace Microsoft.ContainerService
@@ -35,7 +35,7 @@ az extension add -n k8s-extension
 
 5. Enable GitOps extension
 
-```azurecli
+```bash
 az k8s-extension create --cluster-type managedClusters \
 --cluster-name dapr-workshop-java-aks \
 --name myGitopsExtension \
@@ -44,7 +44,7 @@ az k8s-extension create --cluster-type managedClusters \
 
 6. Apply Flux configuration
 
-```azurecli
+```bash
 az k8s-configuration flux create -c dapr-workshop-java-aks -n dapr-workshop-java-flux --namespace cluster-config -t managedClusters --scope cluster -u $GITHUB_REPO --branch main  --kustomization name=test  path=./deploy prune=true --https-user $GITHUB_USER --https-key $GITHUB_TOKEN
 ```
 

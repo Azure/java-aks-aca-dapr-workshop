@@ -207,7 +207,7 @@ We'll update the container apps with the actual images later.
 
 1. login to your ACR repository
 
-    ```azurecli
+    ```bash
     az acr login --name $REGISTRY
     ```
 
@@ -321,6 +321,6 @@ We'll update the container apps with the actual images later.
 
 3. delete all application deployments
 
-    ```azurecli
+    ```bash
     TBD
     ```

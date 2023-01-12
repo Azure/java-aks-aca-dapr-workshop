@@ -142,7 +142,7 @@ The default JSON serialization is not suitable for todays goal, so you need to c
 
 7. Check all your code changes are correct by building the code. Execute the following command in the terminal window:
 
-   ```console
+   ```bash
    mvn package
    ```
 
@@ -180,7 +180,7 @@ Dapr will call your service on a `POST` endpoint `/collectfine` to retrieve the 
 
 6. Check all your code changes are correct by building the code. Execute the following command in the terminal window:
 
-   ```console
+   ```bash
    mvn package
    ```
 
@@ -196,7 +196,7 @@ You're going to start all the services now.
 
 3. Enter the following command to run the VehicleRegistrationService:
 
-   ```console
+   ```bash
    mvn spring-boot:run
    ```
 
@@ -205,7 +205,7 @@ You're going to start all the services now.
 5. Enter the following command to run the FineCollectionService with a Dapr sidecar:
   * Ensure you have run `dapr init` command prior to running the below command
 
-   ```console
+   ```bash
    dapr run --app-id finecollectionservice --app-port 6001 --dapr-http-port 3601 --dapr-grpc-port 60001 --components-path ../dapr/components mvn spring-boot:run
    ```
 
@@ -213,7 +213,7 @@ You're going to start all the services now.
 
 2. Enter the following command to run the TrafficControlService with a Dapr sidecar:
 
-   ```console
+   ```bash
    dapr run --app-id trafficcontrolservice --app-port 6000 --dapr-http-port 3600 --dapr-grpc-port 60000 --components-path ../dapr/components mvn spring-boot:run
    ```
 
@@ -221,7 +221,7 @@ You're going to start all the services now.
 
 4. Start the simulation:
 
-   ```console
+   ```bash
    mvn spring-boot:run
    ```
 

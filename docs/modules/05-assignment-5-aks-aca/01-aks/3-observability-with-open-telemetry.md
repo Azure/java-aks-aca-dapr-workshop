@@ -15,7 +15,7 @@ In this section, you will deploy the [OpenTelemetry Collector](https://github.co
 
 Run the following Azure CLI command to create the Application Insights resource in Azure.
 
-```azurecli
+```bash
 az monitor app-insights component create --app dapr-workshop-java-aks --location eastus --kind web -g dapr-workshop-java --application-type web
 ```
 
@@ -31,7 +31,7 @@ Next, find the Instrumentation Key value you copied from the previous step and r
 
 Apply this configuration to your AKS cluster using the following command
 
-```console
+```bash
 kubectl apply -f deploy/open-telemetry-collector-appinsights.yaml
 ```
 
@@ -56,7 +56,7 @@ spec:
 
 Apply this configuration to your AKS cluster using the following command
 
-```console
+```bash
 kubectl apply -f collector-config.yaml
 ```
 
@@ -110,11 +110,11 @@ spec:
 
 Apply these two configurations to AKS using the following two commands.
 
-```console
+```bash
 kubectl apply -f deploy/trafficcontrolservice-deployment.yaml
 ```
 
-```console
+```bash
 kubectl apply -f deploy/finecollectionservice-deployment.yaml
 ```
 

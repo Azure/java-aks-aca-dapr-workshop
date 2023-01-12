@@ -44,7 +44,7 @@ With Dapr, services can invoke other services using their application id. This i
 
 1. Check all your code-changes are correct by building the code. Execute the following command in the terminal window:
 
-    ```console
+    ```bash
     mvn package
     ```
 
@@ -60,7 +60,7 @@ You're going to start all the services now.
 
 1. Enter the following command to run the VehicleRegistrationService with a Dapr sidecar:
 
-   ```console
+   ```bash
    dapr run --app-id vehicleregistrationservice --app-port 6002 --dapr-http-port 3602 --dapr-grpc-port 60002 --components-path ../dapr/components mvn spring-boot:run
    ```
 
@@ -68,7 +68,7 @@ You're going to start all the services now.
 
 1. Enter the following command to run the FineCollectionService with a Dapr sidecar:
 
-   ```console
+   ```bash
    dapr run --app-id finecollectionservice --app-port 6001 --dapr-http-port 3601 --dapr-grpc-port 60001 --components-path ../dapr/components mvn spring-boot:run
    ```
 
@@ -76,7 +76,7 @@ You're going to start all the services now.
 
 1. Enter the following command to run the TrafficControlService with a Dapr sidecar:
 
-   ```console
+   ```bash
    dapr run --app-id trafficcontrolservice --app-port 6000 --dapr-http-port 3600 --dapr-grpc-port 60000 --components-path ../dapr/components mvn spring-boot:run
    ```
 
@@ -84,7 +84,7 @@ You're going to start all the services now.
 
 1. Start the simulation:
 
-   ```console
+   ```bash
    mvn spring-boot:run
    ```
 

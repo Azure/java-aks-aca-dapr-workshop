@@ -14,7 +14,7 @@ layout: default
 1. Install [Helm](https://helm.sh/docs/intro/install/)
 2. Login to azure
 
-```azurecli
+```bash
 az login
 ```
 
@@ -50,7 +50,7 @@ az aks create \
 
 5. Update AKS with Dapr extension
 
-```azurecli
+```bash
 az k8s-extension create --cluster-type managedClusters \
 --cluster-name dapr-workshop-java-aks \
 --name myDaprExtension \
@@ -84,7 +84,7 @@ kubectl apply -f kafka-pubsub.yaml
 
 1. login to your ACR repository
 
-```azurecli
+```bash
 az acr login --name daprworkshopjava
 ```
 
@@ -145,6 +145,6 @@ kubectl logs trafficcontrolservice-7d8f48b778-rx8l8 -c traffic-control-service
 
 3. delete all application deployments
 
-```azurecli
+```bash
 kubectl delete -k deploy
 ```

@@ -22,7 +22,7 @@ To complete this assignment, you must reach the following goals:
 
 From the root of **source code** folder, run the following command to configure and start Kafka from your locally installed Docker or Rancher Desktop
 
-```console
+```bash
 docker-compose up -d
 ```
 
@@ -68,7 +68,7 @@ Now you're going to run the simulation that actually simulates cars driving on t
 
 1. In the simulation window you should see something like this:
 
-   ```console
+   ```bash
    2021-09-15 13:47:59.599  INFO 22875 --- [           main] dapr.simulation.SimulationApplication    : Started SimulationApplication in 0.98 seconds (JVM running for 1.289)
    2021-09-15 13:47:59.603  INFO 22875 --- [pool-1-thread-2] dapr.simulation.Simulation               : Start camera simulation for lane 1
    2021-09-15 13:47:59.603  INFO 22875 --- [pool-1-thread-1] dapr.simulation.Simulation               : Start camera simulation for lane 0

@@ -16,7 +16,7 @@ Previously, you have created an Azure Key Vault and added the Dapr component. No
 >
 > If the setup of the Azure Key Vault is not done yet, please follow the instructions in [Part 1 - Setup Azure Key Vault as a secret store]({% link modules/09-bonus-assignments/03-secret-store/1-azure-key-vault-secret-store-setup.md %}).
 >
-> The `Assignment 3 - Setup Azure Service Bus` is also a pre-requisite for this assignment. If not done yet, please follow the instructions in [Assignment 3 - Setup Azure Service Bus]({% link modules/03-assignment-3-other-pub-sub/2-azure-service-bus.md %}).
+> The `Assignment 3 - Setup Azure Service Bus` is also a pre-requisite for this assignment. If not done yet, please follow the instructions in [Assignment 3 - Setup Azure Service Bus]({% link modules/03-assignment-3-azure-pub-sub/1-azure-service-bus.md %}).
 
 
 ## Step 1: Create a secret in the Azure Key Vault for the connetion string
@@ -26,7 +26,7 @@ Azure Service Bus' connection string will be store as a string/literal secret:
 1. Open a terminal window.
    
 1. Create a secret in the Azure Key Vault for Azure Service Bus' connection string:
-    ```azurecli
+    ```bash
     az keyvault secret set --vault-name kv-dapr-java-workshop --name azSericeBusconnectionString --value "<connection-string>"
     ```
     Replace `<connection-string>` with the connection string of the Azure Service Bus created in assignement 3.
@@ -44,8 +44,8 @@ Azure Service Bus' connection string will be store as a string/literal secret:
 
     ```yaml
     secretKeyRef:
-        name: azSericeBusconnectionString
-        key: azSericeBusconnectionString
+      name: azSericeBusconnectionString
+      key: azSericeBusconnectionString
     ```
     When the secret is a string/literal, the `key` is the same as the `name` of the secret, see [How-To: Reference secrets in components](https://docs.dapr.io/operations/components/component-secrets/).
 
@@ -68,7 +68,7 @@ You're going to start all the services now.
 
 1. Enter the following command to run the VehicleRegistrationService with a Dapr sidecar:
 
-   ```console
+   ```bash
    mvn spring-boot:run
    ```
 
@@ -78,7 +78,7 @@ You're going to start all the services now.
    
     * Ensure you have run `dapr init` command prior to running the below command
 
-    ```console
+    ```bash
     dapr run --app-id finecollectionservice --app-port 6001 --dapr-http-port 3601 --dapr-grpc-port 60001 --components-path ../dapr/components mvn spring-boot:run
     ```
 
@@ -86,7 +86,7 @@ You're going to start all the services now.
 
 1. Enter the following command to run the TrafficControlService with a Dapr sidecar:
 
-   ```console
+   ```bash
    dapr run --app-id trafficcontrolservice --app-port 6000 --dapr-http-port 3600 --dapr-grpc-port 60000 --components-path ../dapr/components mvn spring-boot:run
    ```
 
@@ -94,7 +94,7 @@ You're going to start all the services now.
 
 1. Start the simulation:
 
-   ```console
+   ```bash
    mvn spring-boot:run
    ```
 

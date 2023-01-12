@@ -23,7 +23,7 @@ Previously, you have created an Azure Key Vault and added the Dapr component. No
 1. Open a terminal window.
    
 1. Create a secret in the Azure Key Vault for the license key:
-    ```azurecli
+    ```bash
     az keyvault secret set --vault-name kv-dapr-java-workshop --name license-key --value HX783-5PN1G-CRJ4A-K2L7V
     ```
 
@@ -103,7 +103,7 @@ You're going to start all the services now.
 
 2. Enter the following command to run the VehicleRegistrationService:
 
-   ```console
+   ```bash
    mvn spring-boot:run
    ```
 
@@ -113,7 +113,7 @@ You're going to start all the services now.
    
     * Ensure you have run `dapr init` command prior to running the below command
 
-    ```console
+    ```bash
     dapr run --app-id finecollectionservice --app-port 6001 --dapr-http-port 3601 --dapr-grpc-port 60001 --components-path ../dapr/components mvn spring-boot:run
     ```
 
@@ -121,7 +121,7 @@ You're going to start all the services now.
 
 6. Enter the following command to run the TrafficControlService:
 
-   ```console
+   ```bash
    mvn spring-boot:run
    ```
 
@@ -129,7 +129,7 @@ You're going to start all the services now.
 
 8. Start the simulation:
 
-   ```console
+   ```bash
    mvn spring-boot:run
    ```
 
