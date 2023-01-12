@@ -237,7 +237,7 @@ docker push ""$REGISTRY".azurecr.io/traffic-control-service:latest"
            --yaml ../dapr/components/aca-redis-pubsub.yaml
            
         az containerapp create \
-            --name trafficcontrolservice \
+            --name $TRAFFIC_CONTROL_SERVICE \
             --resource-group $RESOURCE_GROUP \
             --environment $CONTAINERAPPS_ENVIRONMENT \
             --image "$REGISTRY_URL"/traffic-control-service:latest \

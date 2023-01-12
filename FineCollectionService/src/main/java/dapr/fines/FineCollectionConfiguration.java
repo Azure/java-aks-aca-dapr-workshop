@@ -1,5 +1,6 @@
 package dapr.fines;
 
+import dapr.fines.fines.DaprFineCalculator;
 import dapr.fines.fines.DefaultFineCalculator;
 import dapr.fines.fines.FineCalculator;
 import dapr.fines.vehicle.DefaultVehicleRegistrationClient;
@@ -28,6 +29,11 @@ public class FineCollectionConfiguration {
     public FineCalculator fineCalculator() {
         return new DefaultFineCalculator(fineCalculatorLicenseKey);
     }
+
+    // @Bean
+    // public FineCalculator fineCalculator(final DaprClient daprClient) {
+    //     return new DaprFineCalculator(daprClient);
+    // }
 
     @Bean
     public RestTemplate restTemplate() {
