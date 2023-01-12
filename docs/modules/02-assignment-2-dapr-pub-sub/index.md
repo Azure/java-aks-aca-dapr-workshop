@@ -184,7 +184,7 @@ Dapr will call your service on a `POST` endpoint `/collectfine` to retrieve the 
    mvn package
    ```
 
-Now you can test the application
+Now you can test the application.
 
 ## Step 3: Test the application
 
@@ -192,17 +192,17 @@ You're going to start all the services now.
 
 1. Make sure no services from previous tests are running (close the command-shell windows).
 
-2. Open the terminal window and make sure the current folder is `VehicleRegistrationService`.
+1. Open the terminal window and make sure the current folder is `VehicleRegistrationService`.
 
-3. Enter the following command to run the VehicleRegistrationService:
+1. Enter the following command to run the VehicleRegistrationService:
 
    ```bash
    mvn spring-boot:run
    ```
 
-4. Open a **new** terminal window and change the current folder to `FineCollectionService`.
+1. Open a **new** terminal window and change the current folder to `FineCollectionService`.
 
-5. Enter the following command to run the FineCollectionService with a Dapr sidecar:
+1. Enter the following command to run the FineCollectionService with a Dapr sidecar:
   * Ensure you have run `dapr init` command prior to running the below command
 
    ```bash
@@ -211,15 +211,15 @@ You're going to start all the services now.
 
 1. Open a **new** terminal window and change the current folder to `TrafficControlService`.
 
-2. Enter the following command to run the TrafficControlService with a Dapr sidecar:
+1. Enter the following command to run the TrafficControlService with a Dapr sidecar:
 
    ```bash
    dapr run --app-id trafficcontrolservice --app-port 6000 --dapr-http-port 3600 --dapr-grpc-port 60000 --components-path ../dapr/components mvn spring-boot:run
    ```
 
-3. Open a **new** terminal window and change the current folder to `Simulation`.
+1. Open a **new** terminal window and change the current folder to `Simulation`.
 
-4. Start the simulation:
+1. Start the simulation:
 
    ```bash
    mvn spring-boot:run

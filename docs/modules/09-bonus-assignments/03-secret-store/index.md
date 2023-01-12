@@ -14,3 +14,4 @@ The [first part]({% link modules/09-bonus-assignments/03-secret-store/1-azure-ke
 
 {: .note }
 > The first part is a pre-requisite for the second and third part. The second and third part can be done in any order.
+>

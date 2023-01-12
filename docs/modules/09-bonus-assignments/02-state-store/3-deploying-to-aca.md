@@ -15,6 +15,6 @@ nav_exclude: true
 {: .important-title }
 > Pre-requisite
 >
-> The first part [Use Azure Cosmos DB to store the state of a vehicle using Dapr]({% link modules/09-bonus-assignments/01-state-store/1-azure-cosmos-db-state-store.md %}) is a pre-requisite for this assignment.
+> The first part [Use Azure Cosmos DB to store the state of a vehicle using Dapr]({% link modules/09-bonus-assignments/02-state-store/1-azure-cosmos-db-state-store.md %}) is a pre-requisite for this assignment.
 >
 

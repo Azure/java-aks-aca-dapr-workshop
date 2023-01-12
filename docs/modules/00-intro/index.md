@@ -5,6 +5,6 @@ nav_order: 2
 layout: default
 ---
 
-## Basic Concepts and Prerequisites
+# Basic Concepts and Prerequisites
 
-Details on Dapr and Workshop Prerequisites
+Details on Dapr and Workshop Prerequisites.
