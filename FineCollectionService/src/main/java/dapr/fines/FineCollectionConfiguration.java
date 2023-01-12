@@ -22,6 +22,9 @@ public class FineCollectionConfiguration {
     @Value("${vehicle-information.address}")
     private String vehicleInformationAddress;
 
+    @Value("${vehicle-registration-service.name}")
+    private String vehicleRegistrationServiceName;
+
     @Bean
     public FineCalculator fineCalculator() {
         return new DefaultFineCalculator(fineCalculatorLicenseKey);
@@ -39,13 +42,13 @@ public class FineCollectionConfiguration {
     
 //    @Bean
 //    public VehicleRegistrationClient vehicleRegistrationClient(final DaprClient daprClient) {
-//        return new DaprVehicleRegistrationClient(daprClient);
+//        return new DaprVehicleRegistrationClient(daprClient, vehicleRegistrationServiceName);
 //    }
-
-    @Bean
+    
+   @Bean
     public VehicleRegistrationClient vehicleRegistrationClient(final RestTemplate restTemplate) {
         return new DefaultVehicleRegistrationClient(restTemplate, vehicleInformationAddress);
-    }
+   }
     
 //    @Bean
 //    public DaprClient daprClient() {

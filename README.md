@@ -18,3 +18,4 @@ When the car passes an exit-camera, this timestamp is also registered by the sys
 ## Workshop
 
 The workshop is availabel [here](https://azure.github.io/dapr-java-workshop/).
+
