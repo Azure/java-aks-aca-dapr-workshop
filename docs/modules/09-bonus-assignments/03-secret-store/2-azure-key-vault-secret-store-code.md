@@ -101,15 +101,15 @@ You're going to start all the services now.
 
 1. Open the terminal window and make sure the current folder is `VehicleRegistrationService`.
 
-2. Enter the following command to run the VehicleRegistrationService:
+1. Enter the following command to run the VehicleRegistrationService:
 
    ```bash
    mvn spring-boot:run
    ```
 
-3. Open a **new** terminal window and change the current folder to `FineCollectionService`.
+1. Open a **new** terminal window and change the current folder to `FineCollectionService`.
 
-4. Enter the following command to run the FineCollectionService with a Dapr sidecar:
+1. Enter the following command to run the FineCollectionService with a Dapr sidecar:
    
     * Ensure you have run `dapr init` command prior to running the below command
 
@@ -117,17 +117,17 @@ You're going to start all the services now.
     dapr run --app-id finecollectionservice --app-port 6001 --dapr-http-port 3601 --dapr-grpc-port 60001 --components-path ../dapr/components mvn spring-boot:run
     ```
 
-5. Open a **new** terminal window and change the current folder to `TrafficControlService`.
+1. Open a **new** terminal window and change the current folder to `TrafficControlService`.
 
-6. Enter the following command to run the TrafficControlService:
+1. Enter the following command to run the TrafficControlService:
 
    ```bash
    mvn spring-boot:run
    ```
 
-7. Open a **new** terminal window and change the current folder to `Simulation`.
+1. Open a **new** terminal window and change the current folder to `Simulation`.
 
-8. Start the simulation:
+1. Start the simulation:
 
    ```bash
    mvn spring-boot:run

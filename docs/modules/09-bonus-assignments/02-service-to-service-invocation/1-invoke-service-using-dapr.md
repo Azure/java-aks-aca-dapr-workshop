@@ -11,9 +11,11 @@ layout: default
 
 ## Step 1: Use Dapr to invoke the Vehicle Registration Service from the Fine Collection Service
 
-With Dapr, services can invoke other services using their application id. This is done by using the Dapr client to make calls to the Dapr sidecar. The Vehicle Registration Service will be started to us
+With Dapr, services can invoke other services using their application id. This is done by using the Dapr client to make calls to the Dapr sidecar. The Vehicle Registration Service will be started with a Dapr sidecar.
 
-1. Open the `FineCollectionService` project in your IDE and navigate to the `FineCollectionConfiguration` class.
+1. Open the `FineCollectionService` project in your IDE and navigate to the `DaprVehicleRegistrationClient` class. This class implements the `VehicleRegistrationClient` interface and uses the Dapr client to invoke the Vehicle Registration Service. Inspect the implementation of this class.
+
+1. Navigate to the `FineCollectionConfiguration` class to switch between the default and Dapr implementation of the `VehicleRegistrationClient`.
 
 1. **Uncomment** following @Bean method
 
