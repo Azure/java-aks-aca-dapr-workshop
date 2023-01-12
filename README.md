@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This workshop teaches you how to apply [Dapr](https://dapr.io) to a Java microservices application and enable developers to move between multiple pub-sub, state stores and secret store components seamlessly. It also demonstrates Dapr's builtin support for [distributed tracing](https://docs.dapr.io/concepts/observability-concept/) using any backend monitoring tools. Finally, the workshop provides hands on experience in deploying the microservices in both [Azure Kubernetes Service (AKS)](https://docs.microsoft.com/en-us/azure/aks/) and Azure Contaner Apps (https://learn.microsoft.com/en-us/azure/container-apps/overview)
+This workshop teaches you how to apply [Dapr](https://dapr.io) to a Java microservices application and enable developers to move between multiple pub-sub, state stores and secret store components seamlessly. It also demonstrates Dapr's builtin support for [distributed tracing](https://docs.dapr.io/concepts/observability-concept/) using any backend monitoring tools. Finally, the workshop provides hands on experience in deploying the microservices in both [Azure Kubernetes Service (AKS)](https://docs.microsoft.com/en-us/azure/aks/) and [Azure Contaner Apps] (https://learn.microsoft.com/en-us/azure/container-apps/overview)
 
 ### The domain
 
