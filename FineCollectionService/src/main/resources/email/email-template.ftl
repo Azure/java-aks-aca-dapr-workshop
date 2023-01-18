@@ -46,7 +46,7 @@
 </head>
 <body>
   <div class="logo">
-      <h4 class="logo-label">Fine Collection Department</h4>
+      <h4 class="logo-label">Fine Collection Agency</h4>
   </div>
   </div>
     <div class="text">
@@ -65,7 +65,7 @@
     </div>
     <div class="end-bar">&nbsp;</div>
     <br>
-    <p class="contact-info">Fine Collection Department</p>
+    <p class="contact-info">Fine Collection Agency</p>
     <p class="contact-info">Phone: +31 123 456 789</p>
     <p class="contact-info">Address: Some Street 123, 2511 CD The Hague</p>
     <p class="contact-info">Email: fine@random-email.com</p>
