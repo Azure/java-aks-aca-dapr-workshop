@@ -14,7 +14,7 @@ layout: default
 {: .important-title }
 > Pre-requisite
 >
-> The first part [Use Azure Cosmos DB to store the state of a vehicle using Dapr]({% link modules/09-bonus-assignments/02-state-store/1-azure-cosmos-db-state-store.md %}) is a pre-requisite for this assignment.
+> The first part [Use Azure Cosmos DB to store the state of a vehicle using Dapr]({{ site.baseurl }}{% link modules/09-bonus-assignments/02-state-store/1-azure-cosmos-db-state-store.md %}) is a pre-requisite for this assignment.
 >
 > The account URL and the master key of the Azure Cosmos DB instance are required for this assignment. Please use the same Azure Cosmos DB instance as used in the first part of this assignment.
 > 
@@ -29,7 +29,7 @@ layout: default
         --from-literal=masterKey=<cosmos-db-master-key>
     ```
 
-    Where `<cosmos-db-account-url>` is the account URL of the Azure Cosmos DB instance and `<cosmos-db-master-key>` is the master key of the Azure Cosmos DB instance. Both are set when the Azure Cosmos DB instance is created in the [first part of this assignment]({% link modules/09-bonus-assignments/02-state-store/1-azure-cosmos-db-state-store.md %}).
+    Where `<cosmos-db-account-url>` is the account URL of the Azure Cosmos DB instance and `<cosmos-db-master-key>` is the master key of the Azure Cosmos DB instance. Both are set when the Azure Cosmos DB instance is created in the [first part of this assignment]({{ site.baseurl }}{% link modules/09-bonus-assignments/02-state-store/1-azure-cosmos-db-state-store.md %}).
 
 1. **Copy** this file `dapr/azure-cosmosdb-statestore.yaml` to `deploy/` folder.
 

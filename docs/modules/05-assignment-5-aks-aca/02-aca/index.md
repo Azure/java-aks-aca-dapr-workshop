@@ -8,4 +8,4 @@ layout: default
 
 # Deploying Applications to Azure Container Apps (ACA) with Dapr
 
-In this assignment, you will deploy the 3 services and the simulation to [Azure Container Apps (ACA)]({% link modules/05-assignment-5-aks-aca/02-aca/index.md %}).
+In this assignment, you will deploy the 3 services and the simulation to [Azure Container Apps (ACA)]({{ site.baseurl }}{% link modules/05-assignment-5-aks-aca/02-aca/index.md %}).
