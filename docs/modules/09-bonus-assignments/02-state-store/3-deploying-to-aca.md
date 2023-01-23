@@ -1,5 +1,5 @@
 ---
-title: Deploying Azure Cosmos DB state store to Azure Container Apps (ACA)
+title: Deploying Azure Cosmos DB state store to Azure Container Apps
 parent: Use Azure Cosmos DB as a state store
 grand_parent: Bonus Assignments
 has_children: false
@@ -8,7 +8,7 @@ layout: default
 nav_exclude: true
 ---
 
-# Deploying Azure Cosmos DB state store to Azure Container Apps (ACA)
+# Deploying Azure Cosmos DB state store to Azure Container Apps
 
 <br>
 

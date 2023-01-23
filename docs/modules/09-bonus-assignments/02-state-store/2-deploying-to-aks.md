@@ -1,5 +1,5 @@
 ---
-title: Deploying Azure Cosmos DB state store to Azure Kubernetes Service (AKS)
+title: Deploying Azure Cosmos DB state store to Azure Kubernetes Service
 parent: Use Azure Cosmos DB as a state store
 grand_parent: Bonus Assignments
 has_children: false
@@ -7,7 +7,7 @@ nav_order: 2
 layout: default
 ---
 
-# Deploying Azure Cosmos DB state store to Azure Kubernetes Service (AKS)
+# Deploying Azure Cosmos DB state store to Azure Kubernetes Service
     
 <br>
 

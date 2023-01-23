@@ -1,13 +1,13 @@
 ---
-title: Deploying Applications to AKS with Dapr Extension
-parent: Deploying Applications to Azure Kubernetes Service (AKS) with Dapr
-grand_parent: Assignment 5 - Deploying Applications to Azure with Dapr
+title: Deploying to AKS with Dapr Extension
+parent: Deploying to Azure Kubernetes Service
+grand_parent: Assignment 5 - Deploying to Azure with Dapr
 has_children: false
 nav_order: 2
 layout: default
 ---
 
-# Deploying Applications to AKS with Dapr Extension
+# Deploying to AKS with Dapr Extension
 
 ## Setup
 

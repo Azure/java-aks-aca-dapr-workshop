@@ -1,5 +1,5 @@
 ---
-title: Deploying service-to-service invocation to Azure Kubernetes Service (AKS)
+title: Deploying service-to-service invocation to Azure Kubernetes Service
 parent: Service-to-service invocation using Dapr
 grand_parent: Bonus Assignments
 has_children: false
@@ -7,7 +7,7 @@ nav_order: 2
 layout: default
 ---
 
-# Deploying service-to-service invocation to Azure Kubernetes Service (AKS)
+# Deploying service-to-service invocation to Azure Kubernetes Service
     
 <br>
 

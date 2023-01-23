@@ -1,12 +1,12 @@
 ---
-title: Deploying Applications to Azure Kubernetes Service (AKS) with Dapr
-parent: Assignment 5 - Deploying Applications to Azure with Dapr
+title: Deploying to Azure Kubernetes Service
+parent: Assignment 5 - Deploying to Azure with Dapr
 has_children: true
 nav_order: 1
 layout: default
 ---
 
-# Deploying Applications to Azure Kubernetes Service (AKS) with Dapr
+# Deploying to Azure Kubernetes Service
 
 In this assignment, you will deploy the 3 services and the simulation to Azure Kubernetes Service (AKS). First there is a [introduction to Dapr sidecar in Kubernetes]({{ site.baseurl }}{% link modules/05-assignment-5-aks-aca/01-aks/1-dapr-sidecar-in-k8s.md %}). Then you will [deploy the 3 services and the simulation to AKS]({{ site.baseurl }}{% link modules/05-assignment-5-aks-aca/01-aks/2-aks-instructions.md %}). Finally you will test the application.
 
