@@ -2,6 +2,7 @@
 title: Introduction
 has_children: false
 nav_order: 1
+layout: home
 ---
 
 # Workshop to implement Pub/Sub and Observability in Java Applications using Dapr
