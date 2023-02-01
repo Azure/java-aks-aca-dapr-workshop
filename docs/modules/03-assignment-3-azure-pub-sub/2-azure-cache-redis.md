@@ -1,6 +1,6 @@
 ---
 title: Using Dapr for pub/sub with Azure Cache for Redis
-parent: Assignment 3 - Using Dapr for pub/sub with Azure brokers
+parent: Assignment 3 - Using Dapr for pub/sub with Azure Services
 has_children: false
 nav_order: 2
 layout: default

@@ -1,7 +1,7 @@
 ---
-title: (Optional) Enable GitOps addon and use it to deploy applications
-parent: Deploying Applications to Azure Kubernetes Service (AKS) with Dapr
-grand_parent: Assignment 5 - Deploying Applications to Azure with Dapr
+title: (Optional) GitOps
+parent: Deploying to Azure Kubernetes Service
+grand_parent: Assignment 5 - Deploying to Azure with Dapr
 has_children: false
 nav_order: 4
 layout: default

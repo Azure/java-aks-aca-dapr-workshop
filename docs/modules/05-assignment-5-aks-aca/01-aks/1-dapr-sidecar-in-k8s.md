@@ -1,7 +1,7 @@
 ---
 title: Dapr Sidecar in Kubernetes
-parent: Deploying Applications to Azure Kubernetes Service (AKS) with Dapr
-grand_parent: Assignment 5 - Deploying Applications to Azure with Dapr
+parent: Deploying to Azure Kubernetes Service
+grand_parent: Assignment 5 - Deploying to Azure with Dapr
 has_children: false
 nav_order: 1
 layout: default

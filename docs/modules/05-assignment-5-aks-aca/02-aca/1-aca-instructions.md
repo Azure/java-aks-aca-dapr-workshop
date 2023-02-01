@@ -1,7 +1,7 @@
 ---
-title: Deploying Applications to ACA with Dapr
-parent: Deploying Applications to Azure Container Apps (ACA) with Dapr
-grand_parent: Assignment 5 - Deploying Applications to Azure with Dapr
+title: Deploying to ACA with Dapr
+parent: Deploying to Azure Container Apps
+grand_parent: Assignment 5 - Deploying to Azure with Dapr
 has_children: false
 nav_order: 1
 layout: default

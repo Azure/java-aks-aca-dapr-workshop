@@ -1,5 +1,5 @@
 ---
-title: Deploying service-to-service invocation to Azure Kubernetes Service (AKS)
+title: Deploying service-to-service invocation to Azure Kubernetes Service
 parent: Service-to-service invocation using Dapr
 grand_parent: Bonus Assignments
 has_children: false
@@ -7,14 +7,14 @@ nav_order: 2
 layout: default
 ---
 
-# Deploying service-to-service invocation to Azure Kubernetes Service (AKS)
+# Deploying service-to-service invocation to Azure Kubernetes Service
     
 <br>
 
 {: .important-title }
 > Pre-requisite
 >
-> The first part [Invoke Vehicle Registration Service from Fine Collection Service using Dapr]({% link modules/09-bonus-assignments/01-service-to-service-invocation/1-invoke-service-using-dapr.md %}) is a pre-requisite for this assignment.
+> The first part [Invoke Vehicle Registration Service from Fine Collection Service using Dapr]({{ site.baseurl }}{% link modules/09-bonus-assignments/01-service-to-service-invocation/1-invoke-service-using-dapr.md %}) is a pre-requisite for this assignment.
 >
 
 ## Step 1: Deploy service-to-service communication to AKS

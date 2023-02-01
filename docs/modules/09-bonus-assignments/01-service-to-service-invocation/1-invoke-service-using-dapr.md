@@ -1,5 +1,5 @@
 ---
-title: Invoke Vehicle Registration Service from Fine Collection Service using Dapr
+title: Invoke Vehicle Registration Service from Fine Collection Service
 parent: Service-to-service invocation using Dapr
 grand_parent: Bonus Assignments
 has_children: false
@@ -7,7 +7,7 @@ nav_order: 1
 layout: default
 ---
 
-# Invoke Vehicle Registration Service from Fine Collection Service using Dapr
+# Invoke Vehicle Registration Service from Fine Collection Service
 
 ## Step 1: Use Dapr to invoke the Vehicle Registration Service from the Fine Collection Service
 

@@ -15,7 +15,7 @@ Previously, you have created an Azure Key Vault and added the Dapr component. No
 {: .important-title }
 > Pre-requisite
 >
-> If the setup of the Azure Key Vault is not done yet, please follow the instructions in [Part 1 - Setup Azure Key Vault as a secret store]({% link modules/09-bonus-assignments/03-secret-store/1-azure-key-vault-secret-store-setup.md %}).
+> If the setup of the Azure Key Vault is not done yet, please follow the instructions in [Part 1 - Setup Azure Key Vault as a secret store]({{ site.baseurl }}{% link modules/09-bonus-assignments/03-secret-store/1-azure-key-vault-secret-store-setup.md %}).
 >
 
 ## Step 1: Create a secret in the Azure Key Vault for the license key
