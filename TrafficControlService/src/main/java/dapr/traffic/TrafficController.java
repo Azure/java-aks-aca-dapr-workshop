@@ -33,7 +33,7 @@ public class TrafficController {
         this.vehicleStateRepository = vehicleStateRepository;
     }
 
-    @GetMapping(path = "/heatlh")
+    @GetMapping(path = "/heatlhz")
     public ResponseEntity<Void> health() {
         return ResponseEntity.ok().build();
     }
