@@ -39,7 +39,7 @@ spec:
         dapr.io/app-port: "6000"        
     spec:
       containers:
-      - image: daprworkshopjava.azurecr.io/traffic-control-service:latest
+      - image: <REPLACE_WITH_CONTAINER_REGISTRY_NAME>.azurecr.io/traffic-control-service:latest
         name: traffic-control-service
         resources: {}
 status: {}

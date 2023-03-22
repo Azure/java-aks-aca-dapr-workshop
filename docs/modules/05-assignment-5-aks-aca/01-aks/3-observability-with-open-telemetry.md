@@ -16,7 +16,7 @@ In this section, you will deploy the [OpenTelemetry Collector](https://github.co
 Run the following Azure CLI command to create the Application Insights resource in Azure.
 
 ```bash
-az monitor app-insights component create --app dapr-workshop-java-aks --location eastus --kind web -g dapr-workshop-java --application-type web
+az monitor app-insights component create --app aks-dapr-workshop-java --location eastus --kind web -g rg-dapr-workshop-java --application-type web
 ```
 
 > You may receive a message to install the application-insights extension, if so please install the extension for this exercise.

@@ -19,7 +19,6 @@ In the example, you will use Azure Cache for Redis as the message broker with th
     az login
     ```
 
-
 2. Create a C0 Redis Cache
 
     ```bash
@@ -28,7 +27,7 @@ In the example, you will use Azure Cache for Redis as the message broker with th
       # Variable block
       let "randomIdentifier=$RANDOM*$RANDOM"
       location="East US"
-      resourceGroup="msdocs-redis-cache-rg-$randomIdentifier"
+      resourceGroup="rg-dapr-workshop-java"
       tag="create-manage-cache"
       cache="msdocs-redis-cache-$randomIdentifier"
       sku="basic"

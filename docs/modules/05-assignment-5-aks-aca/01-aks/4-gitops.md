@@ -37,7 +37,7 @@ az extension add -n k8s-extension
 
 ```bash
 az k8s-extension create --cluster-type managedClusters \
---cluster-name dapr-workshop-java-aks \
+--cluster-name aks-dapr-workshop-java \
 --name myGitopsExtension \
 --extension-type Microsoft.Gitops
 ```
@@ -45,7 +45,7 @@ az k8s-extension create --cluster-type managedClusters \
 6. Apply Flux configuration
 
 ```bash
-az k8s-configuration flux create -c dapr-workshop-java-aks -n dapr-workshop-java-flux --namespace cluster-config -t managedClusters --scope cluster -u $GITHUB_REPO --branch main  --kustomization name=test  path=./deploy prune=true --https-user $GITHUB_USER --https-key $GITHUB_TOKEN
+az k8s-configuration flux create -c aks-dapr-workshop-java -n dapr-workshop-java-flux --namespace cluster-config -t managedClusters --scope cluster -u $GITHUB_REPO --branch main  --kustomization name=test  path=./deploy prune=true --https-user $GITHUB_USER --https-key $GITHUB_TOKEN
 ```
 
 7. verify all application pods are running by executing the following command: `kubectl get pods`

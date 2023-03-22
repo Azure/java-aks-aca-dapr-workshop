@@ -33,130 +33,126 @@ This assignement is about deploying our microservices to [Azure Container Apps](
 
 Now, let's create the infrastructure for our application, so we can later deploy our microservices to [Azure Container Apps](https://learn.microsoft.com/en-us/azure/container-apps/).
 
-### Setting Up the Environment Variables
-
-Let's first set a few environment variables that will help us in creating the Azure infrastructure.
-
-{: .important }
-Some resources in Azure need to have a unique name across the globe (for example Azure Registry or Azure Load Testing).
-For that, we use the `UNIQUE_IDENTIFIER` environment variable to make sure we don't have any name collision.
-If you are developing in your local machine, the `UNIQUE_IDENTIFIER` will be your username (which is not totally unique, but it's a good start).
-Please make sure to use a lowercase value, as it's used as a suffix to create resources that cannot stand uppercase.
-
-
-```bash
-PROJECT="dapr-java-workshop"
-RESOURCE_GROUP="rg-${PROJECT}"
-LOCATION="eastus"
-TAG="dapr-java-aca"
-
-LOG_ANALYTICS_WORKSPACE="logs-dapr-java-aca"
-CONTAINERAPPS_ENVIRONMENT="cae-dapr-java-aca"
-
-# If you're using a dev container, you should manually set this to
-# a unique value (here randomly generated) to avoid conflicts with other users.
-UNIQUE_IDENTIFIER=$(LC_ALL=C tr -dc a-z0-9 </dev/urandom | head -c 5)
-REGISTRY="crdaprjavaaca${UNIQUE_IDENTIFIER}"
-IMAGES_TAG="1.0"
-
-TRAFFIC_CONTROL_SERVICE="ca-traffic-control-service"
-FINE_COLLECTION_SERVICE="ca-fine-collection-service"
-VEHICLE_REGISTRATION_SERVICE="ca-vehicle-registration-service"
-```
-
-{: .note }
-> Notice that we are using a specific location.
-> This means that all the Azure resources that we are creating will be created in the same location.
-> Depending on your geographical location, the resources might be created in different datacenters closer to you.
-> If you want to know the list of available locations, you can execute the following command:
-> 
-> ```
-> az account list-locations --query "[].name"
-> ```
->
->You can update the `LOCATION` environment variable to use a different location.
->
-
-{: .note }
-> If you need to force a specific `UNIQUE_IDENTIFIER`, you can update the command about with your own identifier: `UNIQUE_IDENTIFIER=<your-unique-identifier>`.
->
-
 ### Log Analytics Workspace
 
 [Log Analytics workspace](https://learn.microsoft.com/en-us/azure/azure-monitor/logs/log-analytics-workspace-overview) is the environment for Azure Monitor log data. Each workspace has its own data repository and configuration, and data sources and solutions are configured to store their data in a particular workspace. We will use the same workspace for most of the Azure resources we will be creating.
 
-Create a Log Analytics workspace with the following command:
+1. Create a Log Analytics workspace with the following command:
 
-```bash
-az monitor log-analytics workspace create \
-  --resource-group "$RESOURCE_GROUP" \
-  --location "$LOCATION" \
-  --tags system="$TAG" \
-  --workspace-name "$LOG_ANALYTICS_WORKSPACE"
-```
+    ```bash
+    az monitor log-analytics workspace create \
+      --resource-group rg-dapr-workshop-java \
+      --location eastus \
+      --workspace-name log-dapr-workshop-java
+    ```
 
-Let's also retrieve the Log Analytics Client ID and client secret and store them in environment variables:
+1. Retrieve the Log Analytics Client ID and client secret and store them in environment variables:
 
-```bash
-LOG_ANALYTICS_WORKSPACE_CUSTOMER_ID=$(
-  az monitor log-analytics workspace show \
-    --resource-group "$RESOURCE_GROUP" \
-    --workspace-name "$LOG_ANALYTICS_WORKSPACE" \
-    --query customerId  \
-    --output tsv | tr -d '[:space:]'
-)
-echo "LOG_ANALYTICS_WORKSPACE_CLIENT_ID=$LOG_ANALYTICS_WORKSPACE_CLIENT_ID"
+  - Linux/Unix shell:
 
-LOG_ANALYTICS_WORKSPACE_CLIENT_SECRET=$(
-  az monitor log-analytics workspace get-shared-keys \
-    --resource-group "$RESOURCE_GROUP" \
-    --workspace-name "$LOG_ANALYTICS_WORKSPACE" \
-    --query primarySharedKey \
-    --output tsv | tr -d '[:space:]'
-)
-echo "LOG_ANALYTICS_WORKSPACE_CLIENT_SECRET=$LOG_ANALYTICS_WORKSPACE_CLIENT_SECRET"
-```
+    ```bash
+    LOG_ANALYTICS_WORKSPACE_CUSTOMER_ID=$(
+      az monitor log-analytics workspace show \
+        --resource-group rg-dapr-workshop-java \
+        --workspace-name log-dapr-workshop-java \
+        --query customerId  \
+        --output tsv | tr -d '[:space:]'
+    )
+    echo "LOG_ANALYTICS_WORKSPACE_CLIENT_ID=$LOG_ANALYTICS_WORKSPACE_CLIENT_ID"
+
+    LOG_ANALYTICS_WORKSPACE_CLIENT_SECRET=$(
+      az monitor log-analytics workspace get-shared-keys \
+        --resource-group rg-dapr-workshop-java \
+        --workspace-name log-dapr-workshop-java \
+        --query primarySharedKey \
+        --output tsv | tr -d '[:space:]'
+    )
+    echo "LOG_ANALYTICS_WORKSPACE_CLIENT_SECRET=$LOG_ANALYTICS_WORKSPACE_CLIENT_SECRET"
+    ```
+
+  - Powershell:
+     
+    ```powershell
+    $LOG_ANALYTICS_WORKSPACE_CUSTOMER_ID=$(
+      az monitor log-analytics workspace show `
+        --resource-group rg-dapr-workshop-java `
+        --workspace-name log-dapr-workshop-java `
+        --query customerId  `
+        --output tsv | tr -d '[:space:]'
+    )
+    Write-Output "LOG_ANALYTICS_WORKSPACE_CLIENT_ID=$LOG_ANALYTICS_WORKSPACE_CLIENT_ID"
+
+    $LOG_ANALYTICS_WORKSPACE_CLIENT_SECRET=$(
+      az monitor log-analytics workspace get-shared-keys `
+        --resource-group rg-dapr-workshop-java `
+        --workspace-name log-dapr-workshop-java `
+        --query primarySharedKey `
+        --output tsv | tr -d '[:space:]'
+    )
+    Write-Output "LOG_ANALYTICS_WORKSPACE_CLIENT_SECRET=$LOG_ANALYTICS_WORKSPACE_CLIENT_SECRET"
+    ```
 
 ### Azure Container Registry
 
-In the next chapter we will be creating Docker containers and pushing them to the Azure Container Registry. [Azure Container Registry](https://learn.microsoft.com/en-us/azure/container-registry/) is a private registry for hosting container images.
-Using the Azure Container Registry, you can store Docker-formatted images for all types of container deployments.
+Later, you will be creating Docker containers and pushing them to the Azure Container Registry.
 
-First, let's create an Azure Container Registry with the following command (notice that we create the registry with admin rights `--admin-enabled true` which is not suited for real production, but well for our workshop):
+1. [Azure Container Registry](https://learn.microsoft.com/en-us/azure/container-registry/) is a private registry for hosting container images. Using the Azure Container Registry, you can store Docker images for all types of container deployments. This registry needs to be gloablly unique. Use the following command to generate a unique name:
 
-```bash
-az acr create \
-  --resource-group "$RESOURCE_GROUP" \
-  --location "$LOCATION" \
-  --tags system="$TAG" \
-  --name "$REGISTRY" \
-  --workspace "$LOG_ANALYTICS_WORKSPACE" \
-  --sku Standard \
-  --admin-enabled true
-```
+    - Linux/Unix shell:
+       
+        ```bash
+        UNIQUE_IDENTIFIER=$(LC_ALL=C tr -dc a-z0-9 </dev/urandom | head -c 5)
+        CONTAINER_REGISTRY="crdapr-workshop-java-$UNIQUE_IDENTIFIER"
+        echo $CONTAINER_REGISTRY
+        ```
 
-Update the registry to allow anonymous users to pull the images (this can be handy if you want other attendees of the workshop to use your registry, but this is not suite for production):
+    - Powershell:
+    
+        ```powershell
+        $ACCEPTED_CHAR = [Char[]]'abcdefghijklmnopqrstuvwxyz0123456789'
+        $UNIQUE_IDENTIFIER = (Get-Random -Count 5 -InputObject $ACCEPTED_CHAR) -join ''
+        $CONTAINER_REGISTRY = "sb-dapr-workshop-java-$UNIQUE_IDENTIFIER"
+        $CONTAINER_REGISTRY
+        ```
 
-```bash
-az acr update \
-  --resource-group "$RESOURCE_GROUP" \
-  --name "$REGISTRY" \
-  --anonymous-pull-enabled true
-```
+1. Create an Azure Container Registry with the following command:
 
-Get the URL of the Azure Container Registry and set it to the `REGISTRY_URL` variable with the following command:
+    ```bash
+    az acr create \
+      --resource-group rg-dapr-workshop-java \
+      --location eastus \
+      --name "$$CONTAINER_REGISTRY" \
+      --workspace log-dapr-workshop-java \
+      --sku Standard \
+      --admin-enabled true
+    ```
 
-```bash
-REGISTRY_URL=$(
-  az acr show \
-    --resource-group "$RESOURCE_GROUP" \
-    --name "$REGISTRY" \
-    --query "loginServer" \
-    --output tsv
-)
+    Notice that we create the registry with admin rights `--admin-enabled true` which is not suited for real production, but well for our workshop
 
-echo "REGISTRY_URL=$REGISTRY_URL"
-```
+1. Update the registry to allow anonymous users to pull the images ():
+
+    ```bash
+    az acr update \
+      --resource-group rg-dapr-workshop-java \
+      --name "$$CONTAINER_REGISTRY" \
+      --anonymous-pull-enabled true
+    ```
+
+  This can be handy if you want other attendees of the workshop to use your registry, but this is not suite for production
+
+1. Get the URL of the Azure Container Registry and set it to the `CONTAINER_REGISTRY_URL` variable with the following command:
+
+  ```bash
+  CONTAINER_REGISTRY_URL=$(
+    az acr show \
+      --resource-group rg-dapr-workshop-java \
+      --name "$$CONTAINER_REGISTRY" \
+      --query "loginServer" \
+      --output tsv
+  )
+
+  echo "CONTAINER_REGISTRY_URL=$CONTAINER_REGISTRY_URL"
+  ```
 
 ### Container Apps environment
 
@@ -166,10 +162,10 @@ Create the container apps environment with the following command:
 
 ```bash
 az containerapp env create \
-  --resource-group "$RESOURCE_GROUP" \
-  --location "$LOCATION" \
+  --resource-group rg-dapr-workshop-java \
+  --location eastus \
   --tags system="$TAG" \
-  --name "$CONTAINERAPPS_ENVIRONMENT" \
+  --name cae-dapr-workshop-java \
   --logs-workspace-id "$LOG_ANALYTICS_WORKSPACE_CUSTOMER_ID" \
   --logs-workspace-key "$LOG_ANALYTICS_WORKSPACE_CLIENT_SECRET"
 ```
@@ -212,7 +208,7 @@ The Dapr component structure for Azure Container Apps is different from the stan
 
     ```bash
     az containerapp env dapr-component set \
-      --name "$CONTAINERAPPS_ENVIRONMENT" --resource-group $RESOURCE_GROUP \
+      --name cae-dapr-workshop-java --resource-group rg-dapr-workshop-java \
       --dapr-component-name pubsub \
       --yaml ./dapr/components/aca-azure-servicebus-pubsub.yaml
     ```
@@ -237,8 +233,8 @@ The Dapr component structure for Azure Container Apps is different from the stan
       - name: enableTLS
         value: "true"
     scopes:
-      - trafficcontrolservice
-      - finecollectionservice
+      - traffic-control-service
+      - fine-collection-service
     ```
 
 2. **Copy or Move** this file `dapr/aca-redis-pubsub.yaml` to `dapr/components` folder.
@@ -251,7 +247,7 @@ The Dapr component structure for Azure Container Apps is different from the stan
 
     ```bash
     az containerapp env dapr-component set \
-      --name "$CONTAINERAPPS_ENVIRONMENT" --resource-group $RESOURCE_GROUP \
+      --name cae-dapr-workshop-java --resource-group rg-dapr-workshop-java \
       --dapr-component-name pubsub \
       --yaml ./dapr/components/aca-redis-pubsub.yaml
     ```
@@ -263,31 +259,31 @@ Since we don't have any container images ready yet, we'll build and push contain
 1. Login to your ACR repository
 
     ```bash
-    az acr login --name $REGISTRY
+    az acr login --name $CONTAINER_REGISTRY
     ```
 
 2. In the root folder of VehicleRegistrationService microservice, run the following command
 
     ```bash
     mvn spring-boot:build-image
-    docker tag vehicle-registration-service:1.0-SNAPSHOT "$REGISTRY.azurecr.io/vehicle-registration-service:latest"
-    docker push $REGISTRY.azurecr.io/vehicle-registration-service:latest
+    docker tag vehicle-registration-service:1.0-SNAPSHOT "$CONTAINER_REGISTRY.azurecr.io/vehicle-registration-service:latest"
+    docker push $CONTAINER_REGISTRY.azurecr.io/vehicle-registration-service:latest
     ```
 
 3. In the root folder of FineCollectionService microservice, run the following command
 
     ```bash
     mvn spring-boot:build-image
-    docker tag fine-collection-service:1.0-SNAPSHOT "$REGISTRY.azurecr.io/fine-collection-service:latest"
-    docker push $REGISTRY.azurecr.io/fine-collection-service:latest
+    docker tag fine-collection-service:1.0-SNAPSHOT "$CONTAINER_REGISTRY.azurecr.io/fine-collection-service:latest"
+    docker push $CONTAINER_REGISTRY.azurecr.io/fine-collection-service:latest
     ```
 
 4. In the root folder of TrafficControlService microservice, run the following command
 
     ```bash
     mvn spring-boot:build-image
-    docker tag traffic-control-service:1.0-SNAPSHOT "$REGISTRY.azurecr.io/traffic-control-service:latest"
-    docker push $REGISTRY.azurecr.io/traffic-control-service:latest
+    docker tag traffic-control-service:1.0-SNAPSHOT "$CONTAINER_REGISTRY.azurecr.io/traffic-control-service:latest"
+    docker push $CONTAINER_REGISTRY.azurecr.io/traffic-control-service:latest
     ```
 
 ## Step 3 - Deploy the Container Apps
@@ -300,43 +296,56 @@ You will create three container apps, one for each of our Java services: Traffic
   
     ```bash
     az containerapp create \
-      --name $VEHICLE_REGISTRATION_SERVICE \
-      --resource-group $RESOURCE_GROUP \
-      --environment $CONTAINERAPPS_ENVIRONMENT \
-      --image "$REGISTRY_URL"/vehicle-registration-service:latest \
+      --name ca-vehicle-registration-service \
+      --resource-group rg-dapr-workshop-java \
+      --environment cae-dapr-workshop-java \
+      --image "$CONTAINER_REGISTRY_URL"/vehicle-registration-service:latest \
       --target-port 6002 \
       --ingress internal \
       --min-replicas 1 \
       --max-replicas 1
     ```
 
-    Note that internal ingress is enable. This is because we want to provide access to the service only from within the container apps environment. FineCollectionService will be able to access the VehicleRegistrationService using the internal ingress FQDN.
+    Notice that internal ingress is enable. This is because we want to provide access to the service only from within the container apps environment. FineCollectionService will be able to access the VehicleRegistrationService using the internal ingress FQDN.
 
 1. Get the FQDN of VehicleRegistrationService and save it in a variable:
   
-    ```bash
-    VEHICLE_REGISTRATION_SERVICE_FQDN=$(az containerapp show \
-      --name $VEHICLE_REGISTRATION_SERVICE \
-      --resource-group $RESOURCE_GROUP \
-      --query "properties.configuration.ingress.fqdn" \
-      -o tsv)
-    echo $VEHICLE_REGISTRATION_SERVICE_FQDN
-    ```
+    - Linux/Unix shell:
+
+      ```bash
+      VEHICLE_REGISTRATION_SERVICE_FQDN=$(az containerapp show \
+        --name ca-vehicle-registration-service \
+        --resource-group rg-dapr-workshop-java \
+        --query "properties.configuration.ingress.fqdn" \
+        -o tsv)
+      echo $VEHICLE_REGISTRATION_SERVICE_FQDN
+      ```
+
+    - Powershell:
+
+      ```powershell
+      $VEHICLE_REGISTRATION_SERVICE_FQDN = az containerapp show `
+        --name ca-vehicle-registration-service `
+        --resource-group rg-dapr-workshop-java `
+        --query "properties.configuration.ingress.fqdn" `
+        -o tsv
+      $VEHICLE_REGISTRATION_SERVICE_FQDN
+      ```
     
-    Note that the FQDN is in the format `<service-name>.internal.<unique-name>.<region>.azurecontainerapps.io` where internal indicates that the service is only accessible from within the container apps environment, i.e. exposed with internal ingress.
+    Notice that the FQDN is in the format `<service-name>.internal.<unique-name>.<region>.azurecontainerapps.io` where internal indicates that the service is only accessible from within the container apps environment, i.e. exposed with internal ingress.
 
 1. Create a Container App for FineCollectionService with the following command:
   
     ```bash
     az containerapp create \
-      --name $FINE_COLLECTION_SERVICE \
-      --resource-group $RESOURCE_GROUP \
-      --environment $CONTAINERAPPS_ENVIRONMENT \
-      --image "$REGISTRY_URL"/fine-collection-service:latest \
+      --name ca-fine-collection-service \
+      --resource-group rg-dapr-workshop-java \
+      --environment cae-dapr-workshop-java \
+      --image "$CONTAINER_REGISTRY_URL"/fine-collection-service:latest \
       --min-replicas 1 \
       --max-replicas 1 \
       --enable-dapr \
-      --dapr-app-id finecollectionservice \
+      --dapr-app-id fine-collection-service \
       --dapr-app-port 6001 \
       --dapr-app-protocol http \
       --env-vars "VEHICLE_REGISTRATION_SERVICE_BASE_URL=https://$VEHICLE_REGISTRATION_SERVICE_FQDN"
@@ -346,40 +355,61 @@ You will create three container apps, one for each of our Java services: Traffic
   
     ```bash
     az containerapp create \
-      --name $TRAFFIC_CONTROL_SERVICE \
-      --resource-group $RESOURCE_GROUP \
-      --environment $CONTAINERAPPS_ENVIRONMENT \
-      --image "$REGISTRY_URL"/traffic-control-service:latest \
+      --name ca-traffic-control-service \
+      --resource-group rg-dapr-workshop-java \
+      --environment cae-dapr-workshop-java \
+      --image "$CONTAINER_REGISTRY_URL"/traffic-control-service:latest \
       --target-port 6000 \
       --ingress external \
       --min-replicas 1 \
       --max-replicas 1 \
       --enable-dapr \
-      --dapr-app-id trafficcontrolservice \
+      --dapr-app-id traffic-control-service \
       --dapr-app-port 6000 \
       --dapr-app-protocol http
     ```
 
-1. Get the FQDN of TrafficControlService and save it in a variable:
-   
-    ```bash
-    TRAFFIC_CONTROL_SERVICE_FQDN=$(az containerapp show \
-      --name $TRAFFIC_CONTROL_SERVICE \
-      --resource-group $RESOURCE_GROUP \
-      --query "properties.configuration.ingress.fqdn" \
-      -o tsv)
-    echo $TRAFFIC_CONTROL_SERVICE_FQDN
-    ```
+1. Get the FQDN of traffic control service and save it in a variable:
 
-    Note that the FQDN is in the format `<service-name>.<unique-name>.<region>.azurecontainerapps.io` where internal is not present. Indeed, traffic control service is exposed with external ingress, i.e. it is accessible from outside the container apps environment. It will be used by the simulation to test the application.
+    - Linux/Unix shell:
+   
+      ```bash
+      TRAFFIC_CONTROL_SERVICE_FQDN=$(az containerapp show \
+        --name ca-traffic-control-service \
+        --resource-group rg-dapr-workshop-java \
+        --query "properties.configuration.ingress.fqdn" \
+        -o tsv)
+      echo $TRAFFIC_CONTROL_SERVICE_FQDN
+      ```
+    
+    - Powershell:
+
+      ```powershell
+      $TRAFFIC_CONTROL_SERVICE_FQDN = $(az containerapp show `
+        --name ca-traffic-control-service `
+        --resource-group rg-dapr-workshop-java `
+        --query "properties.configuration.ingress.fqdn" `
+        -o tsv)
+      $TRAFFIC_CONTROL_SERVICE_FQDN
+      ```
+
+    Notice that the FQDN is in the format `<service-name>.<unique-name>.<region>.azurecontainerapps.io` where internal is not present. Indeed, traffic control service is exposed with external ingress, i.e. it is accessible from outside the container apps environment. It will be used by the simulation to test the application.
 
 ## Step 4 - Run the simulation
 
 1. Set the following environment variable:
 
-    ```bash
-    export TRAFFIC_CONTROL_SERVICE_BASE_URL=https://$TRAFFIC_CONTROL_SERVICE_FQDN
-    ```
+    - Linux/Unix shell:
+
+      ```bash
+      export TRAFFIC_CONTROL_SERVICE_BASE_URL=https://$TRAFFIC_CONTROL_SERVICE_FQDN
+      ```
+
+    - Powershell:
+  
+      ```powershell
+      $env:TRAFFIC_CONTROL_SERVICE_BASE_URL = "https://$TRAFFIC_CONTROL_SERVICE_FQDN"
+      ```
 
 1. In the root folder of the simulation (`Simulation`), start the simulation using `mvn spring-boot:run`.
 
@@ -393,7 +423,7 @@ You can access the log of the container apps from the [Azure Portal](https://por
 1. Run the following command to identify the running revision of traffic control service container apps:
 
     ```bash
-    TRAFFIC_CONTROL_SERVICE_REVISION=$(az containerapp revision list -n $TRAFFIC_CONTROL_SERVICE -g $RESOURCE_GROUP --query "[0].name" -o tsv)
+    TRAFFIC_CONTROL_SERVICE_REVISION=$(az containerapp revision list -n ca-traffic-control-service -g rg-dapr-workshop-java --query "[0].name" -o tsv)
     echo $TRAFFIC_CONTROL_SERVICE_REVISION
     ```
 
@@ -411,7 +441,7 @@ You can access the log of the container apps from the [Azure Portal](https://por
 1. Run the following command to identify the running revision of fine collection service container apps:
 
     ```bash
-    FINE_COLLECTION_SERVICE_REVISION=$(az containerapp revision list -n $FINE_COLLECTION_SERVICE -g $RESOURCE_GROUP --query "[0].name" -o tsv)
+    FINE_COLLECTION_SERVICE_REVISION=$(az containerapp revision list -n ca-fine-collection-service -g rg-dapr-workshop-java --query "[0].name" -o tsv)
     echo $FINE_COLLECTION_SERVICE_REVISION
     ```
 
@@ -429,7 +459,7 @@ You can access the log of the container apps from the [Azure Portal](https://por
 1. Run the following command to identify the running revision of vehicle registration service container apps:
 
     ```bash
-    VEHICLE_REGISTRATION_SERVICE_REVISION=$(az containerapp revision list -n $VEHICLE_REGISTRATION_SERVICE -g $RESOURCE_GROUP --query "[0].name" -o tsv)
+    VEHICLE_REGISTRATION_SERVICE_REVISION=$(az containerapp revision list -n ca-vehicle-registration-service -g rg-dapr-workshop-java --query "[0].name" -o tsv)
     echo $VEHICLE_REGISTRATION_SERVICE_REVISION
     ```
 

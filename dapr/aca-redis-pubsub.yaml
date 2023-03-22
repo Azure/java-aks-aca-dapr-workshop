@@ -9,5 +9,5 @@ metadata:
   - name: enableTLS
     value: "true"
 scopes:
-  - trafficcontrolservice
-  - finecollectionservice
+  - traffic-control-service
+  - fine-collection-service

@@ -23,31 +23,52 @@ In the example, you will use Azure Service Bus as the message broker with the Da
 1. Create a resource group
 
     ```bash
-    az group create --name dapr-workshop-java --location eastus
+    az group create --name rg-dapr-workshop-java --location eastus
     ```
+
+    A [resource group](https://learn.microsoft.com/azure/azure-resource-manager/management/manage-resource-groups-portal) is a container that holds related resources for an Azure solution. The resource group can include all the resources for the solution, or only those resources that you want to manage as a group. In our workshop, all the databases, all the microservices, etc. will be grouped into a single resource group.
+
+1. [Azure Service Bus](https://learn.microsoft.com/en-us/azure/service-bus-messaging/) Namespace is a logical container for topics, queues, and subscriptions. This namespace needs to be globally unique. Use the following command to generate a unique name:
+
+    - Linux/Unix shell:
+       
+        ```bash
+        UNIQUE_IDENTIFIER=$(LC_ALL=C tr -dc a-z0-9 </dev/urandom | head -c 5)
+        SERVICE_BUS="sb-dapr-workshop-java-$UNIQUE_IDENTIFIER"
+        echo $SERVICE_BUS
+        ```
+
+    - Powershell:
+    
+        ```powershell
+        $ACCEPTED_CHAR = [Char[]]'abcdefghijklmnopqrstuvwxyz0123456789'
+        $UNIQUE_IDENTIFIER = (Get-Random -Count 5 -InputObject $ACCEPTED_CHAR) -join ''
+        $SERVICE_BUS = "sb-dapr-workshop-java-$UNIQUE_IDENTIFIER"
+        $SERVICE_BUS
+        ```
 
 1. Create a Service Bus messaging namespace
 
     ```bash
-    az servicebus namespace create --resource-group dapr-workshop-java --name DaprWorkshopJavaNS --location eastus
+    az servicebus namespace create --resource-group rg-dapr-workshop-java --name $SERVICE_BUS --location eastus
     ```
 
 1. Create a Service Bus topic
 
     ```bash
-    az servicebus topic create --resource-group dapr-workshop-java --namespace-name DaprWorkshopJavaNS --name test
+    az servicebus topic create --resource-group rg-dapr-workshop-java --namespace-name $SERVICE_BUS --name test
     ```
 
 1. Create authorization rules for the Service Bus topic
 
     ```bash
-    az servicebus topic authorization-rule create --resource-group dapr-workshop-java --namespace-name DaprWorkshopJavaNS --topic-name test --name DaprWorkshopJavaAuthRule --rights Manage Send Listen
+    az servicebus topic authorization-rule create --resource-group rg-dapr-workshop-java --namespace-name $SERVICE_BUS --topic-name test --name DaprWorkshopJavaAuthRule --rights Manage Send Listen
     ```
 
 1. Get the connection string for the Service Bus topic and copy it to the clipboard
 
     ```bash
-    az servicebus topic authorization-rule keys list --resource-group dapr-workshop-java --namespace-name DaprWorkshopJavaNS --topic-name test --name DaprWorkshopJavaAuthRule  --query primaryConnectionString --output tsv
+    az servicebus topic authorization-rule keys list --resource-group rg-dapr-workshop-java --namespace-name $SERVICE_BUS --topic-name test --name DaprWorkshopJavaAuthRule  --query primaryConnectionString --output tsv
     ```
 
 ## Step 2: Configure the pub/sub component

@@ -27,3 +27,9 @@ git clone https://github.com/Azure/dapr-java-workshop.git
 ```
 
 **From now on, this folder is referred to as the 'source code' folder.**
+
+{: .important-title }
+> Powershell
+>
+> If you are using Powershell, you need to replace in multiline commands `\` by **`** at then end of each line.
+> 

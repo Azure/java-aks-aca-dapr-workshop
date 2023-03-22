@@ -15,10 +15,29 @@ This bonus assignment is about using Azure Cosmos DB as a [state store](https://
 
 1. Open a terminal window.
 
+1. Azure Cosmos DB account for SQL API is a globally distributed multi-model database service. This account needs to be globally unique. Use the following command to generate a unique name:
+
+    - Linux/Unix shell:
+       
+        ```bash
+        UNIQUE_IDENTIFIER=$(LC_ALL=C tr -dc a-z0-9 </dev/urandom | head -c 5)
+        COSMOS_DB="cosno-dapr-workshop-java-$UNIQUE_IDENTIFIER"
+        echo $COSMOS_DB
+        ```
+
+    - Powershell:
+    
+        ```powershell
+        $ACCEPTED_CHAR = [Char[]]'abcdefghijklmnopqrstuvwxyz0123456789'
+        $UNIQUE_IDENTIFIER = (Get-Random -Count 5 -InputObject $ACCEPTED_CHAR) -join ''
+        $COSMOS_DB = "cosno-dapr-workshop-java-$UNIQUE_IDENTIFIER"
+        $COSMOS_DB
+        ```
+
 1. Create a Cosmos DB account for SQL API
 
     ```bash
-    az cosmosdb create --name dapr-java-workshop-cosmosdb-account --resource-group dapr-workshop-java --locations regionName=eastus failoverPriority=0 isZoneRedundant=False
+    az cosmosdb create --name $COSMOS_DB --resource-group rg-dapr-workshop-java --locations regionName=eastus failoverPriority=0 isZoneRedundant=False
     ```
 
     {: .important }
@@ -27,13 +46,13 @@ This bonus assignment is about using Azure Cosmos DB as a [state store](https://
 1. Create a SQL API database
 
     ```bash
-    az cosmosdb sql database create --account-name dapr-java-workshop-cosmosdb-account --resource-group dapr-workshop-java --name dapr-workshop-java-database
+    az cosmosdb sql database create --account-name $COSMOS_DB --resource-group rg-dapr-workshop-java --name dapr-workshop-java-database
     ```
 
 1. Create a SQL API container
 
     ```bash
-    az cosmosdb sql container create --account-name dapr-java-workshop-cosmosdb-account --resource-group dapr-workshop-java --database-name dapr-workshop-java-database --name vehicle-state --partition-key-path /partitionKey --throughput 400
+    az cosmosdb sql container create --account-name $COSMOS_DB --resource-group rg-dapr-workshop-java --database-name dapr-workshop-java-database --name vehicle-state --partition-key-path /partitionKey --throughput 400
     ```
 
     {: .important }
@@ -42,13 +61,13 @@ This bonus assignment is about using Azure Cosmos DB as a [state store](https://
 1. Get the Cosmos DB account URL and note it down. You will need it in the next step and to deploy it to Azure.
    
     ```bash
-    az cosmosdb show --name dapr-java-workshop-cosmosdb-account --resource-group dapr-workshop-java --query documentEndpoint -o tsv
+    az cosmosdb show --name $COSMOS_DB --resource-group rg-dapr-workshop-java --query documentEndpoint -o tsv
     ```
 
 1. Get the master key and note it down. You will need it in the next step and to deploy it to Azure.
 
     ```bash
-    az cosmosdb keys list --name dapr-java-workshop-cosmosdb-account --resource-group dapr-workshop-java --type keys --query primaryMasterKey -o tsv
+    az cosmosdb keys list --name $COSMOS_DB --resource-group rg-dapr-workshop-java --type keys --query primaryMasterKey -o tsv
     ```
 
 ## Step 2: Configure the Azure Cosmos DB state store component

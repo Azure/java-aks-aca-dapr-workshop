@@ -24,7 +24,7 @@ Previously, you have created an Azure Key Vault and added the Dapr component. No
    
 1. Create a secret in the Azure Key Vault for the license key:
     ```bash
-    az keyvault secret set --vault-name kv-dapr-java-workshop --name license-key --value HX783-5PN1G-CRJ4A-K2L7V
+    az keyvault secret set --vault-name $KEY_VAULT --name license-key --value HX783-5PN1G-CRJ4A-K2L7V
     ```
 
 ## Step 2: Use the secret in the application `FineCollectionService`

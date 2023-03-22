@@ -5,5 +5,5 @@ metadata:
   - name: connectionString
     value: "Endpoint=sb://{ServiceBusNamespace}.servicebus.windows.net/;SharedAccessKeyName={PolicyName};SharedAccessKey={Key};EntityPath={ServiceBus}"
 scopes:
-  - trafficcontrolservice
-  - finecollectionservice
+  - traffic-control-service
+  - fine-collection-service
