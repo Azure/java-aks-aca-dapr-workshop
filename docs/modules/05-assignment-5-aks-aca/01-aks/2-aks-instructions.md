@@ -88,7 +88,7 @@ kubectl apply -f kafka-pubsub.yaml
 az acr login --name daprworkshopjava
 ```
 
-2. In the root folder/directory of each of the TravelRegistrationService microservice, run the following command
+1. In the root folder of TravelRegistrationService microservice, run the following command
 
 ```bash
 mvn spring-boot:build-image
@@ -96,14 +96,14 @@ docker tag vehicle-registration-service:1.0-SNAPSHOT daprworkshopjava.azurecr.io
 docker push daprworkshopjava.azurecr.io/vehicle-registration-service:latest
 ```
 
-3. In the root folder/directory of each of the FineCollectionService microservice, run the following command
+1. In the root folder of FineCollectionService microservice, run the following command
 
 ```bash
 mvn spring-boot:build-image
 docker tag fine-collection-service:1.0-SNAPSHOT daprworkshopjava.azurecr.io/fine-collection-service:latest
 docker push daprworkshopjava.azurecr.io/fine-collection-service:latest
 ```
-4. In the root folder/directory of each of the TrafficControlService microservice, run the following command
+1. In the root folder of TrafficControlService microservice, run the following command
 
 ```bash
 mvn spring-boot:build-image
@@ -111,7 +111,7 @@ docker tag traffic-control-service:1.0-SNAPSHOT daprworkshopjava.azurecr.io/traf
 docker push daprworkshopjava.azurecr.io/traffic-control-service:latest
 ```
 
-5. In the root folder/directory of each of the SimulationService microservice, run the following command
+1. In the root folder of the simulation (`Simulation`), run the following command
 
 ```bash
 mvn spring-boot:build-image
@@ -121,7 +121,7 @@ docker push daprworkshopjava.azurecr.io/simulation:latest
 
 ## Step 3 - Deploy Kubernetes manifest files for applications to AKS
 
-1. From the root folder/directory of the repo, run the following command.
+1. From the root folder of the repo, run the following command.
 
 Please note below the `kubectl apply` is with **-k** option, which is applying `kustomize.yaml` file in the `deploy` folder
 

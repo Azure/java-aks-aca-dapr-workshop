@@ -53,7 +53,7 @@ This bonus assignment is about using Azure Cosmos DB as a [state store](https://
 
 ## Step 2: Configure the Azure Cosmos DB state store component
 
-1. Open the file `dapr/azure-cosmosdb-statestore.yaml` in your IDE.
+1. Open the file `dapr/azure-cosmosdb-statestore.yaml` in your code editor.
 
 1. **Copy or Move** this file `dapr/azure-cosmosdb-statestore.yaml` to `dapr/components` folder.
    
@@ -66,7 +66,7 @@ This bonus assignment is about using Azure Cosmos DB as a [state store](https://
 
 ## Step 3: Add the Azure Cosmos DB state store to the `TrafficControlService`
 
-1. Open the `TrafficControlService` project in your IDE and navigate to the `DaprVehicleStateRepository` class. This class use the Dapr client to store and retrieve the state of a vehicle. Inspect the implementation of this class.
+1. Open the `TrafficControlService` project in your code editor and navigate to the `DaprVehicleStateRepository` class. This class use the Dapr client to store and retrieve the state of a vehicle. Inspect the implementation of this class.
 
 1. Navigate to the `TrafficControlConfiguration` class to swith from the `InMemoryVehicleStateRepository` to the `DaprVehicleStateRepository`.
 

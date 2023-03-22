@@ -75,7 +75,7 @@ layout: default
     az acr repository delete -n daprworkshopjava --image traffic-control-service:latest
     ```
 
-1. In the root folder/directory of the TrafficControlService microservice, run the following command
+1. In the root folder of TrafficControlService microservice, run the following command
 
     ```bash
     mvn spring-boot:build-image
@@ -83,7 +83,7 @@ layout: default
     docker push daprworkshopjava.azurecr.io/traffic-control-service:latest
     ```
 
-1. From the root folder/directory of the repo, run the following command
+1. From the root folder of the repo, run the following command
 
     ```bash
     kubectl apply -k deploy

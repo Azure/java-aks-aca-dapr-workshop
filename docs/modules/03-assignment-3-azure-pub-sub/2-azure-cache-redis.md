@@ -67,7 +67,7 @@ In the example, you will use Azure Cache for Redis as the message broker with th
 
 ## Step 2: Configure the pub/sub component
 
-1. Open the file `dapr/azure-redis-pubsub.yaml` in your IDE.
+1. Open the file `dapr/azure-redis-pubsub.yaml` in your code editor.
 
     ```yaml
     apiVersion: dapr.io/v1alpha1

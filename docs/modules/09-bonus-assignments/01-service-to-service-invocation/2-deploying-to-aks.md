@@ -19,7 +19,7 @@ layout: default
 
 ## Step 1: Deploy service-to-service communication to AKS
 
-1. Open `deploy/vehicleregistrationservice.yaml` in your IDE and **uncomment** the following lines:
+1. Open `deploy/vehicleregistrationservice.yaml` in your code editor and **uncomment** the following lines:
 
     ```yaml
         # annotations:
@@ -37,7 +37,7 @@ layout: default
     az acr repository delete -n daprworkshopjava --image fine-collection-service:latest
     ```
 
-1. In the root folder/directory of the FineCollectionService microservice, run the following command
+1. In the root folder of FineCollectionService microservice, run the following command
 
     ```bash
     mvn spring-boot:build-image
@@ -45,7 +45,7 @@ layout: default
     docker push daprworkshopjava.azurecr.io/fine-collection-service:latest
     ```
 
-1. From the root folder/directory of the repo, run the following command
+1. From the root folder of the repo, run the following command
 
     ```bash
     kubectl apply -k deploy
