@@ -39,7 +39,7 @@ layout: default
        
         ```bash
         UNIQUE_IDENTIFIER=$(LC_ALL=C tr -dc a-z0-9 </dev/urandom | head -c 5)
-        CONTAINER_REGISTRY="crdapr-workshop-java-$UNIQUE_IDENTIFIER"
+        CONTAINER_REGISTRY="crdaprworkshopjava$UNIQUE_IDENTIFIER"
         echo $CONTAINER_REGISTRY
         ```
 
@@ -48,7 +48,7 @@ layout: default
         ```powershell
         $ACCEPTED_CHAR = [Char[]]'abcdefghijklmnopqrstuvwxyz0123456789'
         $UNIQUE_IDENTIFIER = (Get-Random -Count 5 -InputObject $ACCEPTED_CHAR) -join ''
-        $CONTAINER_REGISTRY = "sb-dapr-workshop-java-$UNIQUE_IDENTIFIER"
+        $CONTAINER_REGISTRY = "crdaprworkshopjava$UNIQUE_IDENTIFIER"
         $CONTAINER_REGISTRY
         ```
 

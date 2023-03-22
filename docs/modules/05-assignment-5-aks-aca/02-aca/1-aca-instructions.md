@@ -48,49 +48,49 @@ Now, let's create the infrastructure for our application, so we can later deploy
 
 1. Retrieve the Log Analytics Client ID and client secret and store them in environment variables:
 
-  - Linux/Unix shell:
+     - Linux/Unix shell:
 
-    ```bash
-    LOG_ANALYTICS_WORKSPACE_CUSTOMER_ID=$(
-      az monitor log-analytics workspace show \
-        --resource-group rg-dapr-workshop-java \
-        --workspace-name log-dapr-workshop-java \
-        --query customerId  \
-        --output tsv | tr -d '[:space:]'
-    )
-    echo "LOG_ANALYTICS_WORKSPACE_CLIENT_ID=$LOG_ANALYTICS_WORKSPACE_CLIENT_ID"
+       ```bash
+       LOG_ANALYTICS_WORKSPACE_CUSTOMER_ID=$(
+         az monitor log-analytics workspace show \
+           --resource-group rg-dapr-workshop-java \
+           --workspace-name log-dapr-workshop-java \
+           --query customerId  \
+           --output tsv | tr -d '[:space:]'
+       )
+       echo "LOG_ANALYTICS_WORKSPACE_CLIENT_ID=$LOG_ANALYTICS_WORKSPACE_CUSTOMER_ID"
 
-    LOG_ANALYTICS_WORKSPACE_CLIENT_SECRET=$(
-      az monitor log-analytics workspace get-shared-keys \
-        --resource-group rg-dapr-workshop-java \
-        --workspace-name log-dapr-workshop-java \
-        --query primarySharedKey \
-        --output tsv | tr -d '[:space:]'
-    )
-    echo "LOG_ANALYTICS_WORKSPACE_CLIENT_SECRET=$LOG_ANALYTICS_WORKSPACE_CLIENT_SECRET"
-    ```
+       LOG_ANALYTICS_WORKSPACE_CLIENT_SECRET=$(
+         az monitor log-analytics workspace get-shared-keys \
+           --resource-group rg-dapr-workshop-java \
+           --workspace-name log-dapr-workshop-java \
+           --query primarySharedKey \
+           --output tsv | tr -d '[:space:]'
+       )
+       echo "LOG_ANALYTICS_WORKSPACE_CLIENT_SECRET=$LOG_ANALYTICS_WORKSPACE_CLIENT_SECRET"
+       ```
 
-  - Powershell:
-     
-    ```powershell
-    $LOG_ANALYTICS_WORKSPACE_CUSTOMER_ID=$(
-      az monitor log-analytics workspace show `
-        --resource-group rg-dapr-workshop-java `
-        --workspace-name log-dapr-workshop-java `
-        --query customerId  `
-        --output tsv | tr -d '[:space:]'
-    )
-    Write-Output "LOG_ANALYTICS_WORKSPACE_CLIENT_ID=$LOG_ANALYTICS_WORKSPACE_CLIENT_ID"
+     - Powershell:
+        
+       ```powershell
+       $LOG_ANALYTICS_WORKSPACE_CUSTOMER_ID="$(
+         az monitor log-analytics workspace show `
+           --resource-group rg-dapr-workshop-java `
+           --workspace-name log-dapr-workshop-java `
+           --query customerId  `
+           --output tsv
+       )"
+       Write-Output "LOG_ANALYTICS_WORKSPACE_CLIENT_ID=$LOG_ANALYTICS_WORKSPACE_CUSTOMER_ID"
 
-    $LOG_ANALYTICS_WORKSPACE_CLIENT_SECRET=$(
-      az monitor log-analytics workspace get-shared-keys `
-        --resource-group rg-dapr-workshop-java `
-        --workspace-name log-dapr-workshop-java `
-        --query primarySharedKey `
-        --output tsv | tr -d '[:space:]'
-    )
-    Write-Output "LOG_ANALYTICS_WORKSPACE_CLIENT_SECRET=$LOG_ANALYTICS_WORKSPACE_CLIENT_SECRET"
-    ```
+       $LOG_ANALYTICS_WORKSPACE_CLIENT_SECRET="$(
+         az monitor log-analytics workspace get-shared-keys `
+           --resource-group rg-dapr-workshop-java `
+           --workspace-name log-dapr-workshop-java `
+           --query primarySharedKey `
+           --output tsv
+       )"
+       Write-Output "LOG_ANALYTICS_WORKSPACE_CLIENT_SECRET=$LOG_ANALYTICS_WORKSPACE_CLIENT_SECRET"
+       ```
 
 ### Azure Container Registry
 
@@ -102,7 +102,7 @@ Later, you will be creating Docker containers and pushing them to the Azure Cont
        
         ```bash
         UNIQUE_IDENTIFIER=$(LC_ALL=C tr -dc a-z0-9 </dev/urandom | head -c 5)
-        CONTAINER_REGISTRY="crdapr-workshop-java-$UNIQUE_IDENTIFIER"
+        CONTAINER_REGISTRY="crdaprworkshopjava$UNIQUE_IDENTIFIER"
         echo $CONTAINER_REGISTRY
         ```
 
@@ -111,7 +111,7 @@ Later, you will be creating Docker containers and pushing them to the Azure Cont
         ```powershell
         $ACCEPTED_CHAR = [Char[]]'abcdefghijklmnopqrstuvwxyz0123456789'
         $UNIQUE_IDENTIFIER = (Get-Random -Count 5 -InputObject $ACCEPTED_CHAR) -join ''
-        $CONTAINER_REGISTRY = "sb-dapr-workshop-java-$UNIQUE_IDENTIFIER"
+        $CONTAINER_REGISTRY = "crdaprworkshopjava$UNIQUE_IDENTIFIER"
         $CONTAINER_REGISTRY
         ```
 
@@ -121,7 +121,7 @@ Later, you will be creating Docker containers and pushing them to the Azure Cont
     az acr create \
       --resource-group rg-dapr-workshop-java \
       --location eastus \
-      --name "$$CONTAINER_REGISTRY" \
+      --name "$CONTAINER_REGISTRY" \
       --workspace log-dapr-workshop-java \
       --sku Standard \
       --admin-enabled true
@@ -134,7 +134,7 @@ Later, you will be creating Docker containers and pushing them to the Azure Cont
     ```bash
     az acr update \
       --resource-group rg-dapr-workshop-java \
-      --name "$$CONTAINER_REGISTRY" \
+      --name "$CONTAINER_REGISTRY" \
       --anonymous-pull-enabled true
     ```
 
@@ -142,17 +142,33 @@ Later, you will be creating Docker containers and pushing them to the Azure Cont
 
 1. Get the URL of the Azure Container Registry and set it to the `CONTAINER_REGISTRY_URL` variable with the following command:
 
-  ```bash
-  CONTAINER_REGISTRY_URL=$(
-    az acr show \
-      --resource-group rg-dapr-workshop-java \
-      --name "$$CONTAINER_REGISTRY" \
-      --query "loginServer" \
-      --output tsv
-  )
+    - Linux/Unix shell:
 
-  echo "CONTAINER_REGISTRY_URL=$CONTAINER_REGISTRY_URL"
-  ```
+      ```bash
+      CONTAINER_REGISTRY_URL=$(
+        az acr show \
+          --resource-group rg-dapr-workshop-java \
+          --name "$CONTAINER_REGISTRY" \
+          --query "loginServer" \
+          --output tsv
+      )
+
+      echo "CONTAINER_REGISTRY_URL=$CONTAINER_REGISTRY_URL"
+      ```
+
+    - Powershell:
+
+      ```powershell
+      $CONTAINER_REGISTRY_URL="$(
+        az acr show `
+          --resource-group rg-dapr-workshop-java `
+          --name "$CONTAINER_REGISTRY" `
+          --query "loginServer" `
+          --output tsv
+      )"
+
+      Write-Output "CONTAINER_REGISTRY_URL=$CONTAINER_REGISTRY_URL"
+      ```
 
 ### Container Apps environment
 
@@ -299,7 +315,7 @@ You will create three container apps, one for each of our Java services: Traffic
       --name ca-vehicle-registration-service \
       --resource-group rg-dapr-workshop-java \
       --environment cae-dapr-workshop-java \
-      --image "$CONTAINER_REGISTRY_URL"/vehicle-registration-service:latest \
+      --image "$CONTAINER_REGISTRY_URL/vehicle-registration-service:latest" \
       --target-port 6002 \
       --ingress internal \
       --min-replicas 1 \
@@ -341,7 +357,7 @@ You will create three container apps, one for each of our Java services: Traffic
       --name ca-fine-collection-service \
       --resource-group rg-dapr-workshop-java \
       --environment cae-dapr-workshop-java \
-      --image "$CONTAINER_REGISTRY_URL"/fine-collection-service:latest \
+      --image "$CONTAINER_REGISTRY_URL/fine-collection-service:latest" \
       --min-replicas 1 \
       --max-replicas 1 \
       --enable-dapr \
@@ -358,7 +374,7 @@ You will create three container apps, one for each of our Java services: Traffic
       --name ca-traffic-control-service \
       --resource-group rg-dapr-workshop-java \
       --environment cae-dapr-workshop-java \
-      --image "$CONTAINER_REGISTRY_URL"/traffic-control-service:latest \
+      --image "$CONTAINER_REGISTRY_URL/traffic-control-service:latest" \
       --target-port 6000 \
       --ingress external \
       --min-replicas 1 \
@@ -422,10 +438,19 @@ You can access the log of the container apps from the [Azure Portal](https://por
 
 1. Run the following command to identify the running revision of traffic control service container apps:
 
-    ```bash
-    TRAFFIC_CONTROL_SERVICE_REVISION=$(az containerapp revision list -n ca-traffic-control-service -g rg-dapr-workshop-java --query "[0].name" -o tsv)
-    echo $TRAFFIC_CONTROL_SERVICE_REVISION
-    ```
+    - Linux/Unix shell:
+
+      ```bash
+      TRAFFIC_CONTROL_SERVICE_REVISION=$(az containerapp revision list -n ca-traffic-control-service -g rg-dapr-workshop-java --query "[0].name" -o tsv)
+      echo $TRAFFIC_CONTROL_SERVICE_REVISION
+      ```
+
+    - Powershell:
+
+      ```powershell
+      $TRAFFIC_CONTROL_SERVICE_REVISION = az containerapp revision list -n ca-traffic-control-service -g rg-dapr-workshop-java --query "[0].name" -o tsv
+      $TRAFFIC_CONTROL_SERVICE_REVISION
+      ```
 
 2. Run the following command to get the last 10 lines of traffic control service logs from Log Analytics Workspace:
 
@@ -440,10 +465,19 @@ You can access the log of the container apps from the [Azure Portal](https://por
 
 1. Run the following command to identify the running revision of fine collection service container apps:
 
-    ```bash
-    FINE_COLLECTION_SERVICE_REVISION=$(az containerapp revision list -n ca-fine-collection-service -g rg-dapr-workshop-java --query "[0].name" -o tsv)
-    echo $FINE_COLLECTION_SERVICE_REVISION
-    ```
+    - Linux/Unix shell:
+
+      ```bash
+      FINE_COLLECTION_SERVICE_REVISION=$(az containerapp revision list -n ca-fine-collection-service -g rg-dapr-workshop-java --query "[0].name" -o tsv)
+      echo $FINE_COLLECTION_SERVICE_REVISION
+      ```
+
+    - Powershell:
+
+      ```powershell
+      $FINE_COLLECTION_SERVICE_REVISION = az containerapp revision list -n ca-fine-collection-service -g rg-dapr-workshop-java --query "[0].name" -o tsv
+      $FINE_COLLECTION_SERVICE_REVISION
+      ```
 
 2. Run the following command to get the last 10 lines of fine collection service logs from Log Analytics Workspace:
 
@@ -458,10 +492,19 @@ You can access the log of the container apps from the [Azure Portal](https://por
 
 1. Run the following command to identify the running revision of vehicle registration service container apps:
 
-    ```bash
-    VEHICLE_REGISTRATION_SERVICE_REVISION=$(az containerapp revision list -n ca-vehicle-registration-service -g rg-dapr-workshop-java --query "[0].name" -o tsv)
-    echo $VEHICLE_REGISTRATION_SERVICE_REVISION
-    ```
+    - Linux/Unix shell:
+
+      ```bash
+      VEHICLE_REGISTRATION_SERVICE_REVISION=$(az containerapp revision list -n ca-vehicle-registration-service -g rg-dapr-workshop-java --query "[0].name" -o tsv)
+      echo $VEHICLE_REGISTRATION_SERVICE_REVISION
+      ```
+
+    - Powershell:
+
+      ```powershell
+      $VEHICLE_REGISTRATION_SERVICE_REVISION = az containerapp revision list -n ca-vehicle-registration-service -g rg-dapr-workshop-java --query "[0].name" -o tsv
+      $VEHICLE_REGISTRATION_SERVICE_REVISION
+      ```
 
 2. Run the following command to get the last 10 lines of vehicle registration service logs from Log Analytics Workspace:
 
