@@ -9,7 +9,7 @@ layout: home
 
 ## Introduction
 
-This workshop teaches you how to apply [Dapr](https://dapr.io) to a Java microservices application using Pub/Sub with Kafka. It also demonstrates Dapr's builtin support for [distributed tracing](https://docs.dapr.io/concepts/observability-concept/) using any backend monitoring tools. Finally, the workshop provides hands on experience in using [Azure Kubernetes Service (AKS) GitOps cluster extension](https://docs.microsoft.com/en-us/azure/aks/cluster-extensions) to automated configuration management.
+This workshop teaches you how to apply [Dapr](https://dapr.io) to a Java microservices application and enable developers to move between multiple pub-sub, state stores and secret store components seamlessly. It also demonstrates Dapr's builtin support for [distributed tracing](https://docs.dapr.io/concepts/observability-concept/) using any backend monitoring tools. Finally, the workshop provides hands on experience in deploying the microservices in both [Azure Kubernetes Service (AKS)](https://docs.microsoft.com/en-us/azure/aks/) and [Azure Container Apps](https://learn.microsoft.com/en-us/azure/container-apps/overview)
 
 ### The domain
 
@@ -42,4 +42,4 @@ In order to simulate this in code, the following services are defined:
 
 After completing all the assignments, the architecture has been changed to work with Dapr and should look like this:
 
-![End State with Dapr Telemetry](assets/images/application-with-dapr-zipkin.png)
+![End State with Dapr Telemetry](assets/images/workshop-end-state.png)
