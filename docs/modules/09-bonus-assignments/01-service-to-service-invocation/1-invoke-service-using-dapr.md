@@ -13,11 +13,11 @@ layout: default
 
 With Dapr, services can invoke other services using their application id. This is done by using the Dapr client to make calls to the Dapr sidecar. The Vehicle Registration Service will be started with a Dapr sidecar.
 
-1. Open the `FineCollectionService` project in your IDE and navigate to the `DaprVehicleRegistrationClient` class. This class implements the `VehicleRegistrationClient` interface and uses the Dapr client to invoke the Vehicle Registration Service. Inspect the implementation of this class.
+1. Open the `FineCollectionService` project in your code editor and navigate to the `DaprVehicleRegistrationClient` class. This class implements the `VehicleRegistrationClient` interface and uses the Dapr client to invoke the Vehicle Registration Service. Inspect the implementation of this class.
 
-1. Navigate to the `FineCollectionConfiguration` class to switch between the default and Dapr implementation of the `VehicleRegistrationClient`.
+2. Navigate to the `FineCollectionConfiguration` class to switch between the default and Dapr implementation of the `VehicleRegistrationClient`.
 
-1. **Uncomment** following @Bean method
+3. **Uncomment** following @Bean method
 
     ```java
     //    @Bean
@@ -26,7 +26,7 @@ With Dapr, services can invoke other services using their application id. This i
     //    }
     ```
 
-1. **Uncomment** following @Bean method
+4. **Uncomment** following @Bean method
   
     ```java
     //    @Bean
@@ -35,7 +35,7 @@ With Dapr, services can invoke other services using their application id. This i
     //    }
     ```
 
-1. **Comment out** following @Bean method
+5. **Comment out** following @Bean method
 
     ```java
         @Bean
@@ -44,7 +44,7 @@ With Dapr, services can invoke other services using their application id. This i
         }
     ```
 
-1. Check all your code-changes are correct by building the code. Execute the following command in the terminal window:
+6. Check all your code-changes are correct by building the code. Execute the following command in the terminal window:
 
     ```bash
     mvn package

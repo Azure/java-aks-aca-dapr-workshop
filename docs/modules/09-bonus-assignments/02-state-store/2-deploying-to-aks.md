@@ -72,18 +72,22 @@ layout: default
 
     ```bash
     docker rmi traffic-control-service:1.0-SNAPSHOT
-    az acr repository delete -n daprworkshopjava --image traffic-control-service:latest
+    az acr repository delete -n $CONTAINER_REGISTRY --image traffic-control-service:latest
     ```
 
-1. In the root folder/directory of the TrafficControlService microservice, run the following command
+    Where `$CONTAINER_REGISTRY` is the name of the Azure Container Registry.
+
+1. In the root folder of TrafficControlService microservice, run the following command
 
     ```bash
     mvn spring-boot:build-image
-    docker tag traffic-control-service:1.0-SNAPSHOT daprworkshopjava.azurecr.io/traffic-control-service:latest
-    docker push daprworkshopjava.azurecr.io/traffic-control-service:latest
+    docker tag traffic-control-service:1.0-SNAPSHOT $CONTAINER_REGISTRY.azurecr.io/traffic-control-service:latest
+    docker push $CONTAINER_REGISTRY.azurecr.io/traffic-control-service:latest
     ```
 
-1. From the root folder/directory of the repo, run the following command
+    Where `$CONTAINER_REGISTRY` is the name of the Azure Container Registry.
+
+1. From the root folder of the repo, run the following command
 
     ```bash
     kubectl apply -k deploy

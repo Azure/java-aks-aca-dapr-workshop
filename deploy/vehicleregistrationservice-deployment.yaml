@@ -22,7 +22,7 @@ spec:
         # dapr.io/app-port: "6002"
     spec:
       containers:
-      - image: daprworkshopjava.azurecr.io/vehicle-registration-service:latest
+      - image: <REPLACE_WITH_CONTAINER_REGISTRY_NAME>.azurecr.io/vehicle-registration-service:latest
         name: vehicle-registration-service
         resources: {}
 status: {}

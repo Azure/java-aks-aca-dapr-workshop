@@ -1,4 +1,4 @@
-# pubsub.yaml for Azure Cache for Redis component
+# pubsub.yaml for Azure Cache for Redis
 componentType: pubsub.redis
 version: v1
 metadata:
@@ -8,3 +8,6 @@ metadata:
     value: "<replaceWithRedisKey>"
   - name: enableTLS
     value: "true"
+scopes:
+  - traffic-control-service
+  - fine-collection-service
