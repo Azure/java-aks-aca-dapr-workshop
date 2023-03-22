@@ -138,7 +138,7 @@ Later, you will be creating Docker containers and pushing them to the Azure Cont
       --anonymous-pull-enabled true
     ```
 
-  This can be handy if you want other attendees of the workshop to use your registry, but this is not suite for production
+    This can be handy if you want other attendees of the workshop to use your registry, but this is not suite for production
 
 1. Get the URL of the Azure Container Registry and set it to the `CONTAINER_REGISTRY_URL` variable with the following command:
 
@@ -170,9 +170,12 @@ Later, you will be creating Docker containers and pushing them to the Azure Cont
       Write-Output "CONTAINER_REGISTRY_URL=$CONTAINER_REGISTRY_URL"
       ```
 
-### Container Apps environment
+### Azure Container Apps environment
 
 A [container apps environment](https://learn.microsoft.com/en-us/azure/container-apps/environment) acts as a secure boundary around our container apps. Containers deployed on the same environment use the same virtual network and write the log to the same logging destionation, in our case: Log Analytics workspace.
+
+> If you want to enable Dapr telemetry, you need to create the container apps environment with Application Insights. You can follow these instructions instead of the instructions below: [(Optional) Observability with Dapr using Application Insights]({{ site.baseurl }}{% link modules/05-assignment-5-aks-aca/02-aca/2-observability.md %})
+>
 
 Create the container apps environment with the following command:
 
@@ -180,7 +183,6 @@ Create the container apps environment with the following command:
 az containerapp env create \
   --resource-group rg-dapr-workshop-java \
   --location eastus \
-  --tags system="$TAG" \
   --name cae-dapr-workshop-java \
   --logs-workspace-id "$LOG_ANALYTICS_WORKSPACE_CUSTOMER_ID" \
   --logs-workspace-key "$LOG_ANALYTICS_WORKSPACE_CLIENT_SECRET"
@@ -488,7 +490,7 @@ You can access the log of the container apps from the [Azure Portal](https://por
       --out table
     ```
 
-  ### Vehicle Registration Service
+### Vehicle Registration Service
 
 1. Run the following command to identify the running revision of vehicle registration service container apps:
 
