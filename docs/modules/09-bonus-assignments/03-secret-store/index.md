@@ -12,6 +12,12 @@ This bonus assignment is about using Azure Key Vault as a [secret store](https:/
 
 The [first part]({{ site.baseurl }}{% link modules/09-bonus-assignments/03-secret-store/1-azure-key-vault-secret-store-setup.md %}) is the setup of the Azure Key Vault. The [second part]({{ site.baseurl }}{% link modules/09-bonus-assignments/03-secret-store/2-azure-key-vault-secret-store-code.md %}) is the configuration of the `FineCollectionService` to use the Azure Key Vault as a secret store for the license key of the fine calculator. The [third part]({{ site.baseurl }}{% link modules/09-bonus-assignments/03-secret-store/3-azure-key-vault-secret-store-component.md %}) is to use the secret store in the `FineCollectionService` and the `TrafficControllerService` to get the connection string for Azure Service Bus.
 
-{: .note }
+{: .important-title }
+> Pre-requisite
+> 
 > The first part is a pre-requisite for the second and third part. The second and third part can be done in any order.
 >
+
+<span class="fs-3">
+[Let's start!]({{ site.baseurl }}{% link modules/09-bonus-assignments/03-secret-store/1-azure-key-vault-secret-store-setup.md %}){: .btn .mt-7 }
+</span>

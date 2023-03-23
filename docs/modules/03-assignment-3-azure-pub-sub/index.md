@@ -11,6 +11,13 @@ With Dapr you can easily without code changes switch between different [pub/sub 
 
 All the assignments of this module can be done independently from each other. You can choose to do one or all of them.
 
+<span class="fs-3">
+[Azure Service Bus]({{ site.baseurl }}{% link modules/03-assignment-3-azure-pub-sub/1-azure-service-bus.md %}){: .btn }
+</span>
+<span class="fs-3">
+[Azure Cache for Redis]({{ site.baseurl }}{% link modules/03-assignment-3-azure-pub-sub/2-azure-cache-redis.md %}){: .btn }
+</span>
+
 {: .new-title }
 > Challenge
 >

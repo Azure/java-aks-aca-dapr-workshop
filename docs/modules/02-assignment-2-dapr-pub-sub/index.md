@@ -3,9 +3,21 @@ title: Assignment 2 - Using Dapr for pub/sub with Kafka
 has_children: false
 nav_order: 4
 layout: default
+has_toc: true
 ---
 
 # Assignment 2 - Using Dapr for pub/sub with Kafka
+
+{: .no_toc }
+
+<details open markdown="block">
+  <summary>
+    Table of contents
+  </summary>
+  {: .text-delta }
+- TOC
+{:toc}
+</details>
 
 In this assignment, you're going to replace direct Spring Kafka producer and consumer implementation with Dapr **publish/subscribe** messaging to send messages from the TrafficControlService to the FineCollectionService. 
 
@@ -32,113 +44,112 @@ To complete this assignment, you must reach the following goals:
 
 1. Inspect this file. As you can see, it specifies the type of the message broker to use (`pubsub.kafka`) and specifies information on how to connect to the Kafka server you started in step 1 (running on localhost on port `9092`) in the `metadata` section.
 
-```yaml
-apiVersion: dapr.io/v1alpha1
-kind: Component
-metadata:
-  name: pubsub
-  namespace: default
-spec:
-  type: pubsub.kafka
-  version: v1
-  metadata:
-  - name: brokers # Required. Kafka broker connection setting
-    value: "localhost:9092"
-  - name: consumerGroup # Optional. Used for input bindings.
-    value: "test"
-  - name: clientID # Optional. Used as client tracing ID by Kafka brokers.
-    value: "my-dapr-app-id"
-  - name: authType # Required.
-  - name: authRequired
-    value: "false"
-  - name: maxMessageBytes # Optional.
-    value: 1024
-  - name: consumeRetryInterval # Optional.
-    value: 200ms
-  - name: version # Optional.
-    value: 0.10.2.0
-  - name: disableTls # Optional. Disable TLS. This is not safe for production!! You should read the `Mutual TLS` section for how to use TLS.
-    value: "true"
-  scopes:
-  - trafficcontrolservice
-  - finecollectionservice
-```
+    ```yaml
+    apiVersion: dapr.io/v1alpha1
+    kind: Component
+    metadata:
+      name: pubsub
+      namespace: default
+    spec:
+      type: pubsub.kafka
+      version: v1
+      metadata:
+      - name: brokers # Required. Kafka broker connection setting
+        value: "localhost:9092"
+      - name: consumerGroup # Optional. Used for input bindings.
+        value: "test"
+      - name: clientID # Optional. Used as client tracing ID by Kafka brokers.
+        value: "my-dapr-app-id"
+      - name: authType # Required.
+      - name: authRequired
+        value: "false"
+      - name: maxMessageBytes # Optional.
+        value: 1024
+      - name: consumeRetryInterval # Optional.
+        value: 200ms
+      - name: version # Optional.
+        value: 0.10.2.0
+      - name: disableTls # Optional. Disable TLS. This is not safe for production!! You should read the `Mutual TLS` section for how to use TLS.
+        value: "true"
+      scopes:
+      - trafficcontrolservice
+      - finecollectionservice
+    ```
 
-In the `scopes` section, you specify that only the TrafficControlService and FineCollectionService should use the pub/sub building block.
+    In the `scopes` section, you specify that only the TrafficControlService and FineCollectionService should use the pub/sub building block.
 
-1. **Copy or Move** this file `dapr/kafka-pubsub.yaml` to `dapr/components/` folder (when starting Dapr applications from command line, we specify a folder `dapr/components/` where Dapr component definitions are located).
-  * from the root folder, run the following command:
+1. **Copy or Move** this file `dapr/kafka-pubsub.yaml` to `dapr/components/` folder (when starting Dapr applications from command line, you specify a folder `dapr/components/` where Dapr component definitions are located). From the root folder, run the following command:
 
-```bash
-mkdir dapr/components
-cp dapr/kafka-pubsub.yaml dapr/components/
-```
+    ```bash
+    mkdir dapr/components
+    cp dapr/kafka-pubsub.yaml dapr/components/
+    ```
 
 ## Step 1: Publish messages in the TrafficControlService 
 
-1. Open the file, **TrafficControlService/src/main/java/dapr/traffic/fines/DaprFineCollectionClient.java** in your code editor, and inspect it
+1. Open the file, **TrafficControlService/src/main/java/dapr/traffic/fines/DaprFineCollectionClient.java** in your code editor, and inspect it.
 
 2. It implements the `FineCollectionClient` interface.
 
-```java
-public class DaprFineCollectionClient implements FineCollectionClient{
-	private final DaprClient daprClient;
+    ```java
+    public class DaprFineCollectionClient implements FineCollectionClient{
+      private final DaprClient daprClient;
 
-	public DaprFineCollectionClient(final DaprClient daprClient) {
-	   this.daprClient = daprClient;
-	}
-	
-	@Override
-	public void submitForFine(SpeedingViolation speedingViolation) {
-		
-		
-		daprClient.publishEvent("pubsub",  "test", speedingViolation).block();
-	}
+      public DaprFineCollectionClient(final DaprClient daprClient) {
+        this.daprClient = daprClient;
+      }
+      
+      @Override
+      public void submitForFine(SpeedingViolation speedingViolation) {
+        
+        
+        daprClient.publishEvent("pubsub",  "test", speedingViolation).block();
+      }
 
-}
-```
+    }
+    ```
 
-3. Open the file `TrafficControlService/src/main/java/dapr/traffic/TrafficControlConfiguration.java` in your code editor
+3. Open the file `TrafficControlService/src/main/java/dapr/traffic/TrafficControlConfiguration.java` in your code editor.
 
-The default JSON serialization is not suitable for todays goal, so you need to customize the Jackson `ObjectMapper` that it uses. You do so by adding a static inner class to configure the JSON serialization:
+    The default JSON serialization is not suitable for todays goal, so you need to customize the Jackson `ObjectMapper` that it uses. You do so by adding a static inner class to configure the JSON serialization:
 
-```java
-	static class JsonObjectSerializer extends DefaultObjectSerializer {
-	    public JsonObjectSerializer() {
-	        OBJECT_MAPPER.registerModule(new JavaTimeModule());
-	        OBJECT_MAPPER.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
-	    }
-	}
-```
+    ```java
+    static class JsonObjectSerializer extends DefaultObjectSerializer {
+        public JsonObjectSerializer() {
+            OBJECT_MAPPER.registerModule(new JavaTimeModule());
+            OBJECT_MAPPER.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+        }
+    }
+    ```
 
-4. **Comment out** following @Bean method
+4. **Comment out** following @Bean method:
 
-```java
+    ```java
     @Bean
     public FineCollectionClient fineCollectionClient() {
         return new KafkaFineCollectionClient();
     }
-```
+    ```
 
-5. **Uncomment** following @Bean method
+5. **Uncomment** following @Bean method:
 
-```java
-//    @Bean
-//    public FineCollectionClient fineCollectionClient(final DaprClient daprClient) {
-//        return new DaprFineCollectionClient(daprClient);
-//    }
-```
+    ```java
+    //    @Bean
+    //    public FineCollectionClient fineCollectionClient(final DaprClient daprClient) {
+    //        return new DaprFineCollectionClient(daprClient);
+    //    }
+    ```
 
-6. **Uncomment** following @Bean method
+6. **Uncomment** following @Bean method:
 
-```java
-//    @Bean
-//    public DaprClient daprClient() {
-//        return new DaprClientBuilder()
-//                .withObjectSerializer(new JsonObjectSerializer())
-//                .build();
-//    }
-```
+    ```java
+    //    @Bean
+    //    public DaprClient daprClient() {
+    //        return new DaprClientBuilder()
+    //                .withObjectSerializer(new JsonObjectSerializer())
+    //                .build();
+    //    }
+    ```
 
 7. Check all your code changes are correct by building the code. Execute the following command in the terminal window:
 
@@ -152,31 +163,31 @@ Dapr will call your service on a `POST` endpoint `/collectfine` to retrieve the 
 
 1. Open the file `FineCollectionService/src/main/java/dapr/fines/violation/ViolationController.java` in your code editor.
 
-2. Uncomment the code line below
+2. Uncomment the code line below:
 
-```java
-//@RestController
-```
+    ```java
+    //@RestController
+    ```
 
-3. Uncomment the code snippet below
+3. Uncomment the code snippet below:
 
-```java
-// @PostMapping(path = "/collectfine")
-// @Topic(name = "test", pubsubName = "pubsub")
-// public ResponseEntity<Void> registerViolation(@RequestBody final CloudEvent<SpeedingViolation> event) {
-// 	var violation = event.getData();
-// 	violationProcessor.processSpeedingViolation(violation);
-//     return ResponseEntity.ok().build();
-// }
-```
+    ```java
+    // @PostMapping(path = "/collectfine")
+    // @Topic(name = "test", pubsubName = "pubsub")
+    // public ResponseEntity<Void> registerViolation(@RequestBody final CloudEvent<SpeedingViolation> event) {
+    // 	var violation = event.getData();
+    // 	violationProcessor.processSpeedingViolation(violation);
+    //     return ResponseEntity.ok().build();
+    // }
+    ```
 
 4. Open the file `FineCollectionService/src/main/java/dapr/fines/violation/KafkaViolationConsumer.java` in your code editor.
 
-5. Comment out @KafkaLister annotation line
+5. Comment out @KafkaLister annotation line:
 
-```java
-@KafkaListener(topics = "test", groupId = "test", containerFactory = "kafkaListenerContainerFactory")
-```
+    ```java
+    @KafkaListener(topics = "test", groupId = "test", containerFactory = "kafkaListenerContainerFactory")
+    ```
 
 6. Check all your code changes are correct by building the code. Execute the following command in the terminal window:
 
@@ -203,27 +214,28 @@ You're going to start all the services now.
 1. Open a **new** terminal window and change the current folder to `FineCollectionService`.
 
 1. Enter the following command to run the FineCollectionService with a Dapr sidecar:
-  * Ensure you have run `dapr init` command prior to running the below command
 
-   ```bash
-   dapr run --app-id finecollectionservice --app-port 6001 --dapr-http-port 3601 --dapr-grpc-port 60001 --components-path ../dapr/components mvn spring-boot:run
-   ```
+    Ensure you have run `dapr init` command prior to running the below command.
+
+    ```bash
+    dapr run --app-id finecollectionservice --app-port 6001 --dapr-http-port 3601 --dapr-grpc-port 60001 --components-path ../dapr/components mvn spring-boot:run
+    ```
 
 1. Open a **new** terminal window and change the current folder to `TrafficControlService`.
 
 1. Enter the following command to run the TrafficControlService with a Dapr sidecar:
 
-   ```bash
-   dapr run --app-id trafficcontrolservice --app-port 6000 --dapr-http-port 3600 --dapr-grpc-port 60000 --components-path ../dapr/components mvn spring-boot:run
-   ```
+    ```bash
+    dapr run --app-id trafficcontrolservice --app-port 6000 --dapr-http-port 3600 --dapr-grpc-port 60000 --components-path ../dapr/components mvn spring-boot:run
+    ```
 
 1. Open a **new** terminal window and change the current folder to `Simulation`.
 
 1. Start the simulation:
 
-   ```bash
-   mvn spring-boot:run
-   ```
+    ```bash
+    mvn spring-boot:run
+    ```
 
 You should see the same logs as **Assignment 1**. Obviously, the behavior of the application is exactly the same as before.
 
@@ -231,16 +243,23 @@ You should see the same logs as **Assignment 1**. Obviously, the behavior of the
 
 The steps below are tailored to debug TrafficControlService, but would be the same for debugging any Dapr application in Eclipse.
 
-1. Click `Run > External Tools > External Tools Configuration..`
-2. Click `New Launch Configuration` icon
-  * Name = trafficcontrolservice-dapr-debug
-  * Location = c:\dapr\dapr.exe
-  * Working Directory = ${workspace_loc:/TrafficControlService}
-  * Arguments = run --app-id finecollectionservice --app-port 6001 --dapr-http-port 3601 --dapr-grpc-port 60001 --components-path ../dapr/components
+1. Click `Run > External Tools > External Tools Configuration..`.
+2. Click `New Launch Configuration` icon.
+     * Name = trafficcontrolservice-dapr-debug
+     * Location = c:\dapr\dapr.exe
+     * Working Directory = ${workspace_loc:/TrafficControlService}
+     * Arguments = run --app-id finecollectionservice --app-port 6001 --dapr-http-port 3601 --dapr-grpc-port 60001 --components-path ../dapr/components
 
-![Eclipse External Tools Configuration](../../assets/images/eclipse-external-tools-configurations.png)
+    ![Eclipse External Tools Configuration](../../assets/images/eclipse-external-tools-configurations.png)
 
-3. Apply
-4. Run
-5. Set breakpoints in your code as you normally would in Eclipse
-6. From `Debug` menu start the application either as a `Java Application` or as a `Spring Boot App`
+3. Apply.
+4. Run.
+5. Set breakpoints in your code as you normally would in Eclipse.
+6. From `Debug` menu start the application either as a `Java Application` or as a `Spring Boot App`.
+
+<span class="fs-3">
+[< Assignment 1 - Run without Dapr]({{ site.baseurl }}{% link modules/01-assignment-1-lab/1-spring-for-apache-kafka.md %}){: .btn .mt-7 }
+</span>
+<span class="fs-3">
+[Assignment 3 - Pub/sub with Azure Services >]({{ site.baseurl }}{% link modules/03-assignment-3-azure-pub-sub/index.md %}){: .btn .float-right .mt-7 }
+</span>

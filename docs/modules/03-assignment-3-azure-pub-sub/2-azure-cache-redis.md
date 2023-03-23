@@ -4,65 +4,92 @@ parent: Assignment 3 - Using Dapr for pub/sub with Azure Services
 has_children: false
 nav_order: 2
 layout: default
+has_toc: true
 ---
 
 # Using Dapr for pub/sub with Azure Cache for Redis
+
+{: .no_toc }
+
+<details open markdown="block">
+  <summary>
+    Table of contents
+  </summary>
+  {: .text-delta }
+- TOC
+{:toc}
+</details>
+
 Stop Simulation, TrafficControlService and FineCollectionService, and VehicleRegistrationService by pressing Crtl-C in the respective terminal windows.
 
 ## Step 1: Create Azure Cache for Redis 
 
-In the example, you will use Azure Cache for Redis as the message broker with the Dapr pub/sub building block. To be able to do this, you need to have an Azure subscription. If you don't have one, you can create a free account at [https://azure.microsoft.com/free/](https://azure.microsoft.com/free/).
+In this assignment, you will use Azure Cache for Redis as the message broker with the Dapr pub/sub building block. To be able to do this, you need to have an Azure subscription. If you don't have one, you can create a free account at [https://azure.microsoft.com/free/](https://azure.microsoft.com/free/).
 
-1. Login to Azure
+1. Login to Azure:
 
     ```bash
     az login
     ```
 
-2. Create a C0 Redis Cache
+1. Create a resource group:
 
     ```bash
-      # Create and manage a C0 Redis Cache
-
-      # Variable block
-      let "randomIdentifier=$RANDOM*$RANDOM"
-      location="East US"
-      resourceGroup="rg-dapr-workshop-java"
-      tag="create-manage-cache"
-      cache="msdocs-redis-cache-$randomIdentifier"
-      sku="basic"
-      size="C0"
-
-      # Create a resource group
-      echo "Creating $resourceGroup in "$location"..."
-      az group create --name $resourceGroup --location "$location" --tags $tag
-
-      # Create a Basic C0 (256 MB) Redis Cache
-      echo "Creating $cache"
-      az redis create --name $cache --resource-group $resourceGroup --location "$location" --sku $sku --vm-size $size --redis-version 6
-
-      # Get details of an Azure Cache for Redis
-      echo "Showing details of $cache"
-      az redis show --name $cache --resource-group $resourceGroup 
-
-      # Retrieve the hostname and ports for an Azure Redis Cache instance
-      redis=($(az redis show --name $cache --resource-group $resourceGroup --query [hostName,enableNonSslPort,port,sslPort] --output tsv))
-
-      # Retrieve the keys for an Azure Redis Cache instance
-      keys=($(az redis list-keys --name $cache --resource-group $resourceGroup --query [primaryKey,secondaryKey] --output tsv))
-
-      # Display the retrieved hostname, keys, and ports
-      echo "Hostname:" ${redis[0]}
-      echo "Non SSL Port:" ${redis[2]}
-      echo "Non SSL Port Enabled:" ${redis[1]}
-      echo "SSL Port:" ${redis[3]}
-      echo "Primary Key:" ${keys[0]}
-      echo "Secondary Key:" ${keys[1]}
-
-      # Delete a redis cache
-      # echo "Deleting $cache"
-      # az redis delete --name $resourceGroup --resource-group $resourceGroup -y
+    az group create --name rg-dapr-workshop-java --location eastus
     ```
+
+    A [resource group](https://learn.microsoft.com/azure/azure-resource-manager/management/manage-resource-groups-portal) is a container that holds related resources for an Azure solution. The resource group can include all the resources for the solution, or only those resources that you want to manage as a group. In our workshop, all the databases, all the microservices, etc. will be grouped into a single resource group.
+
+1. [Azure Cache for Redis](https://learn.microsoft.com/en-us/azure/azure-cache-for-redis/) is a fully managed, dedicated, in-memory data store for enterprise-grade cloud-native applications. It can be used as a distributed data or content cache, a session store, a message broker, and more. This cache needs to be globally unique. Use the following command to generate a unique name:
+
+    - Linux/Unix shell:
+
+      ```bash
+      UNIQUE_IDENTIFIER=$(LC_ALL=C tr -dc a-z0-9 </dev/urandom | head -c 5)
+      REDIS="redis-dapr-workshop-java-$UNIQUE_IDENTIFIER"
+      echo $REDIS
+      ```
+
+    - PowerShell:
+
+      ```powershell
+      $ACCEPTED_CHAR = [Char[]]'abcdefghijklmnopqrstuvwxyz0123456789'
+      $UNIQUE_IDENTIFIER = (Get-Random -Count 5 -InputObject $ACCEPTED_CHAR) -join ''
+      $REDIS = "redis-dapr-workshop-java-$UNIQUE_IDENTIFIER"
+      echo $REDIS
+      ```
+
+1. Create the Azure Cache for Redis:
+
+    ```bash
+    az redis create --name $REDIS --resource-group rg-dapr-workshop-java --location eastus --sku basic --vm-size C0 --redis-version 6
+    ```
+
+    The `--sku` parameter specifies the SKU of the cache to deploy. In this case, you are using the `basic` SKU. The `--vm-size` parameter specifies the size of the VM to deploy for the cache. Caches in the [Basic tier](https://learn.microsoft.com/en-us/azure/azure-cache-for-redis/cache-overview#service-tiers) are deployed in a single VM with no service-level agreement(SLA). The `--redis-version` parameter specifies the version of Redis to deploy. In this case, you are using version 6.
+
+1. Get the hostname, SSL port and the primary key:
+
+    - Linux/Unix shell:
+
+      ```bash
+      REDIS_HOSTNAME=$(az redis show --name $REDIS --resource-group rg-dapr-workshop-java --query hostName --output tsv)
+      REDIS_SSL_PORT=$(az redis show --name $REDIS --resource-group rg-dapr-workshop-java --query sslPort --output tsv)
+      REDIS_PRIMARY_KEY=$(az redis list-keys --name $REDIS --resource-group rg-dapr-workshop-java --query primaryKey --output tsv)
+      echo "Hostname: $REDIS_HOSTNAME"
+      echo "SSL Port: $REDIS_SSL_PORT"
+      echo "Primary Key: $REDIS_PRIMARY_KEY"
+      ```
+
+    - PowerShell:
+
+      ```powershell
+      $REDIS_HOSTNAME = az redis show --name $REDIS --resource-group rg-dapr-workshop-java --query hostName --output tsv
+      $REDIS_SSL_PORT = az redis show --name $REDIS --resource-group rg-dapr-workshop-java --query sslPort --output tsv
+      $REDIS_PRIMARY_KEY = az redis list-keys --name $REDIS --resource-group rg-dapr-workshop-java --query primaryKey --output tsv
+      Write-Output "Hostname: $REDIS_HOSTNAME"
+      Write-Output "SSL Port: $REDIS_SSL_PORT"
+      Write-Output "Primary Key: $REDIS_PRIMARY_KEY"
+      ```
 
 ## Step 2: Configure the pub/sub component
 
@@ -77,18 +104,18 @@ In the example, you will use Azure Cache for Redis as the message broker with th
       type: pubsub.redis
       version: v1
       metadata:
-       - name: redisHost
-         value: <replaceWithRedisHostName>:<replaceWithRedisSSLPort>
-       - name: redisPassword
-         value: <replaceWithPrimaryKey>
-       - name: enableTLS
-       - value: "true"
+      - name: redisHost
+        value: <replaceWithRedisHostName>:<replaceWithRedisSSLPort>
+      - name: redisPassword
+        value: <replaceWithPrimaryKey>
+      - name: enableTLS
+        value: "true"
     scopes:
       - trafficcontrolservice
       - finecollectionservice
     ```
 
-    As you can see, you specify a different type of pub/sub component (`pubsub.redis`) and you specify in the `metadata` section how to connect to Azure Cache for Redis created in step 1. For this workshop, you are going to use the redis hostname, password and port you copied in the previous step.
+    As you can see, you specify a different type of pub/sub component (`pubsub.redis`) and you specify in the `metadata` section how to connect to Azure Cache for Redis created in step 1. For this workshop, you are going to use the redis hostname, password and port you copied in the previous step. For more information, see [Redis  Streams pub/sub component](https://docs.dapr.io/reference/components-reference/supported-pubsub/setup-redis-pubsub/).
 
     In the `scopes` section, you specify that only the TrafficControlService and FineCollectionService should use the pub/sub building block.
 
@@ -109,7 +136,7 @@ You're going to start all the services now.
 1. Enter the following command to run the VehicleRegistrationService with a Dapr sidecar:
 
    ```bash
-   dapr run --app-id vehicleregistrationservice --app-port 6002 --dapr-http-port 3602 --dapr-grpc-port 60002 mvn spring-boot:run
+   mvn spring-boot:run
    ```
 
 1. Open a terminal window and change the current folder to `FineCollectionService`.
@@ -136,6 +163,11 @@ You're going to start all the services now.
    mvn spring-boot:run
    ```
 
-You should see the same logs as before. Obviously, the behavior of the application is exactly the same as before. But now, instead of messages being published and subscribed via kafka topic, are being processed through Redis streams.
+You should see the same logs as before. Obviously, the behavior of the application is exactly the same as before. But now, instead of messages being published and subscribed via kafka topic, are being processed through Redis Streams.
 
-    
+<span class="fs-3">
+[< Assignment 2 - Run with Dapr]({{ site.baseurl }}{% link modules/02-assignment-2-dapr-pub-sub/index.md %}){: .btn .mt-7 }
+</span>
+<span class="fs-3">
+[Assignment 4 - Observability >]({{ site.baseurl }}{% link modules/04-assignment-4-observability-zipkin/index.md %}){: .btn .float-right .mt-7 }
+</span>

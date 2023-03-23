@@ -4,17 +4,29 @@ parent: Assignment 1 - Running Applications with Kafka without using Dapr
 has_children: false
 nav_order: 1
 layout: default
+has_toc: true
 ---
 
 # Spring for Apache Kafka Usage
 
-1. The Spring for Apache Kafka (spring-kafka) project applies core Spring concepts to the development of Kafka-based messaging solutions. It provides a "template" as a high-level abstraction for sending messages. It also provides support for Message-driven POJOs with @KafkaListener annotations and a "listener container".
+{: .no_toc }
+
+<details open markdown="block">
+  <summary>
+    Table of contents
+  </summary>
+  {: .text-delta }
+- TOC
+{:toc}
+</details>
+
+The Spring for Apache Kafka (spring-kafka) project applies core Spring concepts to the development of Kafka-based messaging solutions. It provides a "template" as a high-level abstraction for sending messages. It also provides support for Message-driven POJOs with @KafkaListener annotations and a "listener container".
 
 ## Kafka Publisher
 
 1. The `TrafficControlService/src/main/java/dapr/traffic/fines/KafkaConfig.java` file defines custom JsonSerializer class to be used for serializing objects for kafka publishing.
 
-```java
+    ```java
     public JsonObjectSerializer() {
         super(customizedObjectMapper());
     }
@@ -25,45 +37,45 @@ layout: default
         mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         return mapper;
     }
-```
+    ```
 
-2. The `TrafficControlService/src/main/java/dapr/traffic/fines/KafkaConfig.java`file defines `ProducerFactory` and `KafkaTemplate` classes:
+2. The `TrafficControlService/src/main/java/dapr/traffic/fines/KafkaConfig.java` file defines `ProducerFactory` and `KafkaTemplate` classes.
 
-```java
-	@Bean
-	public ProducerFactory<String, SpeedingViolation> producerFactory() {
-		Map<String, Object> config = new HashMap<>();
-		config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
-		config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-		config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonObjectSerializer.class);
-		return new DefaultKafkaProducerFactory(config);
-	}
+    ```java
+    @Bean
+    public ProducerFactory<String, SpeedingViolation> producerFactory() {
+        Map<String, Object> config = new HashMap<>();
+        config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
+        config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+        config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonObjectSerializer.class);
+        return new DefaultKafkaProducerFactory(config);
+    }
 
-	@Bean
-	public KafkaTemplate<String, SpeedingViolation> kafkaTemplate() {
-		return new KafkaTemplate<String, SpeedingViolation>(producerFactory());
-	}
-```
+    @Bean
+    public KafkaTemplate<String, SpeedingViolation> kafkaTemplate() {
+        return new KafkaTemplate<String, SpeedingViolation>(producerFactory());
+    }
+    ```
 
-3. The `TrafficControlService/src/main/java/dapr/traffic/fines/KafkaFineCollectionClient.java` uses `KafkaTemplate` to publish fine to "test" topic
+3. The `TrafficControlService/src/main/java/dapr/traffic/fines/KafkaFineCollectionClient.java` uses `KafkaTemplate` to publish fine to "test" topic.
 
-```java
-	@Autowired
-	private KafkaTemplate<String, SpeedingViolation> kafkaTemplate;
+    ```java
+    @Autowired
+    private KafkaTemplate<String, SpeedingViolation> kafkaTemplate;
 
-	@Override
-	public void submitForFine(SpeedingViolation speedingViolation) {
-		kafkaTemplate.send("test", speedingViolation);
+    @Override
+    public void submitForFine(SpeedingViolation speedingViolation) {
+        kafkaTemplate.send("test", speedingViolation);
 
-	}
-```
+    }
+    ```
 
 ## Kafka Subscriber
 
-1. The `FineCollectionService/src/main/java/dapr/fines/violation/KafkaConsumerConfig.java` defines a factory class for Kafka listener
+1. The `FineCollectionService/src/main/java/dapr/fines/violation/KafkaConsumerConfig.java` defines a factory class for Kafka listener.
 
-```java
-	@Bean
+    ```java
+    @Bean
     public ConsumerFactory<String, SpeedingViolation> consumerFactory() {
         Map<String, Object> props = new HashMap<>();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
@@ -80,14 +92,21 @@ layout: default
         factory.setConsumerFactory(consumerFactory());
         return factory;
     }
-```
+    ```
 
-2. The `FineCollectionService/src/main/java/dapr/fines/violation/KafkaViolationConsumer.java` file implements kafka listener
+2. The `FineCollectionService/src/main/java/dapr/fines/violation/KafkaViolationConsumer.java` file implements kafka listener.
 
-```java
-	@KafkaListener(topics = "test", groupId = "test", containerFactory = "kafkaListenerContainerFactory")
+    ```java
+    @KafkaListener(topics = "test", groupId = "test", containerFactory = "kafkaListenerContainerFactory")
     public void listen(SpeedingViolation violation) {
 
-		violationProcessor.processSpeedingViolation(violation);
+        violationProcessor.processSpeedingViolation(violation);
     }
-```
+    ```
+
+<span class="fs-3">
+[< Prerequisites]({{ site.baseurl }}{% link modules/00-intro/2-prerequisites.md %}){: .btn .mt-7 }
+</span>
+<span class="fs-3">
+[Running Applications without using Dapr >]({{ site.baseurl }}{% link modules/01-assignment-1-lab/2-lab-instructions.md %}){: .btn .float-right .mt-7 }
+</span>

@@ -14,7 +14,7 @@ Make sure you have the following prerequisites installed on your machine:
 - A code editor or IDE like:
   - Visual Studio Code ([download](https://code.visualstudio.com/))
   - IntelliJ IDEA ([download](https://www.jetbrains.com/idea/download/))
-  - Eclipse IDE for Java Developers ([download])(https://www.eclipse.org/downloads/))
+  - Eclipse IDE for Java Developers ([download](https://www.eclipse.org/downloads/))
 - Docker for desktop ([download](https://www.docker.com/products/docker-desktop)) or Rancher Desktop ([download](https://rancherdesktop.io/))
 - [Install the Dapr CLI](https://docs.dapr.io/getting-started/install-dapr-cli/) and [initialize Dapr locally](https://docs.dapr.io/getting-started/install-dapr-selfhost/)
 - Java 16 or above ([download](https://adoptopenjdk.net/?variant=openjdk16))
@@ -22,9 +22,9 @@ Make sure you have the following prerequisites installed on your machine:
   - Make sure that Maven uses the correct Java runtime by running `mvn -version`.
 - Clone the source code repository:
 
-```bash
-git clone https://github.com/Azure/dapr-java-workshop.git
-```
+  ```bash
+  git clone https://github.com/Azure/dapr-java-workshop.git
+  ```
 
 **From now on, this folder is referred to as the 'source code' folder.**
 
@@ -32,4 +32,11 @@ git clone https://github.com/Azure/dapr-java-workshop.git
 > Powershell
 >
 > If you are using Powershell, you need to replace in multiline commands `\` by **`** at then end of each line.
-> 
+>
+
+<span class="fs-3">
+[< Dapr Overview]({{ site.baseurl }}{% link modules/00-intro/1-dapr-overview.md %}){: .btn .mt-7 }
+</span>
+<span class="fs-3">
+[Assignment 1 - Run without Dapr >]({{ site.baseurl }}{% link modules/01-assignment-1-lab/1-spring-for-apache-kafka.md %}){: .btn .float-right .mt-7 }
+</span>

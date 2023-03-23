@@ -5,9 +5,21 @@ grand_parent: Assignment 5 - Deploying to Azure with Dapr
 has_children: false
 nav_order: 2
 layout: default
+has_toc: true
 ---
 
 # (Optional) Observability with Dapr using Application Insights
+
+{: .no_toc }
+
+<details open markdown="block">
+  <summary>
+    Table of contents
+  </summary>
+  {: .text-delta }
+- TOC
+{:toc}
+</details>
 
 In this section, you will deploy Dapr service-to-service telemetry using Application Insights. When [creating the Azure Container Apps environment](https://learn.microsoft.com/en-us/cli/azure/containerapp/env?view=azure-cli-latest#az-containerapp-env-create), you can set Application Insights instrumentation key that is used by Dapr to export service-to-service telemetry to Application Insights.
 
@@ -64,3 +76,7 @@ To deploy the application, follow all the instructions after the creation of the
 1. Go to `Application Map`, you should see a diagram like the on below
 
 ![Dapr Telemetry](../../../assets/image/../images/dapr-telemetry.png)
+
+<span class="fs-3">
+[< Deploy to ACA with Dapr]({{ site.baseurl }}{% link modules/05-assignment-5-aks-aca/02-aca/1-aca-instructions.md %}){: .btn .mt-7 }
+</span>

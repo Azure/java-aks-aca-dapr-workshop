@@ -7,9 +7,11 @@ spec:
   version: v1
   metadata:
   - name: redisHost
-    value: localhost:6379
+    value: <replaceWithRedisHostName>:<replaceWithRedisSSLPort>
   - name: redisPassword
-    value: ""
+    value: <replaceWithPrimaryKey>
+  - name: enableTLS
+    value: "true"
 scopes:
   - trafficcontrolservice
   - finecollectionservice

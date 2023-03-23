@@ -5,10 +5,21 @@ grand_parent: Bonus Assignments
 has_children: false
 nav_order: 2
 layout: default
+has_toc: true
 ---
 
 # Retrieve a secret in the application
 
+{: .no_toc }
+
+<details open markdown="block">
+  <summary>
+    Table of contents
+  </summary>
+  {: .text-delta }
+- TOC
+{:toc}
+</details>
 
 Previously, you have created an Azure Key Vault and added the Dapr component. Now, you will use the secret in the application. This bonus assignment is about using Azure Key Vault as a [secret store](https://docs.dapr.io/operations/components/setup-secret-store/) for the `FineCollectionService` to get the license key.
 
@@ -29,7 +40,7 @@ Previously, you have created an Azure Key Vault and added the Dapr component. No
 
 ## Step 2: Use the secret in the application `FineCollectionService`
 
-1. Open the file `FineCollectionService/src/main/java/dapr/fines/fines/DaprCalulator.java` in your code editor, and inspect it
+1. Open the file `FineCollectionService/src/main/java/dapr/fines/fines/DaprCalulator.java` in your code editor, and inspect it.
 
 1. It implements the `FineCalculator` interface, which is used by the `FineCollectionService` to calculate the fine for a car. The `FineCalculator` interface has a method `calculateFine` that takes the `excessSpeed` as input and returns the amount of the fine as output. If the excess speed is too high, it return `-1`.
    
@@ -59,7 +70,7 @@ Previously, you have created an Azure Key Vault and added the Dapr component. No
     }
     ```
 
-1. Open the file `FineCollectionService/src/main/java/dapr/fines/FineCollectionConfiguration.java` in your code editor
+1. Open the file `FineCollectionService/src/main/java/dapr/fines/FineCollectionConfiguration.java` in your code editor.
 
 1. **Comment out** the following lines as the license key is now retrieved from the secret store instead of the environment variable:
     ```java
@@ -134,3 +145,7 @@ You're going to start all the services now.
    ```
 
 You should see the same logs as **Assignment 1**. Obviously, the behavior of the application is exactly the same as before.
+
+<span class="fs-3">
+[< Secret Store setup]({{ site.baseurl }}{% link modules/09-bonus-assignments/03-secret-store/1-azure-key-vault-secret-store-setup.md %}){: .btn .mt-7 }
+</span>

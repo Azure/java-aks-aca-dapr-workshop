@@ -5,9 +5,21 @@ grand_parent: Bonus Assignments
 has_children: false
 nav_order: 1
 layout: default
+has_toc: true
 ---
 
 # Use Azure Cosmos DB to store the state of a vehicle using Dapr
+
+{: .no_toc }
+
+<details open markdown="block">
+  <summary>
+    Table of contents
+  </summary>
+  {: .text-delta }
+- TOC
+{:toc}
+</details>
 
 This bonus assignment is about using Azure Cosmos DB as a [state store](https://docs.dapr.io/operations/components/setup-state-store/) for the `TrafficControlService`. You will use the [Azure Cosmos DB state store component](https://docs.dapr.io/reference/components-reference/supported-state-stores/setup-azure-cosmosdb/) provided by Dapr.
 
@@ -34,7 +46,7 @@ This bonus assignment is about using Azure Cosmos DB as a [state store](https://
         $COSMOS_DB
         ```
 
-1. Create a Cosmos DB account for SQL API
+1. Create a Cosmos DB account for SQL API:
 
     ```bash
     az cosmosdb create --name $COSMOS_DB --resource-group rg-dapr-workshop-java --locations regionName=eastus failoverPriority=0 isZoneRedundant=False
@@ -43,13 +55,13 @@ This bonus assignment is about using Azure Cosmos DB as a [state store](https://
     {: .important }
     > The name of the Cosmos DB account must be unique across all Azure Cosmos DB accounts in the world. If you get an error that the name is already taken, try a different name. In the following steps, please update the name of the Cosmos DB account accordingly.
 
-1. Create a SQL API database
+1. Create a SQL API database:
 
     ```bash
     az cosmosdb sql database create --account-name $COSMOS_DB --resource-group rg-dapr-workshop-java --name dapr-workshop-java-database
     ```
 
-1. Create a SQL API container
+1. Create a SQL API container:
 
     ```bash
     az cosmosdb sql container create --account-name $COSMOS_DB --resource-group rg-dapr-workshop-java --database-name dapr-workshop-java-database --name vehicle-state --partition-key-path /partitionKey --throughput 400
@@ -57,6 +69,7 @@ This bonus assignment is about using Azure Cosmos DB as a [state store](https://
 
     {: .important }
     > The partition key path is `/partitionKey` as mentionned in [Dapr documentation](https://docs.dapr.io/reference/components-reference/supported-state-stores/setup-azure-cosmosdb/#setup-azure-cosmosdb).
+    >
 
 1. Get the Cosmos DB account URL and note it down. You will need it in the next step and to deploy it to Azure.
    
@@ -89,16 +102,16 @@ This bonus assignment is about using Azure Cosmos DB as a [state store](https://
 
 1. Navigate to the `TrafficControlConfiguration` class to swith from the `InMemoryVehicleStateRepository` to the `DaprVehicleStateRepository`.
 
-1. **Update** @Bean method to instantiate `DaprVehicleStateRepository` instead of `InMemoryVehicleStateRepository`
+1. **Update** @Bean method to instantiate `DaprVehicleStateRepository` instead of `InMemoryVehicleStateRepository`:
 
     ```java
-        @Bean
-        public VehicleStateRepository vehicleStateRepository(final DaprClient daprClient) {
-            return new DaprVehicleStateRepository(daprClient);
-        }
+    @Bean
+    public VehicleStateRepository vehicleStateRepository(final DaprClient daprClient) {
+        return new DaprVehicleStateRepository(daprClient);
+    }
     ```
 
-1. **Uncomment** following @Bean method if not already done
+1. **Uncomment** following @Bean method if not already done:
   
     ```java
     //    @Bean
@@ -117,7 +130,7 @@ This bonus assignment is about using Azure Cosmos DB as a [state store](https://
 
 Now you can test the application
 
-### Step 4: Test the application
+## Step 4: Test the application
 
 You're going to start all the services now. 
 
@@ -156,3 +169,10 @@ You're going to start all the services now.
    ```
 
 You should see the same logs as before. Obviously, the behavior of the application is exactly the same as before.
+
+<span class="fs-3">
+[Deploy to AKS]({{ site.baseurl }}{% link modules/09-bonus-assignments/02-state-store/2-deploying-to-aks.md %}){: .btn }
+</span>
+<!-- <span class="fs-3">
+[Deploy to ACA]({{ site.baseurl }}{% link modules/09-bonus-assignments/02-state-store/3-deploying-to-aca.md %}){: .btn }
+</span> -->
