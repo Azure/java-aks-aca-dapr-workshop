@@ -138,7 +138,7 @@ Later, you will be creating Docker containers and pushing them to the Azure Cont
       --anonymous-pull-enabled true
     ```
 
-    This can be handy if you want other attendees of the workshop to use your registry, but this is not suite for production
+    This can be handy if you want other attendees of the workshop to use your registry, but this is not suitable for production
 
 1. Get the URL of the Azure Container Registry and set it to the `CONTAINER_REGISTRY_URL` variable with the following command:
 
