@@ -33,7 +33,7 @@ In this section, you will deploy Dapr service-to-service telemetry using Applica
     - PowerShell:
 
       ```powershell
-      $INSTRUMENTATION_KEY = "$(az monitor app-insights component show --app cae-dapr-workshop-java -g rg-dapr-workshop-java --query instrumentationKey)"
+      $INSTRUMENTATION_KEY = az monitor app-insights component show --app cae-dapr-workshop-java -g rg-dapr-workshop-java --query instrumentationKey
       $INSTRUMENTATION_KEY
       ```
 
