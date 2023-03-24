@@ -9,6 +9,7 @@ has_toc: true
 ---
 
 # Deploying Applications to Azure Container Apps (ACA) with Dapr
+
 {: .no_toc }
 
 <details open markdown="block">
@@ -31,11 +32,11 @@ This assignement is about deploying our microservices to [Azure Container Apps](
 
 ## Setup
 
-Now, let's create the infrastructure for our application, so we can later deploy our microservices to [Azure Container Apps](https://learn.microsoft.com/en-us/azure/container-apps/).
+Now, let's create the infrastructure for our application, so you can later deploy our microservices to [Azure Container Apps](https://learn.microsoft.com/en-us/azure/container-apps/).
 
 ### Log Analytics Workspace
 
-[Log Analytics workspace](https://learn.microsoft.com/en-us/azure/azure-monitor/logs/log-analytics-workspace-overview) is the environment for Azure Monitor log data. Each workspace has its own data repository and configuration, and data sources and solutions are configured to store their data in a particular workspace. We will use the same workspace for most of the Azure resources we will be creating.
+[Log Analytics workspace](https://learn.microsoft.com/en-us/azure/azure-monitor/logs/log-analytics-workspace-overview) is the environment for Azure Monitor log data. Each workspace has its own data repository and configuration, and data sources and solutions are configured to store their data in a particular workspace. You will use the same workspace for most of the Azure resources you will be creating.
 
 1. Create a Log Analytics workspace with the following command:
 
@@ -50,47 +51,47 @@ Now, let's create the infrastructure for our application, so we can later deploy
 
      - Linux/Unix shell:
 
-       ```bash
-       LOG_ANALYTICS_WORKSPACE_CUSTOMER_ID=$(
-         az monitor log-analytics workspace show \
-           --resource-group rg-dapr-workshop-java \
-           --workspace-name log-dapr-workshop-java \
-           --query customerId  \
-           --output tsv | tr -d '[:space:]'
-       )
-       echo "LOG_ANALYTICS_WORKSPACE_CLIENT_ID=$LOG_ANALYTICS_WORKSPACE_CUSTOMER_ID"
+        ```bash
+        LOG_ANALYTICS_WORKSPACE_CUSTOMER_ID=$(
+          az monitor log-analytics workspace show \
+            --resource-group rg-dapr-workshop-java \
+            --workspace-name log-dapr-workshop-java \
+            --query customerId  \
+            --output tsv | tr -d '[:space:]'
+        )
+        echo "LOG_ANALYTICS_WORKSPACE_CUSTOMER_ID=$LOG_ANALYTICS_WORKSPACE_CUSTOMER_ID"
 
-       LOG_ANALYTICS_WORKSPACE_CLIENT_SECRET=$(
-         az monitor log-analytics workspace get-shared-keys \
-           --resource-group rg-dapr-workshop-java \
-           --workspace-name log-dapr-workshop-java \
-           --query primarySharedKey \
-           --output tsv | tr -d '[:space:]'
-       )
-       echo "LOG_ANALYTICS_WORKSPACE_CLIENT_SECRET=$LOG_ANALYTICS_WORKSPACE_CLIENT_SECRET"
-       ```
+        LOG_ANALYTICS_WORKSPACE_CLIENT_SECRET=$(
+          az monitor log-analytics workspace get-shared-keys \
+            --resource-group rg-dapr-workshop-java \
+            --workspace-name log-dapr-workshop-java \
+            --query primarySharedKey \
+            --output tsv | tr -d '[:space:]'
+        )
+        echo "LOG_ANALYTICS_WORKSPACE_CLIENT_SECRET=$LOG_ANALYTICS_WORKSPACE_CLIENT_SECRET"
+        ```
 
      - Powershell:
         
-       ```powershell
-       $LOG_ANALYTICS_WORKSPACE_CUSTOMER_ID="$(
-         az monitor log-analytics workspace show `
-           --resource-group rg-dapr-workshop-java `
-           --workspace-name log-dapr-workshop-java `
-           --query customerId  `
-           --output tsv
-       )"
-       Write-Output "LOG_ANALYTICS_WORKSPACE_CLIENT_ID=$LOG_ANALYTICS_WORKSPACE_CUSTOMER_ID"
+        ```powershell
+        $LOG_ANALYTICS_WORKSPACE_CUSTOMER_ID="$(
+          az monitor log-analytics workspace show `
+            --resource-group rg-dapr-workshop-java `
+            --workspace-name log-dapr-workshop-java `
+            --query customerId  `
+            --output tsv
+        )"
+        Write-Output "LOG_ANALYTICS_WORKSPACE_CUSTOMER_ID=$LOG_ANALYTICS_WORKSPACE_CUSTOMER_ID"
 
-       $LOG_ANALYTICS_WORKSPACE_CLIENT_SECRET="$(
-         az monitor log-analytics workspace get-shared-keys `
-           --resource-group rg-dapr-workshop-java `
-           --workspace-name log-dapr-workshop-java `
-           --query primarySharedKey `
-           --output tsv
-       )"
-       Write-Output "LOG_ANALYTICS_WORKSPACE_CLIENT_SECRET=$LOG_ANALYTICS_WORKSPACE_CLIENT_SECRET"
-       ```
+        $LOG_ANALYTICS_WORKSPACE_CLIENT_SECRET="$(
+          az monitor log-analytics workspace get-shared-keys `
+            --resource-group rg-dapr-workshop-java `
+            --workspace-name log-dapr-workshop-java `
+            --query primarySharedKey `
+            --output tsv
+        )"
+        Write-Output "LOG_ANALYTICS_WORKSPACE_CLIENT_SECRET=$LOG_ANALYTICS_WORKSPACE_CLIENT_SECRET"
+        ```
 
 ### Azure Container Registry
 
@@ -127,7 +128,7 @@ Later, you will be creating Docker containers and pushing them to the Azure Cont
       --admin-enabled true
     ```
 
-    Notice that we create the registry with admin rights `--admin-enabled true` which is not suited for real production, but well for our workshop
+    Notice that you created the registry with admin rights `--admin-enabled true` which is not suited for real production, but well for our workshop
 
 1. Update the registry to allow anonymous users to pull the images ():
 
@@ -138,7 +139,8 @@ Later, you will be creating Docker containers and pushing them to the Azure Cont
       --anonymous-pull-enabled true
     ```
 
-    This can be handy if you want other attendees of the workshop to use your registry, but this is not suitable for production
+
+    This can be handy if you want other attendees of the workshop to use your registry, but this is not suitable for production.
 
 1. Get the URL of the Azure Container Registry and set it to the `CONTAINER_REGISTRY_URL` variable with the following command:
 
@@ -173,6 +175,11 @@ Later, you will be creating Docker containers and pushing them to the Azure Cont
 ### Azure Container Apps environment
 
 A [container apps environment](https://learn.microsoft.com/en-us/azure/container-apps/environment) acts as a secure boundary around our container apps. Containers deployed on the same environment use the same virtual network and write the log to the same logging destionation, in our case: Log Analytics workspace.
+
+
+{: .important-title }
+> Dapr Telemetry
+> 
 
 > If you want to enable Dapr telemetry, you need to create the container apps environment with Application Insights. You can follow these instructions instead of the instructions below: [(Optional) Observability with Dapr using Application Insights]({{ site.baseurl }}{% link modules/05-assignment-5-aks-aca/02-aca/2-observability.md %})
 >
@@ -245,9 +252,9 @@ The Dapr component structure for Azure Container Apps is different from the stan
     version: v1
     metadata:
       - name: redisHost
-        value: <replace>.redis.cache.windows.net:6380
+        value: <replaceWithRedisHostName>:<replaceWithRedisSSLPort>
       - name: redisPassword
-        value: "<replaceWithRedisKey>"
+        value: <replaceWithPrimaryKey>
       - name: enableTLS
         value: "true"
     scopes:
@@ -272,7 +279,7 @@ The Dapr component structure for Azure Container Apps is different from the stan
 
 ## Step 2 - Generate Docker images for applications, and push them to ACR
 
-Since we don't have any container images ready yet, we'll build and push container images in Azure Container Registry (ACR) to get things running.
+Since you don't have any container images ready yet, we'll build and push container images in Azure Container Registry (ACR) to get things running.
 
 1. Login to your ACR repository
 
@@ -306,7 +313,7 @@ Since we don't have any container images ready yet, we'll build and push contain
 
 ## Step 3 - Deploy the Container Apps
 
-Now that we have created the container apps environment, we can create the container apps. A container app is a containerized application that is deployed to a container apps environment. 
+Now that you have created the container apps environment and push the images, you can create the container apps. A container app is a containerized application that is deployed to a container apps environment. 
 
 You will create three container apps, one for each of our Java services: TrafficControlService, FineCollectionService and VehicleRegistrationService.
 
@@ -429,7 +436,11 @@ You will create three container apps, one for each of our Java services: Traffic
       $env:TRAFFIC_CONTROL_SERVICE_BASE_URL = "https://$TRAFFIC_CONTROL_SERVICE_FQDN"
       ```
 
-1. In the root folder of the simulation (`Simulation`), start the simulation using `mvn spring-boot:run`.
+1. In the root folder of the simulation (`Simulation`), start the simulation:
+
+    ```bash
+    mvn spring-boot:run
+    ```
 
 ## Step 5 - Test the microservices running in ACA
 
@@ -516,3 +527,24 @@ You can access the log of the container apps from the [Azure Portal](https://por
       --analytics-query "ContainerAppConsoleLogs_CL | where RevisionName_s == '$VEHICLE_REGISTRATION_SERVICE_REVISION' | project TimeGenerated, Log_s | sort by TimeGenerated desc | take 10" \
       --out table
     ```
+
+## Next Steps
+
+This is the end of the workshop!
+
+- You can follow the **Optional execices for Azure Container Apps (ACA)** to learn more about observability:
+  - [Observability]({{ site.baseurl }}{% link modules/05-assignment-5-aks-aca/02-aca/2-observability.md %})
+- You can read the **additional topics**:
+  - [Prevent port collisions]({{ site.baseurl }}{% link modules/08-additional-topics/1-prevent-port-collisions.md %})
+  - [Dapr and Service Meshes]({{ site.baseurl }}{% link modules/08-additional-topics/2-dapr-and-service-meshes.md %})
+- You can continue the workshop with the **bonus assignments** to learn more about other Dapr building blocks:
+  - [Service-to-service invocation using Dapr]({{ site.baseurl }}{% link modules/09-bonus-assignments/01-service-to-service-invocation/index.md %})
+  - [Azure Cosmos DB as a state store]({{ site.baseurl }}{% link modules/09-bonus-assignments/02-state-store/index.md %})
+  - [Azure Key Vault as a secret store]({{ site.baseurl }}{% link modules/09-bonus-assignments/03-secret-store/index.md %})
+
+<span class="fs-3">
+[< Deploy to ACA]({{ site.baseurl }}{% link modules/05-assignment-5-aks-aca/02-aca/index.md %}){: .btn .mt-7 }
+</span>
+<span class="fs-3">
+[(Optional) Observability >]({{ site.baseurl }}{% link modules/05-assignment-5-aks-aca/02-aca/2-observability.md %}){: .btn .float-right .mt-7 }
+</span>

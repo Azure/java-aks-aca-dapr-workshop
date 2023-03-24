@@ -7,7 +7,7 @@ layout: default
 
 # Assignment 4 - Observability with Dapr using Zipkin
 
-In this assignment we will look at how to access and view telemetry data being collected through Dapr within a distributed tracing system called Zipkin.
+In this assignment you will look at how to access and view telemetry data being collected through Dapr within a distributed tracing system called Zipkin.
 
 ## Step 1: Ensure Zipkin container is installed and running
 
@@ -43,3 +43,10 @@ Depending on when you completed Assignment 3 and stopped the services included i
 From the list of telemetry items, click the `Show` button to view an individual item and inspect the details of the trace.
 
 ![Zipkin UI](../../assets/images/zipkin-screenshot.png)
+
+<span class="fs-3">
+[< Assignment 3 - Pub/sub with Azure Services]({{ site.baseurl }}{% link modules/03-assignment-3-azure-pub-sub/index.md %}){: .btn .mt-7 }
+</span>
+<span class="fs-3">
+[Assignment 5 - Deploy to Azure >]({{ site.baseurl }}{% link modules/05-assignment-5-aks-aca/index.md %}){: .btn .float-right .mt-7 }
+</span>

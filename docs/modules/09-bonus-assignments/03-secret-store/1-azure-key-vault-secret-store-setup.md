@@ -5,9 +5,21 @@ grand_parent: Bonus Assignments
 has_children: false
 nav_order: 1
 layout: default
+has_toc: true
 ---
 
 # Setup Azure Key Vault as a secret store
+
+{: .no_toc }
+
+<details open markdown="block">
+  <summary>
+    Table of contents
+  </summary>
+  {: .text-delta }
+- TOC
+{:toc}
+</details>
 
 This bonus assignment is about using Azure Key Vault as a [secret store](https://docs.dapr.io/operations/components/setup-secret-store/). You will create the [Azure Key Vault secret store component](https://docs.dapr.io/reference/components-reference/supported-secret-stores/azure-keyvault/) provided by Dapr.
 
@@ -88,7 +100,7 @@ This bonus assignment is about using Azure Key Vault as a [secret store](https:/
 
 The service principal created in the previous steps has the role `Key Vault Secrets User` assigned. It means this service principal can only read secrets.
 
-To create a secret in the Azure Key Vault, you can use the Azure Portal or the Azure CLI. In this workshop, we will use the Azure CLI. First you need to assign you the role of `Key Vault Secrets Officer` to be able to create secrets in the Key Vault. To know more about the different roles, see [Azure built-in roles for Key Vault data plane operations](https://learn.microsoft.com/en-us/azure/key-vault/general/rbac-guide?tabs=azure-cli#azure-built-in-roles-for-key-vault-data-plane-operations).
+To create a secret in the Azure Key Vault, you can use the Azure Portal or the Azure CLI. In this workshop, you will use the Azure CLI. First you need to assign you the role of `Key Vault Secrets Officer` to be able to create secrets in the Key Vault. To know more about the different roles, see [Azure built-in roles for Key Vault data plane operations](https://learn.microsoft.com/en-us/azure/key-vault/general/rbac-guide?tabs=azure-cli#azure-built-in-roles-for-key-vault-data-plane-operations).
 
 To assign to you the role of `Key Vault Secrets Officer`, follow these steps:
 
@@ -129,3 +141,11 @@ To create a secret in the Azure Key Vault, use the following command and replace
 > When deployed to Azure Kubernetes Service, the client secret is a kubernetes secret and not set in the component's YAML file. See the *Kubernetes* tab in *Configure the component* of [Azure Key Vault secret store](https://docs.dapr.io/reference/components-reference/supported-secret-stores/azure-keyvault/).
 >
 > When deployed to Azure Kubernetes Service or Azure Container Apps, managed identity can be used instead of client secret. See [Using Managed Service Identities](https://docs.dapr.io/developing-applications/integrations/azure/authenticating-azure/#using-managed-service-identities).
+>
+
+<span class="fs-3">
+[Retreive a secret in the application]({{ site.baseurl }}{% link modules/09-bonus-assignments/03-secret-store/2-azure-key-vault-secret-store-code.md %}){: .btn .mt-7 }
+</span>
+<span class="fs-3">
+[Reference a secret in a component]({{ site.baseurl }}{% link modules/09-bonus-assignments/03-secret-store/3-azure-key-vault-secret-store-component.md %}){: .btn .ml-3 }
+</span>

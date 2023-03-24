@@ -23,3 +23,10 @@ Dapr offers built-in state management, reliable messaging (at least once deliver
 Dapr runs natively on Kubernetes, as a self hosted binary on your machine, on an IoT device, or as a container that can be injected into any system, in the cloud or on-premises.
 
 Dapr uses pluggable component state stores and message buses such as Redis as well as gRPC to offer a wide range of communication methods, including direct dapr-to-dapr using gRPC and async Pub-Sub with guaranteed delivery and at-least-once semantics.
+
+<span class="fs-3">
+[< Introduction]({{ site.baseurl }}{% link index.markdown %}){: .btn .mt-7 }
+</span>
+<span class="fs-3">
+[Prerequisites >]({{ site.baseurl }}{% link modules/00-intro/2-prerequisites.md %}){: .btn .float-right .mt-7 }
+</span>

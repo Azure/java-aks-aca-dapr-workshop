@@ -43,3 +43,7 @@ In order to simulate this in code, the following services are defined:
 After completing all the assignments, the architecture has been changed to work with Dapr and should look like this:
 
 ![End State with Dapr Telemetry](assets/images/workshop-end-state.png)
+
+<span class="fs-3">
+[Let's start!]({{ site.baseurl }}{% link modules/00-intro/1-dapr-overview.md %}){: .btn .mt-7 }
+</span>

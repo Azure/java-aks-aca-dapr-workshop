@@ -4,23 +4,35 @@ parent: Assignment 3 - Using Dapr for pub/sub with Azure Services
 has_children: false
 nav_order: 1
 layout: default
+has_toc: true
 ---
 
 # Using Dapr for pub/sub with Azure Service Bus
+
+{: .no_toc }
+
+<details open markdown="block">
+  <summary>
+    Table of contents
+  </summary>
+  {: .text-delta }
+- TOC
+{:toc}
+</details>
 
 Stop Simulation, TrafficControlService and FineCollectionService, and VehicleRegistrationService by pressing Crtl-C in the respective terminal windows.
 
 ## Step 1: Create Azure Service Bus 
 
-In the example, you will use Azure Service Bus as the message broker with the Dapr pub/sub building block. You're going to create an Azure Service Bus namespace and a topic in it. To be able to do this, you need to have an Azure subscription. If you don't have one, you can create a free account at [https://azure.microsoft.com/free/](https://azure.microsoft.com/free/).
+In this assignment, you will use Azure Service Bus as the message broker with the Dapr pub/sub building block. You're going to create an Azure Service Bus namespace and a topic in it. To be able to do this, you need to have an Azure subscription. If you don't have one, you can create a free account at [https://azure.microsoft.com/free/](https://azure.microsoft.com/free/).
 
-1. Login to Azure
+1. Login to Azure:
 
     ```bash
     az login
     ```
 
-1. Create a resource group
+1. Create a resource group:
 
     ```bash
     az group create --name rg-dapr-workshop-java --location eastus
@@ -47,25 +59,25 @@ In the example, you will use Azure Service Bus as the message broker with the Da
         $SERVICE_BUS
         ```
 
-1. Create a Service Bus messaging namespace
+1. Create a Service Bus messaging namespace:
 
     ```bash
     az servicebus namespace create --resource-group rg-dapr-workshop-java --name $SERVICE_BUS --location eastus
     ```
 
-1. Create a Service Bus topic
+1. Create a Service Bus topic:
 
     ```bash
     az servicebus topic create --resource-group rg-dapr-workshop-java --namespace-name $SERVICE_BUS --name test
     ```
 
-1. Create authorization rules for the Service Bus topic
+1. Create authorization rules for the Service Bus topic:
 
     ```bash
     az servicebus topic authorization-rule create --resource-group rg-dapr-workshop-java --namespace-name $SERVICE_BUS --topic-name test --name DaprWorkshopJavaAuthRule --rights Manage Send Listen
     ```
 
-1. Get the connection string for the Service Bus topic and copy it to the clipboard
+1. Get the connection string for the Service Bus topic and copy it to the clipboard:
 
     ```bash
     az servicebus topic authorization-rule keys list --resource-group rg-dapr-workshop-java --namespace-name $SERVICE_BUS --topic-name test --name DaprWorkshopJavaAuthRule  --query primaryConnectionString --output tsv
@@ -91,7 +103,7 @@ In the example, you will use Azure Service Bus as the message broker with the Da
       - finecollectionservice
     ```
 
-    As you can see, you specify a different type of pub/sub component (`pubsub.azure.servicebus`) and you specify in the `metadata` section how to connect to Azure Service Bus created in step 1. For this workshop, you are going to use the connection string you copied in the previous step. You can also configure the component to use Azure Active Directory authentication. For more information, see [Azure Service Bus pub/sub component](https://docs.dapr.io/reference/components-reference/supported-pubsub/setup-azure-servicebus/).
+    As you can see, you specify a different type of pub/sub component (`pubsub.azure.servicebus`) and you specify in the `metadata` section how to connect to Azure Service Bus created in step 1. For this workshop, you are going to use the connection string you copied in the previous step. You can also configure the component to use Azure Active Directory authentication. For more information, see [Azure Service Bus pub/sub component](https://docs.dapr.io/reference/components-reference/supported-pubsub/setup-azure-servicebus-topics/).
 
     In the `scopes` section, you specify that only the TrafficControlService and FineCollectionService should use the pub/sub building block.
 
@@ -139,6 +151,11 @@ You're going to start all the services now.
    mvn spring-boot:run
    ```
 
-You should see the same logs as before. Obviously, the behavior of the application is exactly the same as before. But now, instead of messages being published and subscribed via kafka topic, are being processed through RabbitMQ.
+You should see the same logs as before. Obviously, the behavior of the application is exactly the same as before. But now, instead of messages being published and subscribed via kafka topic, are being processed through Azure Service Bus.
 
-    
+<span class="fs-3">
+[< Assignment 2 - Run with Dapr]({{ site.baseurl }}{% link modules/02-assignment-2-dapr-pub-sub/index.md %}){: .btn .mt-7 }
+</span>
+<span class="fs-3">
+[Assignment 4 - Observability >]({{ site.baseurl }}{% link modules/04-assignment-4-observability-zipkin/index.md %}){: .btn .float-right .mt-7 }
+</span>

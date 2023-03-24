@@ -5,9 +5,21 @@ grand_parent: Bonus Assignments
 has_children: false
 nav_order: 3
 layout: default
+has_toc: true
 ---
 
 # Reference a secret in components
+
+{: .no_toc }
+
+<details open markdown="block">
+  <summary>
+    Table of contents
+  </summary>
+  {: .text-delta }
+- TOC
+{:toc}
+</details>
 
 Previously, you have created an Azure Key Vault and added the Dapr component. Now, you will use the secret in the application. This bonus assignment is about using Azure Key Vault as a [secret store](https://docs.dapr.io/operations/components/setup-secret-store/) to store the connection string of the Azure Service Bus.
 
@@ -33,7 +45,7 @@ Azure Service Bus' connection string will be store as a string/literal secret:
 
 ## Step 2: Use the secret in the application `FineCollectionService`
 
-1. Open the file `dapr/components/azure-servicebus-pubsub.yaml` (created in assignment 3) in your code editor, and inspect it
+1. Open the file `dapr/components/azure-servicebus-pubsub.yaml` (created in assignment 3) in your code editor, and inspect it.
 
 1. **Replace** value:
 
@@ -99,3 +111,7 @@ You're going to start all the services now.
    ```
 
 You should see the same logs as **Assignment 3** with Azure Service Bus. Obviously, the behavior of the application is exactly the same as before.
+
+<span class="fs-3">
+[< Secret Store setup]({{ site.baseurl }}{% link modules/09-bonus-assignments/03-secret-store/1-azure-key-vault-secret-store-setup.md %}){: .btn .mt-7 }
+</span>

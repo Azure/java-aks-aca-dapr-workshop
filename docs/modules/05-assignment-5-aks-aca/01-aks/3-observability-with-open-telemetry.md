@@ -5,11 +5,23 @@ grand_parent: Assignment 5 - Deploying to Azure with Dapr
 has_children: false
 nav_order: 3
 layout: default
+has_toc: true
 ---
 
 # (Optional) Observability with Dapr using OpenTelemetry
 
-In this section, you will deploy the [OpenTelemetry Collector](https://github.com/open-telemetry/opentelemetry-collector) to our new AKS cluster and configure Dapr to send telemetry to the vendor agnostic collector implementation. The collector will be configured to send telemetry to an Application Insights resource that we will create within our existing Azure resource group.
+{: .no_toc }
+
+<details open markdown="block">
+  <summary>
+    Table of contents
+  </summary>
+  {: .text-delta }
+- TOC
+{:toc}
+</details>
+
+In this exercise, you will deploy the [OpenTelemetry Collector](https://github.com/open-telemetry/opentelemetry-collector) to our new AKS cluster and configure Dapr to send telemetry to the vendor agnostic collector implementation. The collector will be configured to send telemetry to an Application Insights resource that you will create within our existing Azure resource group.
 
 ## Step 1: Create Application Insights resource
 
@@ -29,7 +41,7 @@ Open the file called `open-telemetry-collector-appinsights.yaml` that's located 
 
 Next, find the Instrumentation Key value you copied from the previous step and replace the `<INSTRUMENTATION-KEY>` placeholder with this value and save.
 
-Apply this configuration to your AKS cluster using the following command
+Apply this configuration to your AKS cluster using the following command:
 
 ```bash
 kubectl apply -f deploy/open-telemetry-collector-appinsights.yaml
@@ -37,7 +49,7 @@ kubectl apply -f deploy/open-telemetry-collector-appinsights.yaml
 
 ## Step 3: Configure Dapr to send tracing to OpenTelemetry Collector
 
-Next, we need to configure Dapr to send tracing information to our newly deployed OpenTelemetry Collector using the following configuration file.
+Next, you need to configure Dapr to send tracing information to our newly deployed OpenTelemetry Collector using the following configuration file.
 
 Open the file called `collector-config.yaml` within the deploy folder and inspect the configuration.  This file will instruct Dapr to send telemetry data to the `otel-collector` endpoint for distribution to all registered telemetry stores, in our case it'll be Azure Application Insights.
 
@@ -54,7 +66,7 @@ spec:
       endpointAddress: "http://otel-collector.default.svc.cluster.local:9411/api/v2/spans"
 ```
 
-Apply this configuration to your AKS cluster using the following command
+Apply this configuration to your AKS cluster using the following command:
 
 ```bash
 kubectl apply -f collector-config.yaml
@@ -129,3 +141,10 @@ If configured correctly, tracing data should show up in the search results.
 Find the Application Map feature within the lefthand navigation of the Application Insights blade and click to show the mapping of telemetry calls between services.
 
 ![Application Insights Application Map](../../assets/images/application-insights-application-map.png)
+
+<span class="fs-3">
+[< Deploy to AKS with Dapr Extension]({{ site.baseurl }}{% link modules/05-assignment-5-aks-aca/01-aks/2-aks-instructions.md %}){: .btn .mt-7 }
+</span>
+<span class="fs-3">
+[(Optional) GitOps >]({{ site.baseurl }}{% link modules/05-assignment-5-aks-aca/01-aks/4-gitops.md %}){: .btn .float-right .mt-7 }
+</span>

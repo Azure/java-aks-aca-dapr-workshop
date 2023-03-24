@@ -3,9 +3,9 @@ componentType: pubsub.redis
 version: v1
 metadata:
   - name: redisHost
-    value: <replace>.redis.cache.windows.net:6380
+    value: <replaceWithRedisHostName>:<replaceWithRedisSSLPort>
   - name: redisPassword
-    value: "<replaceWithRedisKey>"
+    value: <replaceWithPrimaryKey>
   - name: enableTLS
     value: "true"
 scopes:
