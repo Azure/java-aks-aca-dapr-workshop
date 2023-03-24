@@ -539,6 +539,12 @@ This is the end of the workshop!
   - [Azure Cosmos DB as a state store]({{ site.baseurl }}{% link modules/09-bonus-assignments/02-state-store/index.md %})
   - [Azure Key Vault as a secret store]({{ site.baseurl }}{% link modules/09-bonus-assignments/03-secret-store/index.md %})
 
+{: .important-title }
+> Cleanup
+>
+> When the workshop is done, please follow the [cleanup instructions]({{ site.baseurl }}{% link modules/10-cleanup/index.md %}) to delete the resources created in this workshop.
+> 
+
 <span class="fs-3">
 [< Deploy to ACA]({{ site.baseurl }}{% link modules/05-assignment-5-aks-aca/02-aca/index.md %}){: .btn .mt-7 }
 </span>

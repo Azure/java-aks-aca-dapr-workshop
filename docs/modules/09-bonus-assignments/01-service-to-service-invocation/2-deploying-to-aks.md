@@ -87,6 +87,12 @@ In this assignment, you will deploy the service-to-service communication to Azur
     kubectl delete -k deploy
     ```
 
+{: .important-title }
+> Cleanup
+>
+> When the workshop is done, please follow the [cleanup instructions]({{ site.baseurl }}{% link modules/10-cleanup/index.md %}) to delete the resources created in this workshop.
+> 
+
 <span class="fs-3">
 [< Invoke Service using Dapr]({{ site.baseurl }}{% link modules/09-bonus-assignments/01-service-to-service-invocation/1-invoke-service-using-dapr.md %}){: .btn .mt-7 }
 </span>
