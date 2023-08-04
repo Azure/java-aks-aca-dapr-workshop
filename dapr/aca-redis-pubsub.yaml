@@ -1,4 +1,3 @@
-# pubsub.yaml for Azure Cache for Redis
 componentType: pubsub.redis
 version: v1
 metadata:

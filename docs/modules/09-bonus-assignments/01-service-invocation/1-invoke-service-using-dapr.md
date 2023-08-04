@@ -1,6 +1,6 @@
 ---
 title: Invoke Vehicle Registration Service from Fine Collection Service
-parent: Service-to-service invocation using Dapr
+parent: Service invocation using Dapr
 grand_parent: Bonus Assignments
 has_children: false
 nav_order: 1
@@ -23,50 +23,15 @@ has_toc: true
 
 In this assignment, you will use Dapr to invoke the `VehicleRegistrationService` from the `FineCollectionService`. You will use the [service invocation building block](https://docs.dapr.io/developing-applications/building-blocks/service-invocation/service-invocation-overview/) provided by Dapr.
 
-## Step 1: Use Dapr to invoke the Vehicle Registration Service from the Fine Collection Service
+<!-- ------------ STEP 1 - INVOKE VEHICLE REGISTRATION SERVICE ------------- -->
 
-With Dapr, services can invoke other services using their application id. This is done by using the Dapr client to make calls to the Dapr sidecar. The Vehicle Registration Service will be started with a Dapr sidecar.
-
-1. Open the `FineCollectionService` project in your code editor and navigate to the `DaprVehicleRegistrationClient` class. This class implements the `VehicleRegistrationClient` interface and uses the Dapr client to invoke the Vehicle Registration Service. Inspect the implementation of this class.
-
-2. Navigate to the `FineCollectionConfiguration` class to switch between the default and Dapr implementation of the `VehicleRegistrationClient`.
-
-3. **Uncomment** following @Bean method
-
-    ```java
-    //    @Bean
-    //    public VehicleRegistrationClient vehicleRegistrationClient(final DaprClient daprClient) {
-    //        return new DaprVehicleRegistrationClient(daprClient);
-    //    }
-    ```
-
-4. **Uncomment** following @Bean method
-  
-    ```java
-    //    @Bean
-    //    public DaprClient daprClient() {
-    //        return new DaprClientBuilder().build();
-    //    }
-    ```
-
-5. **Comment out** following @Bean method
-
-    ```java
-        @Bean
-        public VehicleRegistrationClient vehicleRegistrationClient(final RestTemplate restTemplate) {
-            return new DefaultVehicleRegistrationClient(restTemplate, vehicleInformationAddress);
-        }
-    ```
-
-6. Check all your code-changes are correct by building the code. Execute the following command in the terminal window:
-
-    ```bash
-    mvn package
-    ```
+{% assign stepNumber = 1 %}
+{% include 09-bonus-assignments/01-service-invocation/1-use-dapr-to-invoke-vehicle-registration-service.md %}
 
 Now you can test the application.
 
-## Step 2: Test the application
+{% assign stepNumber = stepNumber | plus: 1 %}
+## Step {{stepNumber}}: Test the application
 
 You're going to start all the services now. 
 
@@ -79,6 +44,14 @@ You're going to start all the services now.
    ```bash
    dapr run --app-id vehicleregistrationservice --app-port 6002 --dapr-http-port 3602 --dapr-grpc-port 60002 --components-path ../dapr/components mvn spring-boot:run
    ```
+
+   `FineCollectionService` Dapr sidecar uses Vehicle Registration Service `app-id` to resolve the service invocation endpoint. The name (i.e. `app-id`) of `VehicleRegistrationService` is set in the application properties of `FineCollectionService` (i.e. `application.yaml`) as shown below:
+
+   ```yaml
+   vehicle-registration-service.name: ${VEHICLE_REGISTRATION_SERVICE:vehicleregistrationservice}
+   ```
+
+   The default value is `vehicleregistrationservice` that can be override using the environment variable `VEHICLE_REGISTRATION_SERVICE`.
 
 1. Open a **new** terminal window and change the current folder to `FineCollectionService`.
 
@@ -106,9 +79,11 @@ You're going to start all the services now.
 
 You should see the same logs as before. Obviously, the behavior of the application is exactly the same as before.
 
+<!-- ----------------------------- NAVIGATION ------------------------------ -->
+
 <span class="fs-3">
-[Deploy to AKS]({{ site.baseurl }}{% link modules/09-bonus-assignments/01-service-to-service-invocation/2-deploying-to-aks.md %}){: .btn }
+[Deploy to AKS]({{ site.baseurl }}{% link modules/09-bonus-assignments/01-service-invocation/2-deploying-to-aks.md %}){: .btn }
 </span>
-<!-- <span class="fs-3">
-[Deploy to ACA]({{ site.baseurl }}{% link modules/09-bonus-assignments/01-service-to-service-invocation/3-deploying-to-aca.md %}){: .btn }
-</span> -->
+<span class="fs-3">
+[Deploy to ACA]({{ site.baseurl }}{% link modules/09-bonus-assignments/01-service-invocation/3-deploying-to-aca.md %}){: .btn }
+</span>

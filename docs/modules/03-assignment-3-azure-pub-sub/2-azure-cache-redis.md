@@ -117,7 +117,7 @@ In this assignment, you will use Azure Cache for Redis as the message broker wit
 
     As you can see, you specify a different type of pub/sub component (`pubsub.redis`) and you specify in the `metadata` section how to connect to Azure Cache for Redis created in step 1. For this workshop, you are going to use the redis hostname, password and port you copied in the previous step. For more information, see [Redis  Streams pub/sub component](https://docs.dapr.io/reference/components-reference/supported-pubsub/setup-redis-pubsub/).
 
-    In the `scopes` section, you specify that only the TrafficControlService and FineCollectionService should use the pub/sub building block.
+    In the `scopes` section, you specify that only the `TrafficControlService` and `FineCollectionService` should use the pub/sub building block. To know more about scopes, see [Application access to components with scopes](https://docs.dapr.io/operations/components/component-scopes/#application-access-to-components-with-scopes).
 
 1. **Copy or Move** this file `dapr/azure-redis-pubsub.yaml` to `dapr/components` folder.
 
@@ -164,6 +164,8 @@ You're going to start all the services now.
    ```
 
 You should see the same logs as before. Obviously, the behavior of the application is exactly the same as before. But now, instead of messages being published and subscribed via kafka topic, are being processed through Redis Streams.
+
+<!-- ----------------------------- NAVIGATION ------------------------------ -->
 
 <span class="fs-3">
 [< Assignment 2 - Run with Dapr]({{ site.baseurl }}{% link modules/02-assignment-2-dapr-pub-sub/index.md %}){: .btn .mt-7 }

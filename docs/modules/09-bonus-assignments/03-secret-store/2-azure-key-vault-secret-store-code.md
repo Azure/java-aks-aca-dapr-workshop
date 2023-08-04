@@ -152,6 +152,8 @@ You should see the same logs as **Assignment 1**. Obviously, the behavior of the
 > When the workshop is done, please follow the [cleanup instructions]({{ site.baseurl }}{% link modules/10-cleanup/index.md %}) to delete the resources created in this workshop.
 > 
 
+<!-- ----------------------------- NAVIGATION ------------------------------ -->
+
 <span class="fs-3">
 [< Secret Store setup]({{ site.baseurl }}{% link modules/09-bonus-assignments/03-secret-store/1-azure-key-vault-secret-store-setup.md %}){: .btn .mt-7 }
 </span>

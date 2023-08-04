@@ -143,6 +143,8 @@ To create a secret in the Azure Key Vault, use the following command and replace
 > When deployed to Azure Kubernetes Service or Azure Container Apps, managed identity can be used instead of client secret. See [Using Managed Service Identities](https://docs.dapr.io/developing-applications/integrations/azure/authenticating-azure/#using-managed-service-identities).
 >
 
+<!-- ----------------------------- NAVIGATION ------------------------------ -->
+
 <span class="fs-3">
 [Retreive a secret in the application]({{ site.baseurl }}{% link modules/09-bonus-assignments/03-secret-store/2-azure-key-vault-secret-store-code.md %}){: .btn .mt-7 }
 </span>

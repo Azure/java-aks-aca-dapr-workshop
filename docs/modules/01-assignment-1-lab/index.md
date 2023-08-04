@@ -7,4 +7,4 @@ layout: default
 
 # Assignment 1 - Running Applications with Kafka without using Dapr
 
-Details on running the application to make sure everything works correctly.
+Details on how to run the application to make sure everything works correctly.

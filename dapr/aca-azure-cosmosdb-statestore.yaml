@@ -1,0 +1,15 @@
+componentType: state.azure.cosmosdb
+version: v1
+metadata:
+  - name: url
+    value: <YOUR_COSMOSDB_ACCOUNT_URL>
+  - name: masterKey
+    value: <YOUR_COSMOSDB_MASTER_KEY>
+  - name: database
+    value: dapr-workshop-java-database
+  - name: collection
+    value: vehicle-state
+  - name: actorStateStore
+    value: "true"
+scopes:
+  - traffic-control-service

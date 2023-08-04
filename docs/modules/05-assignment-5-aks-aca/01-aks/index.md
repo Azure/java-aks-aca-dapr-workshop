@@ -12,6 +12,8 @@ In this assignment, you will deploy the 3 services and the simulation to Azure K
 
 There are two more optional exercises in this assignment. The first one is to [setup observability in AKS using OpenTelemetry]({{ site.baseurl }}{% link modules/05-assignment-5-aks-aca/01-aks/3-observability-with-open-telemetry.md %}). The second one is to use [GitOps to deploy the application to AKS]({{ site.baseurl }}{% link modules/05-assignment-5-aks-aca/01-aks/4-gitops.md %}).
 
+<!-- ----------------------------- NAVIGATION ------------------------------ -->
+
 <span class="fs-3">
 [< Assignment 4 - Observability]({{ site.baseurl }}{% link modules/04-assignment-4-observability-zipkin/index.md %}){: .btn .mt-7 }
 </span>

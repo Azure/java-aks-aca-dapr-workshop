@@ -18,6 +18,8 @@ The [first part]({{ site.baseurl }}{% link modules/09-bonus-assignments/03-secre
 > The first part is a pre-requisite for the second and third part. The second and third part can be done in any order.
 >
 
+<!-- ----------------------------- NAVIGATION ------------------------------ -->
+
 <span class="fs-3">
 [Let's start!]({{ site.baseurl }}{% link modules/09-bonus-assignments/03-secret-store/1-azure-key-vault-secret-store-setup.md %}){: .btn .mt-7 }
 </span>

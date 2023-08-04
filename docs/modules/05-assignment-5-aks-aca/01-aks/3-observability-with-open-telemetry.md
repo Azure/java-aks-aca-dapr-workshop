@@ -142,6 +142,8 @@ Find the Application Map feature within the lefthand navigation of the Applicati
 
 ![Application Insights Application Map](../../assets/images/application-insights-application-map.png)
 
+<!-- ----------------------------- NAVIGATION ------------------------------ -->
+
 <span class="fs-3">
 [< Deploy to AKS with Dapr Extension]({{ site.baseurl }}{% link modules/05-assignment-5-aks-aca/01-aks/2-aks-instructions.md %}){: .btn .mt-7 }
 </span>

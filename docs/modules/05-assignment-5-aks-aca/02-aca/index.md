@@ -16,6 +16,8 @@ In this assignment, you will deploy the 3 services and the simulation to [Azure 
 > If you want to enable Dapr telemetry, you need to create the container apps environment with Application Insigths. When creating the environment, you can follow the instruction in the optional exercise to [setup Dapr Telemetry in ACA using Application Insights]({{ site.baseurl }}{% link modules/05-assignment-5-aks-aca/02-aca/2-observability.md %}).
 > 
 
+<!-- ----------------------------- NAVIGATION ------------------------------ -->
+
 <span class="fs-3">
 [< Assignment 4 - Observability]({{ site.baseurl }}{% link modules/04-assignment-4-observability-zipkin/index.md %}){: .btn .mt-7 }
 </span>

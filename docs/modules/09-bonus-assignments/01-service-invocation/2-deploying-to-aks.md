@@ -1,6 +1,6 @@
 ---
-title: Deploying service-to-service invocation to Azure Kubernetes Service
-parent: Service-to-service invocation using Dapr
+title: Deploying service invocation to Azure Kubernetes Service
+parent: Service invocation using Dapr
 grand_parent: Bonus Assignments
 has_children: false
 nav_order: 2
@@ -8,7 +8,7 @@ layout: default
 has_toc: true
 ---
 
-# Deploying service-to-service invocation to Azure Kubernetes Service
+# Deploying service invocation to Azure Kubernetes Service
     
 {: .no_toc }
 
@@ -21,15 +21,15 @@ has_toc: true
 {:toc}
 </details>
 
-In this assignment, you will deploy the service-to-service communication to Azure Kubernetes Service (AKS). You will use the [service invocation building block](https://docs.dapr.io/developing-applications/building-blocks/service-invocation/service-invocation-overview/) provided by Dapr.
+In this assignment, you will deploy the service communication to Azure Kubernetes Service (AKS). You will use the [service invocation building block](https://docs.dapr.io/developing-applications/building-blocks/service-invocation/service-invocation-overview/) provided by Dapr.
 
 {: .important-title }
 > Pre-requisite
 >
-> The first part [Invoke Vehicle Registration Service from Fine Collection Service using Dapr]({{ site.baseurl }}{% link modules/09-bonus-assignments/01-service-to-service-invocation/1-invoke-service-using-dapr.md %}) is a pre-requisite for this assignment.
+> The first part [Invoke Vehicle Registration Service from Fine Collection Service using Dapr]({{ site.baseurl }}{% link modules/09-bonus-assignments/01-service-invocation/1-invoke-service-using-dapr.md %}) is a pre-requisite for this assignment.
 >
 
-## Step 1: Deploy service-to-service communication to AKS
+## Step 1: Deploy service invocation to AKS
 
 1. Open `deploy/vehicleregistrationservice.yaml` in your code editor and **uncomment** the following lines:
 
@@ -51,7 +51,7 @@ In this assignment, you will deploy the service-to-service communication to Azur
 
     Where `$CONTAINER_REGISTRY` is the name of your Azure Container Registry.
 
-1. In the root folder of FineCollectionService microservice, run the following command:
+1. In the root folder of `FineCollectionService`, run the following command to build and push the image:
 
     ```bash
     mvn spring-boot:build-image
@@ -93,6 +93,8 @@ In this assignment, you will deploy the service-to-service communication to Azur
 > When the workshop is done, please follow the [cleanup instructions]({{ site.baseurl }}{% link modules/10-cleanup/index.md %}) to delete the resources created in this workshop.
 > 
 
+<!-- ----------------------------- NAVIGATION ------------------------------ -->
+
 <span class="fs-3">
-[< Invoke Service using Dapr]({{ site.baseurl }}{% link modules/09-bonus-assignments/01-service-to-service-invocation/1-invoke-service-using-dapr.md %}){: .btn .mt-7 }
+[< Invoke Service using Dapr]({{ site.baseurl }}{% link modules/09-bonus-assignments/01-service-invocation/1-invoke-service-using-dapr.md %}){: .btn .mt-7 }
 </span>
