@@ -109,13 +109,7 @@ You should see the same logs as **Assignment 3** with Azure Service Bus. Obvious
 > Challenge
 >
 > You can use the secret store to store Cosmos DB master key as well. Try it out! More information on Cosmos DB as a state store can be found in [Bonus Assignment: State Store]({{ site.baseurl }}{% link modules/09-bonus-assignments/02-state-store/index.md %}).
-> 
-
-{: .important-title }
-> Cleanup
 >
-> When the workshop is done, please follow the [cleanup instructions]({{ site.baseurl }}{% link modules/10-cleanup/index.md %}) to delete the resources created in this workshop.
-> 
 
 <!-- ----------------------------- NAVIGATION ------------------------------ -->
 

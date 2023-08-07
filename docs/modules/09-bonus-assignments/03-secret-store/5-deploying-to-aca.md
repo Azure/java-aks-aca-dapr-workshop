@@ -76,6 +76,8 @@ To deploy the retrieving of the license key of the fine calculator to Azure Cont
 {% assign stepNumber = 3 %}
 {% include 05-assignment-5-aks-aca/02-aca/0-3-test-application.md %}
 
+<!-- ------------------------------- CLEANUP ------------------------------- -->
+
 {: .important-title }
 > Cleanup
 >
