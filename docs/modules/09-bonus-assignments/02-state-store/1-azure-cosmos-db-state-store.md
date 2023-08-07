@@ -21,7 +21,7 @@ has_toc: true
 {:toc}
 </details>
 
-This bonus assignment is about using Azure Cosmos DB as a [state store](https://docs.dapr.io/operations/components/setup-state-store/) for the `TrafficControlService` instead of keeping the sate in memory. You will use the [Azure Cosmos DB state store component](https://docs.dapr.io/reference/components-reference/supported-state-stores/setup-azure-cosmosdb/) provided by Dapr.
+This bonus assignment is about using [Azure Cosmos DB](https://learn.microsoft.com/en-us/azure/cosmos-db/) as a [state store](https://docs.dapr.io/operations/components/setup-state-store/) for the `TrafficControlService` instead of keeping the sate in memory. You will use the [Azure Cosmos DB state store component](https://docs.dapr.io/reference/components-reference/supported-state-stores/setup-azure-cosmosdb/) provided by Dapr.
 
 ## Step 1: Create an Azure Cosmos DB
 

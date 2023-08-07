@@ -17,7 +17,7 @@ In this challenge, you will cover most of the topics covered in the workshop and
 
 The following diagram shows the architecture, that is the final state of this challenge:
 
-![Architecture](../../assets/images/fine-collection-service-secret-store.png)
+![Final architecture of the challenge](../../assets/images/fine-collection-service-secret-store.png)
 
 <span class="fs-3">
 [Let's start!]({{ site.baseurl }}{% link modules/11-aca-challenge/00-intro/1-dapr-overview.md %}){: .btn .mt-7 }

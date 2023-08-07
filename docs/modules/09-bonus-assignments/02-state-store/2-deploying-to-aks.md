@@ -21,7 +21,7 @@ has_toc: true
 {:toc}
 </details>
 
-In this assignment, you will deploy the Azure Cosmos DB state store to Azure Kubernetes Service (AKS). You will use the [Azure Cosmos DB state store component](https://docs.dapr.io/reference/components-reference/supported-state-stores/setup-azure-cosmosdb/) provided by Dapr.
+In this bonus assignment, you will deploy the Azure Cosmos DB state store to Azure Kubernetes Service (AKS). You will use the [Azure Cosmos DB state store component](https://docs.dapr.io/reference/components-reference/supported-state-stores/setup-azure-cosmosdb/) provided by Dapr.
 
 {: .important-title }
 > Pre-requisite

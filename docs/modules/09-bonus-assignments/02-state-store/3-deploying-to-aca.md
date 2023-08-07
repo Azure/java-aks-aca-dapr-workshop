@@ -21,7 +21,7 @@ has_toc: true
 {:toc}
 </details>
 
-In this assignment, you will deploy the Azure Cosmos DB state store to Azure Container Apps (ACA). You will use the [state management building block](https://docs.dapr.io/developing-applications/building-blocks/state-management/state-management-overview/) provided by Dapr.
+In this bonus assignment, you will deploy the Azure Cosmos DB state store to Azure Container Apps (ACA). You will use the [state management building block](https://docs.dapr.io/developing-applications/building-blocks/state-management/state-management-overview/) provided by Dapr.
 
 {: .important-title }
 > Pre-requisite

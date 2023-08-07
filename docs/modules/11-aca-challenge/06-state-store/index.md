@@ -20,7 +20,7 @@ has_toc: true
 {:toc}
 </details>
 
-This assignment is about using Azure Cosmos DB as a [state store](https://docs.dapr.io/operations/components/setup-state-store/) for the `TrafficControlService` instead of keeping the sate in memory. You will use the [Azure Cosmos DB state store component](https://docs.dapr.io/reference/components-reference/supported-state-stores/setup-azure-cosmosdb/) provided by Dapr. This is the third step to reach the final state of the application for this challenge. It is represented by the diagram below.
+This assignment is about using [Azure Cosmos DB](https://learn.microsoft.com/en-us/azure/cosmos-db/) as a [state store](https://docs.dapr.io/operations/components/setup-state-store/) for the `TrafficControlService` instead of keeping the sate in memory. You will use the [Azure Cosmos DB state store component](https://docs.dapr.io/reference/components-reference/supported-state-stores/setup-azure-cosmosdb/) provided by Dapr. This is the third step to reach the final state of the application for this challenge. It is represented by the diagram below.
 
 ![Azure Container Apps Challenge - Third Deployment](../../../assets/images/aca-deployment-3.png)
 
@@ -66,5 +66,5 @@ This assignment is about using Azure Cosmos DB as a [state store](https://docs.d
 [< Assignment 5 - Service invocation]({{ site.baseurl }}{% link modules/11-aca-challenge/05-service-invocation/index.md %}){: .btn .mt-7 }
 </span>
 <span class="fs-3">
-[Assignment 5 - Service invocation >]({{ site.baseurl }}{% link modules/11-aca-challenge/05-service-invocation/index.md %}){: .btn .float-right .mt-7 }
+[Assignment 7 - Key Vault as a secret store >]({{ site.baseurl }}{% link modules/11-aca-challenge/07-secret-store/index.md %}){: .btn .float-right .mt-7 }
 </span>
