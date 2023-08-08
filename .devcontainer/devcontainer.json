@@ -11,7 +11,8 @@
       "installMaven": true,
       "mavenVersion": "3.8.8"
     },
-    "ghcr.io/dapr/cli/dapr-cli:0": {}
+    "ghcr.io/dapr/cli/dapr-cli:0": {},
+    "ghcr.io/devcontainers/features/kubectl-helm-minikube:1": {}
   },
   "customizations": {
     "vscode": {
