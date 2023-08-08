@@ -91,7 +91,5 @@ Write-Variable -Name "KEY_VAULT" -Value "$KEY_VAULT"
 # ----------------------------------- Apps ----------------------------------- #
 
 Write-Variable -Name "VEHICLE_REGISTRATION_SERVICE_FQDN" -Value "$VEHICLE_REGISTRATION_SERVICE_FQDN"
-
 Write-Variable -Name "TRAFFIC_CONTROL_SERVICE_FQDN" -Value "$TRAFFIC_CONTROL_SERVICE_FQDN"
-
 Write-Environment-Variable -Name "TRAFFIC_CONTROL_SERVICE_BASE_URL" -Value "https://$TRAFFIC_CONTROL_SERVICE_FQDN"
