@@ -197,7 +197,7 @@ You're going to start all the services now.
     Ensure you have run `dapr init` command prior to running the below command.
 
     ```bash
-    dapr run --app-id finecollectionservice --app-port 6001 --dapr-http-port 3601 --dapr-grpc-port 60001 --components-path ../dapr/components mvn spring-boot:run
+    dapr run --app-id finecollectionservice --app-port 6001 --dapr-http-port 3601 --dapr-grpc-port 60001 --resources-path ../dapr/components mvn spring-boot:run
     ```
 
 1. Open a **new** terminal window and change the current folder to `TrafficControlService`.
@@ -205,7 +205,7 @@ You're going to start all the services now.
 1. Enter the following command to run the TrafficControlService with a Dapr sidecar:
 
     ```bash
-    dapr run --app-id trafficcontrolservice --app-port 6000 --dapr-http-port 3600 --dapr-grpc-port 60000 --components-path ../dapr/components mvn spring-boot:run
+    dapr run --app-id trafficcontrolservice --app-port 6000 --dapr-http-port 3600 --dapr-grpc-port 60000 --resources-path ../dapr/components mvn spring-boot:run
     ```
 
 1. Open a **new** terminal window and change the current folder to `Simulation`.
@@ -227,7 +227,7 @@ The steps below are tailored to debug TrafficControlService, but would be the sa
      * Name = trafficcontrolservice-dapr-debug
      * Location = c:\dapr\dapr.exe
      * Working Directory = ${workspace_loc:/TrafficControlService}
-     * Arguments = run --app-id finecollectionservice --app-port 6001 --dapr-http-port 3601 --dapr-grpc-port 60001 --components-path ../dapr/components
+     * Arguments = run --app-id finecollectionservice --app-port 6001 --dapr-http-port 3601 --dapr-grpc-port 60001 --resources-path ../dapr/components
 
     ![Eclipse External Tools Configuration]({{include.relativeAssetsPath}}images/eclipse-external-tools-configurations.png)
 

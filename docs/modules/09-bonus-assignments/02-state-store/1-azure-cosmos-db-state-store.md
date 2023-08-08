@@ -63,7 +63,7 @@ You're going to start all the services now.
 1. Enter the following command to run the FineCollectionService with a Dapr sidecar:
 
    ```bash
-   dapr run --app-id finecollectionservice --app-port 6001 --dapr-http-port 3601 --dapr-grpc-port 60001 --components-path ../dapr/components mvn spring-boot:run
+   dapr run --app-id finecollectionservice --app-port 6001 --dapr-http-port 3601 --dapr-grpc-port 60001 --resources-path ../dapr/components mvn spring-boot:run
    ```
 
 1. Open a **new** terminal window and change the current folder to `TrafficControlService`.
@@ -71,7 +71,7 @@ You're going to start all the services now.
 1. Enter the following command to run the TrafficControlService with a Dapr sidecar:
 
    ```bash
-   dapr run --app-id trafficcontrolservice --app-port 6000 --dapr-http-port 3600 --dapr-grpc-port 60000 --components-path ../dapr/components mvn spring-boot:run
+   dapr run --app-id trafficcontrolservice --app-port 6000 --dapr-http-port 3600 --dapr-grpc-port 60000 --resources-path ../dapr/components mvn spring-boot:run
    ```
 
 1. Open a **new** terminal window and change the current folder to `Simulation`.
