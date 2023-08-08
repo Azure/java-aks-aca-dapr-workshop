@@ -1,122 +1,79 @@
 #!/bin/bash
 
-echo "#!/bin/bash" > set-vars.sh
-echo "" >> set-vars.sh
-
 # ---------------------------------------------------------------------------- #
-#                              SUPPORTING SERVICES                             #
+#                                   FUNCTIONS                                  #
 # ---------------------------------------------------------------------------- #
 
-# ------------------------------- SUBSCRIPTION ------------------------------- #
+writeNewFile() {
+  echo "#!/bin/bash" > set-vars.sh
+}
 
-echo "SUBSCRIPTION=\"$(az account show --query id -o tsv)\"" >> set-vars.sh
-echo "echo \"SUBSCRIPTION=\$SUBSCRIPTION\"" >> set-vars.sh
-echo "" >> set-vars.sh
+writeToFile() {
+  local text=$1
+  echo "$text" >> set-vars.sh
+}
 
-# -------------------------------- SERVICE BUS ------------------------------- #
+writeBlankLine() {
+  writeToFile ""
+}
 
-echo "SERVICE_BUS=$SERVICE_BUS" >> set-vars.sh
-echo "echo \"SERVICE_BUS=\$SERVICE_BUS\"" >> set-vars.sh
-echo "" >> set-vars.sh
+writeVariable() {
+  local variableName=$1
+  local variableValue=$2
+  writeToFile "$variableName=\"$2\""
+  writeToFile "echo \"$variableName=\$$variableName\""
+  writeBlankLine
+}
+
+writeEnvironmentVariable() {
+  local variableName=$1
+  local variableValue=$2
+  writeToFile "export $variableName=\"$2\""
+  writeToFile "echo \"$variableName=\$$variableName\""
+  writeBlankLine
+}
+
+# ---------------------------------------------------------------------------- #
+#                                 FILE CREATION                                #
+# ---------------------------------------------------------------------------- #
+
+writeNewFile
+writeBlankLine
+
+# ---------------------------- Supporting Services --------------------------- #
+
+writeVariable "SUBSCRIPTION" "$(az account show --query id -o tsv)"
+
+writeVariable "SERVICE_BUS" "$SERVICE_BUS"
 
 if [ -v SERVICE_BUS ]; then
-  echo "SERVICE_BUS_CONNECTION_STRING=\"$(az servicebus topic authorization-rule keys list --resource-group rg-dapr-workshop-java --namespace-name $SERVICE_BUS --topic-name test --name DaprWorkshopJavaAuthRule  --query primaryConnectionString --output tsv)\"" >> set-vars.sh
+  writeVariable "SERVICE_BUS_CONNECTION_STRING" "$(az servicebus topic authorization-rule keys list --resource-group rg-dapr-workshop-java --namespace-name $SERVICE_BUS --topic-name test --name DaprWorkshopJavaAuthRule  --query primaryConnectionString --output tsv)"
 else
-  echo "SERVICE_BUS_CONNECTION_STRING=\"\"" >> set-vars.sh
+  writeVariable "SERVICE_BUS_CONNECTION_STRING" ""
 fi
-echo "echo \"SERVICE_BUS_CONNECTION_STRING=\$SERVICE_BUS_CONNECTION_STRING\"" >> set-vars.sh
-echo "" >> set-vars.sh
 
-# ----------------------------------- REDIS ---------------------------------- #
+writeVariable "REDIS" "$REDIS"
+writeVariable "REDIS_HOSTNAME" "$REDIS_HOSTNAME"
+writeVariable "REDIS_SSL_PORT" "$REDIS_SSL_PORT"
+writeVariable "REDIS_PRIMARY_KEY" "$REDIS_PRIMARY_KEY"
 
-echo "REDIS=\"$REDIS\"" >> set-vars.sh
-echo "echo \"REDIS=\$REDIS\"" >> set-vars.sh
-echo "" >> set-vars.sh
+writeVariable "LOG_ANALYTICS_WORKSPACE_CUSTOMER_ID" "$LOG_ANALYTICS_WORKSPACE_CUSTOMER_ID"
+writeVariable "LOG_ANALYTICS_WORKSPACE_CLIENT_SECRET" "$LOG_ANALYTICS_WORKSPACE_CLIENT_SECRET"
 
-echo "REDIS_HOSTNAME=\"$REDIS_HOSTNAME\"" >> set-vars.sh
-echo "echo \"REDIS_HOSTNAME=\$REDIS_HOSTNAME\"" >> set-vars.sh
-echo "" >> set-vars.sh
+writeVariable "INSTRUMENTATION_KEY" "$INSTRUMENTATION_KEY"
 
-echo "REDIS_SSL_PORT=\"$REDIS_SSL_PORT\"" >> set-vars.sh
-echo "echo \"REDIS_SSL_PORT=\$REDIS_SSL_PORT\"" >> set-vars.sh
-echo "" >> set-vars.sh
+writeVariable "CONTAINER_REGISTRY" "$CONTAINER_REGISTRY"
+writeVariable "CONTAINER_REGISTRY_URL" "$CONTAINER_REGISTRY_URL"
 
-echo "REDIS_PRIMARY_KEY=\"$REDIS_PRIMARY_KEY\"" >> set-vars.sh
-echo "echo \"REDIS_PRIMARY_KEY=\$REDIS_PRIMARY_KEY\"" >> set-vars.sh
-echo "" >> set-vars.sh
+writeVariable "COSMOS_DB" "$COSMOS_DB"
 
-# -------------------------- LOG ANALYTICS WORKSPACE ------------------------- #
+writeVariable "APP_ID" "$APP_ID"
+writeVariable "SERVICE_PRINCIPAL_ID" "$SERVICE_PRINCIPAL_ID"
 
-echo "LOG_ANALYTICS_WORKSPACE_CUSTOMER_ID=\"$LOG_ANALYTICS_WORKSPACE_CUSTOMER_ID\"" >> set-vars.sh
-echo "echo \"LOG_ANALYTICS_WORKSPACE_CUSTOMER_ID=\$LOG_ANALYTICS_WORKSPACE_CUSTOMER_ID\"" >> set-vars.sh
-echo "" >> set-vars.sh
+writeVariable "KEY_VAULT" "$KEY_VAULT"
 
-echo "LOG_ANALYTICS_WORKSPACE_CLIENT_SECRET=\"$LOG_ANALYTICS_WORKSPACE_CLIENT_SECRET\"" >> set-vars.sh
-echo "echo \"LOG_ANALYTICS_WORKSPACE_CLIENT_SECRET=\$LOG_ANALYTICS_WORKSPACE_CLIENT_SECRET\"" >> set-vars.sh
-echo "" >> set-vars.sh
+# ----------------------------------- Apps ----------------------------------- #
 
-# --------------------------- APPLICATION INSIGHTS --------------------------- #
-
-echo "INSTRUMENTATION_KEY=\"$INSTRUMENTATION_KEY\"" >> set-vars.sh
-echo "echo \"INSTRUMENTATION_KEY=\$INSTRUMENTATION_KEY\"" >> set-vars.sh
-echo "" >> set-vars.sh
-
-# ---------------------------- CONTAINER REGISTRY ---------------------------- #
-
-echo "CONTAINER_REGISTRY=\"$CONTAINER_REGISTRY\"" >> set-vars.sh
-echo "echo \"CONTAINER_REGISTRY=\$CONTAINER_REGISTRY\"" >> set-vars.sh
-echo "" >> set-vars.sh
-
-echo "CONTAINER_REGISTRY_URL=\"$CONTAINER_REGISTRY_URL\"" >> set-vars.sh
-echo "echo \"CONTAINER_REGISTRY_URL=\$CONTAINER_REGISTRY_URL\"" >> set-vars.sh
-echo "" >> set-vars.sh
-
-# --------------------------------- COSMOS DB -------------------------------- #
-
-echo "COSMOS_DB=\"$COSMOS_DB\"" >> set-vars.sh
-echo "echo \"COSMOS_DB=\$COSMOS_DB\"" >> set-vars.sh
-echo "" >> set-vars.sh
-
-# --------------------------- USER MANAGED IDENTITY -------------------------- #
-
-echo "APP_ID=\"$APP_ID\"" >> set-vars.sh
-echo "echo \"APP_ID=\$APP_ID\"" >> set-vars.sh
-echo "" >> set-vars.sh
-
-echo "SERVICE_PRINCIPAL_ID=\"$SERVICE_PRINCIPAL_ID\"" >> set-vars.sh
-echo "echo \"SERVICE_PRINCIPAL_ID=\$SERVICE_PRINCIPAL_ID\"" >> set-vars.sh
-echo "" >> set-vars.sh
-
-# --------------------------------- KEY VAULT -------------------------------- #
-
-echo "KEY_VAULT=\"$KEY_VAULT\"" >> set-vars.sh
-echo "echo \"KEY_VAULT=\$KEY_VAULT\"" >> set-vars.sh
-echo "" >> set-vars.sh
-
-# ---------------------------------------------------------------------------- #
-#                                     APPS                                     #
-# ---------------------------------------------------------------------------- #
-
-# ----------------------- VEHICLE REGISTRATION SERVICE ----------------------- #
-
-echo "VEHICLE_REGISTRATION_SERVICE_FQDN=\"$VEHICLE_REGISTRATION_SERVICE_FQDN\"" >> set-vars.sh
-echo "echo \"VEHICLE_REGISTRATION_SERVICE_FQDN=\$VEHICLE_REGISTRATION_SERVICE_FQDN\"" >> set-vars.sh
-echo "" >> set-vars.sh
-
-# -------------------------- TRAFFIC CONTROL SERVICE ------------------------- #
-
-echo "TRAFFIC_CONTROL_SERVICE_FQDN=\"$TRAFFIC_CONTROL_SERVICE_FQDN\"" >> set-vars.sh
-echo "echo \"TRAFFIC_CONTROL_SERVICE_FQDN=\$TRAFFIC_CONTROL_SERVICE_FQDN\"" >> set-vars.sh
-echo "" >> set-vars.sh
-
-# -------------------------------- SIMULATION -------------------------------- #
-
-echo "export TRAFFIC_CONTROL_SERVICE_BASE_URL=https://$TRAFFIC_CONTROL_SERVICE_FQDN" >> set-vars.sh
-echo "echo \"TRAFFIC_CONTROL_SERVICE_BASE_URL=\$TRAFFIC_CONTROL_SERVICE_BASE_URL\"" >> set-vars.sh
-echo "" >> set-vars.sh
-
-# ---------------------------------------------------------------------------- #
-#                               CREATE EXECUTABLE                              #
-# ---------------------------------------------------------------------------- #
-
-chmod +x set-vars.sh
+writeVariable "VEHICLE_REGISTRATION_SERVICE_FQDN" "$VEHICLE_REGISTRATION_SERVICE_FQDN"
+writeVariable "TRAFFIC_CONTROL_SERVICE_FQDN" "$TRAFFIC_CONTROL_SERVICE_FQDN"
+writeEnvironmentVariable "TRAFFIC_CONTROL_SERVICE_BASE_URL" "https://$TRAFFIC_CONTROL_SERVICE_FQDN"
