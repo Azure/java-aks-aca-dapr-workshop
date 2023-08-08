@@ -7,9 +7,9 @@ layout: default
 has_toc: true
 ---
 
-This assignment is about using [Azure Key Vault](https://learn.microsoft.com/en-us/azure/key-vault/general/) as a [secret store](https://docs.dapr.io/operations/components/setup-secret-store/) for the `FineCollectionService`. You will use the [Azure Key Vault secret store component](https://docs.dapr.io/reference/components-reference/supported-secret-stores/azure-keyvault/) provided by Dapr. This the fourth and last step to reach the final state of the application for this challenge. It is represented in the diagram below.
+This assignment is about using [Azure Key Vault](https://learn.microsoft.com/en-us/azure/key-vault/general/) as a [secret store](https://docs.dapr.io/operations/components/setup-secret-store/) for the `FineCollectionService`. You will use the [Azure Key Vault secret store component](https://docs.dapr.io/reference/components-reference/supported-secret-stores/azure-keyvault/) provided by Dapr. This the fourth step to reach the final state of the application for this challenge. It is represented in the diagram below.
 
-![Final architecture of the challenge](../../../assets/images/fine-collection-service-secret-store.png)
+![Azure Container Apps Challenge - Fourth Deployment](../../../assets/images/aca-deployment-4.png)
 
 There are 3 main parts in this assignment:
 
