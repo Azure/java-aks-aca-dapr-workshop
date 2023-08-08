@@ -122,7 +122,7 @@ ga_tracking: UA-177508304-1
 ga_tracking_anonymize_ip: true # Use GDPR compliant Google Analytics settings (true/nil by default)
 # Aux links for the upper right navigation
 aux_links:
-  "Dapr Java Workshop on GitHub":
+  "Java Dapr-AKS-ACA Workshop on GitHub":
     - "//github.com/Azure/java-aks-aca-dapr-workshop"
 
 # Makes Aux links open in a new tab. Default is false

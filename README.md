@@ -23,4 +23,3 @@ When the car passes an exit-camera, this timestamp is also registered by the sys
 ## Workshop
 
 The workshop is available [here](https://azure.github.io/java-aks-aca-dapr-workshop/).
-
