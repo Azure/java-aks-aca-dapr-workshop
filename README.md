@@ -1,4 +1,9 @@
-# Java Dapr-AKS-ACA Workshop 
+# Java Dapr-AKS-ACA Workshop
+
+[![Open in GitHub Codespaces](https://img.shields.io/badge/Github_Codespaces-Open-black?style=for-the-badge&logo=github
+)](https://codespaces.new/Azure/java-aks-aca-dapr-workshop)
+[![Open in Remote - Dev Containers](https://img.shields.io/badge/Dev_Containers-Open-blue?style=for-the-badge&logo=visualstudiocode
+)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/Azure/java-aks-aca-dapr-workshop)
 
 ## Introduction
 
