@@ -29,7 +29,8 @@
 		"ms-azure-devops.azure-pipelines",
 		"msazurermtools.azurerm-vscode-tools",
 		"ms-azuretools.vscode-azureresourcegroups",
-		"ms-azuretools.vscode-dapr"
+		"ms-azuretools.vscode-dapr",
+		"humao.rest-client"
 	]
     }
   },
