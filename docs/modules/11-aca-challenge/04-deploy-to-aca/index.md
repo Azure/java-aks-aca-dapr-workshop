@@ -32,7 +32,7 @@ This assignment is about deploying the 3 microservices to [Azure Container Apps]
 
 You are going to deploy the `pubsub` Dapr component to use Azure Service Bus as the pub/sub message broker.
 
-{% include 05-assignment-5-aks-aca/02-aca/2-1-dapr-component-service-bus.md linkToAssignment3="modules/11-aca-challenge/03-assignment-3-azure-pub-sub/index.md" %}
+{% include 05-assignment-5-aks-aca/02-aca/2-1-dapr-component-service-bus.md %}
 
 <!-- ----------------------- BUILD, DEPLOY AND TEST ------------------------ -->
 
