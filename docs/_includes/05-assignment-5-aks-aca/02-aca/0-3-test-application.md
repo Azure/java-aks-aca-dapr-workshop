@@ -25,12 +25,13 @@ Return the number of the last step in this include -->
 {% assign stepNumber = stepNumber | plus: 1 %}
 ## Step {{stepNumber}} - Test the microservices running in ACA
 
-You can access the log of the container apps from the [Azure Portal](https://portal.azure.com/) or directly in a terminal window. The following steps show how to access the logs from the terminal window for each microservice.
+You can access the log of the container apps from the [Azure Portal](https://portal.azure.com/) or directly in a terminal window. To access the logs in the portal, you need to go to your resource group `rg-dapr-workshop-java` and select the container app for which you need the log. Then select `Log stream` in `Monitoring` section.
+
+To access the logs from the terminal, follow the instructions below for each microservice.
 
 {: .note }
 > The logs can take a few minutes to appear in the Log Analytics Workspace. If the logs are not updated, open the log stream in the Azure Portal.
 >
-
 
 ### Traffic Control Service
 
