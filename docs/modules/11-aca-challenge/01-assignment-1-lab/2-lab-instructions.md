@@ -21,7 +21,7 @@ has_toc: true
 {:toc}
 </details>
 
-{% include 01-assignment-1-lab/2-lab-instructions.md %}
+{% include 01-assignment-1-lab/2-lab-instructions.md linkType="aca-challenge" %}
 
 <!-- ----------------------------- NAVIGATION ------------------------------ -->
 

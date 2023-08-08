@@ -31,7 +31,20 @@ This command will read the docker-compose.yml file located within the root folde
    ```bash
    mvn spring-boot:run
    ```
-> If you receive an error here, please double-check whether or not you have installed all the `prerequisites` for the workshop!
+
+{% if include.linkType == "aca-challenge" %}
+
+{: .important }
+> If you receive an error here, please double-check whether or not you have installed all the [prerequisites]({{ site.baseurl }}{% link modules/11-aca-challenge/00-intro/2-prerequisites.md %}) for the workshop!
+>
+
+{% else %}
+
+{: .important }
+> If you receive an error here, please double-check whether or not you have installed all the [prerequisites]({{ site.baseurl }}{% link modules/00-intro/2-prerequisites.md %}) for the workshop!
+>
+
+{% endif %}
 
 ## Step 3. Run the FineCollection service
 
