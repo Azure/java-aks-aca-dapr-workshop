@@ -31,7 +31,7 @@ This command will read the docker-compose.yml file located within the root folde
    ```bash
    mvn spring-boot:run
    ```
-> If you receive an error here, please double-check whether or not you have installed all the [prerequisites]({{ site.baseurl }}{% link {{include.linkToPrerequisites}} %}) for the workshop!
+> If you receive an error here, please double-check whether or not you have installed all the `prerequisites` for the workshop!
 
 ## Step 3. Run the FineCollection service
 
