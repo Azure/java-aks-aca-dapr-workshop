@@ -5,7 +5,13 @@ You have the choice between running the workshop on your local machine, in GitHu
 [![Open in Remote - Dev Containers](https://img.shields.io/badge/Dev_Containers-Open-blue?style=for-the-badge&logo=visualstudiocode
 )](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/Azure/java-aks-aca-dapr-workshop)
 
-### Local machine
+{: .important-title }
+> Store shell and environment variables in a file
+>
+> There are 2 scripts in `/scripts` folder to store the shell and environment variables in a file: one for Linux/Unix shell and one for Powershell. To know how to use them, please refer to the [Store Variables section](#store-variables) below. It is important to store the variables in a file to be sure to keep them if you close your terminal window or if you restart your machine.
+> 
+
+## Local machine
 
 Make sure you have the following prerequisites installed on your machine:
 
@@ -45,3 +51,60 @@ Make sure you have the following prerequisites installed on your machine:
 >
 > If you are using Powershell, you need to replace in multiline commands `\` by **`** at then end of each line.
 >
+
+## Store Variables
+
+There are 2 scripts in `/scripts` folder to store the shell and environment variables in a file:
+
+- `export-variable.sh` for Linux/Unix shell
+- `export-variable.ps1` for Powershell
+
+### Linux/Unix shell
+
+#### Store variables in a file
+
+1. Open a terminal window.
+
+1. Go to the root of the project.
+
+1. Execute the following command:
+
+    ```bash
+    cd scripts
+    source ./export-variable.sh
+    ```
+
+    This command will store the shell variables in a file named `set-vars.sh`.
+
+#### Set the variables
+
+To set the variables, you need to execute the following command at the root of the project:
+
+```bash
+source ./scripts/set-vars.sh
+```
+
+### Powershell
+
+#### Store variables in a file
+
+1. Open Powershell.
+
+1. Go to the root of the project.
+
+1. Execute the following command:
+
+    ```powershell
+    cd scripts
+    .\export-variable.ps1
+    ```
+
+    This command will store the environment variables in a file named `set-vars.ps1`.
+
+#### Set the variables
+
+To set the variables, you need to execute the following command at the root of the project:
+
+```powershell
+.\scripts\set-vars.ps1
+```
