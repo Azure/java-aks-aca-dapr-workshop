@@ -20,7 +20,7 @@ has_toc: true
 {:toc}
 </details>
 
-{% include 01-assignment-1-lab/2-lab-instructions.md linkToPrerequisites="modules/00-intro/2-prerequisites.md" %}
+{% include 01-assignment-1-lab/2-lab-instructions.md %}
 
 <!-- ----------------------------- NAVIGATION ------------------------------ -->
 
