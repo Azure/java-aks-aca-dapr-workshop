@@ -33,5 +33,4 @@
 > 
 > In production scenarios, it is recommended to use [Azure Key Vault secret store](https://docs.dapr.io/reference/components-reference/supported-secret-stores/azure-keyvault/) with a [managed identity](https://docs.dapr.io/developing-applications/integrations/azure/azure-authentication/authenticating-azure/#about-authentication-with-azure-ad) instead and to not store secrets as Kubernetes secrets.
 >
-> TODO Add managed identity bonus assignment
->
+
