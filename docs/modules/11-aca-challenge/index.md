@@ -12,8 +12,9 @@ In this challenge, you will cover most of the topics covered in the workshop and
 - Deploy all 3 microservices to Azure Container Apps (ACA);
 - Use Azure Service Bus as a pub/sub Dapr component for the communication between Traffic Control Service and Fine Collection Service;
 - Use Azure Cosmos DB as a state store Dapr building block for Traffic Control Service;
-- Use the service invocation Dapr building block to invoke the Vehicle Registration Service from the Fine Collection Service;
+- Use the service invocation building block of Dapr to invoke the Vehicle Registration Service from the Fine Collection Service;
 - Use Azure Key Vault as a secret store Dapr building block for the Fine Collection Service.
+- Use scale rule to scale the Fine Collection Service based on the number of messages in the topic.
 
 The following diagram shows the architecture, that is the final state of this challenge:
 

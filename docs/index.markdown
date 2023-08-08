@@ -23,7 +23,7 @@ When the car passes an exit-camera, this timestamp is also registered by the sys
 
 ### Architecture
 
-In order to simulate this in code, the following services are defined:
+At the begining of the workshop, the microservices application is as follows:
 
 ![Services](assets/images/application-diagram-without-dapr.png)
 
@@ -40,9 +40,13 @@ In order to simulate this in code, the following services are defined:
 
 ### End-state with Dapr applied
 
-After completing all the assignments, the architecture has been changed to work with Dapr and should look like this:
+During the workshop, you will be adding Dapr to the microservices application to use several pub/sub components and you will deploy the application to AKS and ACA. After completing all the assignments (including the bonus assignments), you should have the following architcture:
 
 ![End State with Dapr Telemetry](assets/images/workshop-end-state.png)
+
+The pub/sub component could differ from the one used in the diagram above. You can also try other state stores and secret stores. Please refer to the [Dapr documentation](https://docs.dapr.io/) for more information.
+
+If you want to deploy the architecture above to Azure Container Apps, you can follow the [Azure Container Apps Challenge]({{ site.baseurl }}{% link modules/11-aca-challenge/index.md %}) that is a step-by-step workshop dedicated to Azure Container Apps, Dapr, Keda and Java.
 
 <span class="fs-3">
 [Let's start!]({{ site.baseurl }}{% link modules/00-intro/1-dapr-overview.md %}){: .btn .mt-7 }

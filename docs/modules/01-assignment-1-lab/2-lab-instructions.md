@@ -25,7 +25,7 @@ has_toc: true
 <!-- ----------------------------- NAVIGATION ------------------------------ -->
 
 <span class="fs-3">
-[< Spring for Apache Kafka Usage]({{ site.baseurl }}{% link modules/01-assignment-1-lab/2-lab-instructions.md %}){: .btn .mt-7 }
+[< Spring for Apache Kafka Usage]({{ site.baseurl }}{% link modules/01-assignment-1-lab/1-spring-for-apache-kafka.md %}){: .btn .mt-7 }
 </span>
 <span class="fs-3">
 [Assignment 2 - Run with Dapr >]({{ site.baseurl }}{% link modules/02-assignment-2-dapr-pub-sub/index.md %}){: .btn .float-right .mt-7 }

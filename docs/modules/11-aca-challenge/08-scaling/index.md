@@ -214,8 +214,16 @@ As next steps, you can:
   - The sample app images used are based on the [end-to-end flow branch](https://github.com/Azure/java-aks-aca-dapr-workshop/tree/e2e-flow) that can be used to check your solutions for the workshop.
 - Contribute to this workshop by adding new challenges or improving the existing ones.
 
+<!-- ------------------------------- CLEANUP ------------------------------- -->
+
 {: .important-title }
 > Cleanup
 >
 > When the workshop is done, please follow the [cleanup instructions]({{ site.baseurl }}{% link modules/10-cleanup/index.md %}) to delete the resources created in this workshop.
 >
+
+<!-- ----------------------------- NAVIGATION ------------------------------ -->
+
+<span class="fs-3">
+[< Reference a secret in Dapr components]({{ site.baseurl }}{% link modules/11-aca-challenge/07-secret-store/3-use-secret-in-dapr-component.md %}){: .btn .mt-7 }
+</span>
