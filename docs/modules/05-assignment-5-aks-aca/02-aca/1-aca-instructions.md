@@ -86,7 +86,7 @@ The [Dapr component schema for Azure Container Apps](https://learn.microsoft.com
 
 ## Next Steps
 
-This is the end of the workshop!
+Well done, you have successfully completed the workshop!
 
 - You can follow the **Optional execices for Azure Container Apps (ACA)** to learn more about observability:
   - [Observability]({{ site.baseurl }}{% link modules/05-assignment-5-aks-aca/02-aca/2-observability.md %})
@@ -97,6 +97,9 @@ This is the end of the workshop!
   - [Service invocation using Dapr]({{ site.baseurl }}{% link modules/09-bonus-assignments/01-service-invocation/index.md %})
   - [Azure Cosmos DB as a state store]({{ site.baseurl }}{% link modules/09-bonus-assignments/02-state-store/index.md %})
   - [Azure Key Vault as a secret store]({{ site.baseurl }}{% link modules/09-bonus-assignments/03-secret-store/index.md %})
+  - [Scaling Fine Collection Service using KEDA]({{ site.baseurl }}{% link modules/09-bonus-assignments/04-scaling/index.md %})
+
+<!-- ------------------------------- CLEANUP ------------------------------- -->
 
 {: .important-title }
 > Cleanup
