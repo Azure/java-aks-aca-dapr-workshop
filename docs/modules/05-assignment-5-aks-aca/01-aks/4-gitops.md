@@ -49,6 +49,8 @@ layout: default
 
 7. verify all application pods are running by executing the following command: `kubectl get pods`.
 
+<!-- ----------------------------- NAVIGATION ------------------------------ -->
+
 <span class="fs-3">
 [< (Optional) Observability]({{ site.baseurl }}{% link modules/05-assignment-5-aks-aca/01-aks/3-observability-with-open-telemetry.md %}){: .btn .mt-7 }
 </span>

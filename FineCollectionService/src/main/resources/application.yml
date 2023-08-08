@@ -12,5 +12,5 @@ finefines:
   license-key: HX783-5PN1G-CRJ4A-K2L7V
 
 vehicle-information.address: ${VEHICLE_REGISTRATION_SERVICE_BASE_URL:http://${VEHICLE_REGISTRATION_SERVICE:localhost}:6002}/vehicleinfo/{licenseNumber}
-# Used for service discovery when service-to-service invocation is used
+# Used for service discovery when service invocation is used
 vehicle-registration-service.name: ${VEHICLE_REGISTRATION_SERVICE:vehicleregistrationservice}

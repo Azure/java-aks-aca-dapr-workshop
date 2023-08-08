@@ -1,4 +1,3 @@
-# pubsub.yaml for Azure Service Bus
 componentType: pubsub.azure.servicebus
 version: v1
 metadata:

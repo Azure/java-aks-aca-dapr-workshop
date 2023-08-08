@@ -1,6 +1,6 @@
 ---
 title: Deploying Azure Cosmos DB state store to Azure Kubernetes Service
-parent: Use Azure Cosmos DB as a state store
+parent: Using Azure Cosmos DB as a state store
 grand_parent: Bonus Assignments
 has_children: false
 nav_order: 2
@@ -21,7 +21,7 @@ has_toc: true
 {:toc}
 </details>
 
-In this assignment, you will deploy the Azure Cosmos DB state store to Azure Kubernetes Service (AKS). You will use the [Azure Cosmos DB state store component](https://docs.dapr.io/reference/components-reference/supported-state-stores/setup-azure-cosmosdb/) provided by Dapr.
+In this bonus assignment, you will deploy the Azure Cosmos DB state store to Azure Kubernetes Service (AKS). You will use the [Azure Cosmos DB state store component](https://docs.dapr.io/reference/components-reference/supported-state-stores/setup-azure-cosmosdb/) provided by Dapr.
 
 {: .important-title }
 > Pre-requisite
@@ -31,7 +31,7 @@ In this assignment, you will deploy the Azure Cosmos DB state store to Azure Kub
 > The account URL and the master key of the Azure Cosmos DB instance are required for this assignment. Please use the same Azure Cosmos DB instance as used in the first part of this assignment.
 > 
 
-### Step 1: Deploy Azure Cosmos DB state store to AKS
+## Step 1: Deploy Azure Cosmos DB state store to AKS
 
 1. Create Kubernetes secret for the Azure Cosmos DB account URL and the master key using the following command:
     
@@ -131,6 +131,8 @@ In this assignment, you will deploy the Azure Cosmos DB state store to Azure Kub
 > When the workshop is done, please follow the [cleanup instructions]({{ site.baseurl }}{% link modules/10-cleanup/index.md %}) to delete the resources created in this workshop.
 > 
 
+<!-- ----------------------------- NAVIGATION ------------------------------ -->
+
 <span class="fs-3">
-[< Cosmos DB as a State store]({{ site.baseurl }}{% link modules/09-bonus-assignments/02-state-store/1-azure-cosmos-db-state-store.md %}){: .btn .mt-7 }
+[< Cosmos DB as a state store]({{ site.baseurl }}{% link modules/09-bonus-assignments/02-state-store/1-azure-cosmos-db-state-store.md %}){: .btn .mt-7 }
 </span>

@@ -44,6 +44,8 @@ From the list of telemetry items, click the `Show` button to view an individual 
 
 ![Zipkin UI](../../assets/images/zipkin-screenshot.png)
 
+<!-- ----------------------------- NAVIGATION ------------------------------ -->
+
 <span class="fs-3">
 [< Assignment 3 - Pub/sub with Azure Services]({{ site.baseurl }}{% link modules/03-assignment-3-azure-pub-sub/index.md %}){: .btn .mt-7 }
 </span>

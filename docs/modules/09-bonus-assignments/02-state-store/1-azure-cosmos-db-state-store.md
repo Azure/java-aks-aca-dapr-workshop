@@ -1,6 +1,6 @@
 ---
-title: Use Azure Cosmos DB to store the state of a vehicle using Dapr
-parent: Use Azure Cosmos DB as a state store
+title: Using Azure Cosmos DB to store the state of a vehicle with Dapr
+parent: Using Azure Cosmos DB as a state store
 grand_parent: Bonus Assignments
 has_children: false
 nav_order: 1
@@ -8,7 +8,7 @@ layout: default
 has_toc: true
 ---
 
-# Use Azure Cosmos DB to store the state of a vehicle using Dapr
+# Using Azure Cosmos DB to store the state of a vehicle wtih Dapr
 
 {: .no_toc }
 
@@ -21,76 +21,18 @@ has_toc: true
 {:toc}
 </details>
 
-This bonus assignment is about using Azure Cosmos DB as a [state store](https://docs.dapr.io/operations/components/setup-state-store/) for the `TrafficControlService`. You will use the [Azure Cosmos DB state store component](https://docs.dapr.io/reference/components-reference/supported-state-stores/setup-azure-cosmosdb/) provided by Dapr.
+This bonus assignment is about using [Azure Cosmos DB](https://learn.microsoft.com/en-us/azure/cosmos-db/) as a [state store](https://docs.dapr.io/operations/components/setup-state-store/) for the `TrafficControlService` instead of keeping the sate in memory. You will use the [Azure Cosmos DB state store component](https://docs.dapr.io/reference/components-reference/supported-state-stores/setup-azure-cosmosdb/) provided by Dapr.
 
 ## Step 1: Create an Azure Cosmos DB
 
-1. Open a terminal window.
-
-1. Azure Cosmos DB account for SQL API is a globally distributed multi-model database service. This account needs to be globally unique. Use the following command to generate a unique name:
-
-    - Linux/Unix shell:
-       
-        ```bash
-        UNIQUE_IDENTIFIER=$(LC_ALL=C tr -dc a-z0-9 </dev/urandom | head -c 5)
-        COSMOS_DB="cosno-dapr-workshop-java-$UNIQUE_IDENTIFIER"
-        echo $COSMOS_DB
-        ```
-
-    - Powershell:
-    
-        ```powershell
-        $ACCEPTED_CHAR = [Char[]]'abcdefghijklmnopqrstuvwxyz0123456789'
-        $UNIQUE_IDENTIFIER = (Get-Random -Count 5 -InputObject $ACCEPTED_CHAR) -join ''
-        $COSMOS_DB = "cosno-dapr-workshop-java-$UNIQUE_IDENTIFIER"
-        $COSMOS_DB
-        ```
-
-1. Create a Cosmos DB account for SQL API:
-
-    ```bash
-    az cosmosdb create --name $COSMOS_DB --resource-group rg-dapr-workshop-java --locations regionName=eastus failoverPriority=0 isZoneRedundant=False
-    ```
-
-    {: .important }
-    > The name of the Cosmos DB account must be unique across all Azure Cosmos DB accounts in the world. If you get an error that the name is already taken, try a different name. In the following steps, please update the name of the Cosmos DB account accordingly.
-
-1. Create a SQL API database:
-
-    ```bash
-    az cosmosdb sql database create --account-name $COSMOS_DB --resource-group rg-dapr-workshop-java --name dapr-workshop-java-database
-    ```
-
-1. Create a SQL API container:
-
-    ```bash
-    az cosmosdb sql container create --account-name $COSMOS_DB --resource-group rg-dapr-workshop-java --database-name dapr-workshop-java-database --name vehicle-state --partition-key-path /partitionKey --throughput 400
-    ```
-
-    {: .important }
-    > The partition key path is `/partitionKey` as mentionned in [Dapr documentation](https://docs.dapr.io/reference/components-reference/supported-state-stores/setup-azure-cosmosdb/#setup-azure-cosmosdb).
-    >
-
-1. Get the Cosmos DB account URL and note it down. You will need it in the next step and to deploy it to Azure.
-   
-    ```bash
-    az cosmosdb show --name $COSMOS_DB --resource-group rg-dapr-workshop-java --query documentEndpoint -o tsv
-    ```
-
-1. Get the master key and note it down. You will need it in the next step and to deploy it to Azure.
-
-    ```bash
-    az cosmosdb keys list --name $COSMOS_DB --resource-group rg-dapr-workshop-java --type keys --query primaryMasterKey -o tsv
-    ```
+{% include 09-bonus-assignments/02-state-store/1-1-create-cosmos-db.md %}
 
 ## Step 2: Configure the Azure Cosmos DB state store component
 
-1. Open the file `dapr/azure-cosmosdb-statestore.yaml` in your code editor.
+1. Open the file `dapr/azure-cosmosdb-statestore.yaml` in your code editor and look at the content of the file.
 
 1. **Copy or Move** this file `dapr/azure-cosmosdb-statestore.yaml` to `dapr/components` folder.
    
-1. **Move** the file `dapr/components/redis-statestore.yaml` back to `dapr/` folder.
-
 1. **Replace** the following placeholders in the file `dapr/components/azure-cosmosdb-statestore.yaml` with the values you noted down in the previous step:
 
     - `<YOUR_COSMOSDB_ACCOUNT_URL>` with the Cosmos DB account URL
@@ -98,35 +40,7 @@ This bonus assignment is about using Azure Cosmos DB as a [state store](https://
 
 ## Step 3: Add the Azure Cosmos DB state store to the `TrafficControlService`
 
-1. Open the `TrafficControlService` project in your code editor and navigate to the `DaprVehicleStateRepository` class. This class use the Dapr client to store and retrieve the state of a vehicle. Inspect the implementation of this class.
-
-1. Navigate to the `TrafficControlConfiguration` class to swith from the `InMemoryVehicleStateRepository` to the `DaprVehicleStateRepository`.
-
-1. **Update** @Bean method to instantiate `DaprVehicleStateRepository` instead of `InMemoryVehicleStateRepository`:
-
-    ```java
-    @Bean
-    public VehicleStateRepository vehicleStateRepository(final DaprClient daprClient) {
-        return new DaprVehicleStateRepository(daprClient);
-    }
-    ```
-
-1. **Uncomment** following @Bean method if not already done:
-  
-    ```java
-    //    @Bean
-    //    public DaprClient daprClient() {
-    //        return new DaprClientBuilder()
-    //                .withObjectSerializer(new JsonObjectSerializer())
-    //                .build();
-    //    }
-    ```
-
-1. Check all your code-changes are correct by building the code. Execute the following command in the terminal window:
-
-    ```bash
-    mvn package
-    ```
+{% include 09-bonus-assignments/02-state-store/1-3-update-traffic-control-service.md %}
 
 Now you can test the application
 
@@ -149,7 +63,7 @@ You're going to start all the services now.
 1. Enter the following command to run the FineCollectionService with a Dapr sidecar:
 
    ```bash
-   dapr run --app-id finecollectionservice --app-port 6001 --dapr-http-port 3601 --dapr-grpc-port 60001 --components-path ../dapr/components mvn spring-boot:run
+   dapr run --app-id finecollectionservice --app-port 6001 --dapr-http-port 3601 --dapr-grpc-port 60001 --resources-path ../dapr/components mvn spring-boot:run
    ```
 
 1. Open a **new** terminal window and change the current folder to `TrafficControlService`.
@@ -157,7 +71,7 @@ You're going to start all the services now.
 1. Enter the following command to run the TrafficControlService with a Dapr sidecar:
 
    ```bash
-   dapr run --app-id trafficcontrolservice --app-port 6000 --dapr-http-port 3600 --dapr-grpc-port 60000 --components-path ../dapr/components mvn spring-boot:run
+   dapr run --app-id trafficcontrolservice --app-port 6000 --dapr-http-port 3600 --dapr-grpc-port 60000 --resources-path ../dapr/components mvn spring-boot:run
    ```
 
 1. Open a **new** terminal window and change the current folder to `Simulation`.
@@ -170,9 +84,11 @@ You're going to start all the services now.
 
 You should see the same logs as before. Obviously, the behavior of the application is exactly the same as before.
 
+<!-- ----------------------------- NAVIGATION ------------------------------ -->
+
 <span class="fs-3">
 [Deploy to AKS]({{ site.baseurl }}{% link modules/09-bonus-assignments/02-state-store/2-deploying-to-aks.md %}){: .btn }
 </span>
-<!-- <span class="fs-3">
+<span class="fs-3">
 [Deploy to ACA]({{ site.baseurl }}{% link modules/09-bonus-assignments/02-state-store/3-deploying-to-aca.md %}){: .btn }
-</span> -->
+</span>

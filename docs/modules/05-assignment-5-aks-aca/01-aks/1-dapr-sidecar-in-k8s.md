@@ -52,6 +52,8 @@ layout: default
             dapr.io/enabled: "true"
     ```
 
+<!-- ----------------------------- NAVIGATION ------------------------------ -->
+
 <span class="fs-3">
 [< Deploy to AKS]({{ site.baseurl }}{% link modules/05-assignment-5-aks-aca/01-aks/index.md %}){: .btn .mt-7 }
 </span>
