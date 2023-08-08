@@ -14,7 +14,7 @@ Make sure you have the following prerequisites installed on your machine:
 - Clone the source code repository:
 
     ```bash
-    git clone https://github.com/Azure/dapr-java-workshop.git
+    git clone https://github.com/Azure/java-aks-aca-dapr-workshop.git
     ```
 
 **From now on, this folder is referred to as the 'source code' folder.**
