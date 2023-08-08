@@ -9,8 +9,20 @@ Make sure you have the following prerequisites installed on your machine:
 - Download [Docker Desktop](https://www.docker.com/products/docker-desktop) or [Rancher Desktop](https://rancherdesktop.io/)
 - [Install the Dapr CLI](https://docs.dapr.io/getting-started/install-dapr-cli/) and [initialize Dapr locally](https://docs.dapr.io/getting-started/install-dapr-selfhost/)
 - [OpenJDK 17](https://learn.microsoft.com/en-us/java/openjdk/download#openjdk-17)
-- [Apache Maven 3.8.x+](http://maven.apache.org/download.cgi)
-  - Make sure that Maven uses the correct Java runtime by running `mvn -version`.
+- [Apache Maven 3.8.x+](http://maven.apache.org/download.cgi) (Optional if Maven Wrapper is used)
+  - Make sure that Maven uses the correct Java version by running `mvn -version`.
+  
+  {: .note-title }
+  > Using Maven Wrapper
+  >
+  > Maven wrappers are provided for each maven module (i.e. each microservice) and for the whole project. You can use them instead of installing Maven.
+  > To do so, you need to replace `mvn` by `./mvnw` for Linux/Unix shell and by `.\mvnw` for Powershell.
+  >
+  > When using Dapr CLI, you need to replace `mvn` at the end of the command by `./mvnw` for Linux/Unix shell and by `.\mvnw` for Powershell.
+  >
+  > To be sure you use the correct Java version, execute the following command at the root of the project: `./mvnw -version` for Linux/Unix shell and `.\mvnw -version` for Powershell.
+
+  
 - Clone the source code repository:
 
     ```bash
