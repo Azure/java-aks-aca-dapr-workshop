@@ -39,7 +39,7 @@ You are going to deploy the `pubsub` Dapr component. This pubsub is either Azure
 
 ### Azure Service Bus
 
-{% include 05-assignment-5-aks-aca/02-aca/2-1-dapr-component-service-bus.md linkToAssignment3="modules/03-assignment-3-azure-pub-sub/1-azure-service-bus.md" %}
+{% include 05-assignment-5-aks-aca/02-aca/2-1-dapr-component-service-bus.md %}
 
 ### Azure Cache for Redis
 
