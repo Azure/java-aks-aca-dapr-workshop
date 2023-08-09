@@ -644,7 +644,7 @@ Traffic control server needs only to publish messages to the service bus topic `
 To respect the principle of least privilege, the role `Azure Service Bus Data Receiver` should be assigned to the SMI of `ca-fine-collection-service` on service bus topic subscription `fine-collection-service` only and not on the service bus topic `test`. The role `Azure Service Bus Data Sender` should be assigned to the SMI of `ca-traffic-control-service` on service bus topic `test` only.
 
 {: .note }
-> If you use the receiver and the sender role, fine collection service Dapr sidecar will not be able to create the subscription for fine collection service. Therefore you need to create the subscription before assigning the role to it and create the container app. You need also to set the metadata `disableEntityManagement` to `true` in the `pubsub` component manifest to [disable the automatic creation of the subscription by Dapr](https://v1-9.docs.dapr.io/reference/components-reference/supported-pubsub/setup-azure-servicebus/#spec-metadata-fields).
+> If you use the receiver and the sender roles, fine collection service Dapr sidecar will not be able to create the subscription for fine collection service. Therefore you need to create the subscription before assigning the role to it and create the container app. You need also to set the metadata `disableEntityManagement` to `true` in the `pubsub` component manifest to [disable the automatic creation of the subscription by Dapr](https://v1-9.docs.dapr.io/reference/components-reference/supported-pubsub/setup-azure-servicebus/#spec-metadata-fields).
 > 
 
 ### Effect of assigning UMI
