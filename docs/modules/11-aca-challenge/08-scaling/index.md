@@ -1,13 +1,13 @@
 ---
-title: Assignment 8 - Scaling Fine Collection Service in Azure Container Apps
+title: Assignment 9 - Scaling Fine Collection Service in Azure Container Apps
 parent: Azure Container Apps Challenge
 has_children: false
-nav_order: 9
+nav_order: 10
 layout: default
 has_toc: true
 ---
 
-# Assignment 8 - Scaling Fine Collection Service in Azure Container Apps
+# Assignment 9 - Scaling Fine Collection Service in Azure Container Apps
 
 {: .no_toc }
 

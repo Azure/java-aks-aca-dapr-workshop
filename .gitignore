@@ -13,3 +13,5 @@ _site
 vendor
 dapr/components
 **/*.jar
+**/set-vars.sh
+**/set-vars.ps1
