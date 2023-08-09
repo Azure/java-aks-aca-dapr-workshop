@@ -57,5 +57,5 @@ As next steps, you can:
 <!-- ----------------------------- NAVIGATION ------------------------------ -->
 
 <span class="fs-3">
-[< Reference a secret in Dapr components]({{ site.baseurl }}{% link modules/11-aca-challenge/07-secret-store/3-use-secret-in-dapr-component.md %}){: .btn .mt-7 }
+[< Assignment 8 - Managed Identities]({{ site.baseurl }}{% link modules/11-aca-challenge/08-managed-identities/index.md %}){: .btn .mt-7 }
 </span>

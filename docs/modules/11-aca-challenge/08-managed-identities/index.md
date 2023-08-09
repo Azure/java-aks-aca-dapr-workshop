@@ -684,3 +684,12 @@ As written at the begining of this section, the choice between SMI and UMI can b
 In this workshop, we have used both SMI and UMI to demonstrate the use of both types of managed identities. These choices are not necessarily the best choices for your workload and your organization.
 
 In real workload you should evaluate carefully the choice between SMI and UMI and all the considerations listed in this section. At the end the decision is yours to make.
+
+<!-- ----------------------------- NAVIGATION ------------------------------ -->
+
+<span class="fs-3">
+[< Reference a secret in Dapr components]({{ site.baseurl }}{% link modules/11-aca-challenge/07-secret-store/3-use-secret-in-dapr-component.md %}){: .btn .mt-7 }
+</span>
+<span class="fs-3">
+[Assignment 9 - Scaling >]({{ site.baseurl }}{% link modules/11-aca-challenge/09-scaling/index.md %}){: .btn .float-right .mt-7 }
+</span>
