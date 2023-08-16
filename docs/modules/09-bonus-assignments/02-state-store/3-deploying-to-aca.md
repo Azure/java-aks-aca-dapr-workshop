@@ -24,12 +24,11 @@ has_toc: true
 In this bonus assignment, you will deploy the Azure Cosmos DB state store to Azure Container Apps (ACA). You will use the [state management building block](https://docs.dapr.io/developing-applications/building-blocks/state-management/state-management-overview/) provided by Dapr.
 
 {: .important-title }
-> Pre-requisite
+> Pre-requisites
 >
-> The first part [Use Azure Cosmos DB to store the state of a vehicle using Dapr]({{ site.baseurl }}{% link modules/09-bonus-assignments/02-state-store/1-azure-cosmos-db-state-store.md %}) is a pre-requisite for this assignment.
+> * The first part [Use Azure Cosmos DB to store the state of a vehicle using Dapr]({{ site.baseurl }}{% link modules/09-bonus-assignments/02-state-store/1-azure-cosmos-db-state-store.md %}) is a pre-requisite for this assignment. The account URL and the master key of the Azure Cosmos DB instance are required for this assignment. Please use the same Azure Cosmos DB instance as used in the first part of this assignment.
+> * Assignment 5 - [Deploying to Azure Container Apps]({{ site.baseurl }}{% link modules/05-assignment-5-aks-aca/02-aca/index.md %}) is also a pre-requisite for this assignment.
 >
-> The account URL and the master key of the Azure Cosmos DB instance are required for this assignment. Please use the same Azure Cosmos DB instance as used in the first part of this assignment.
-> 
 
 ## Step 1: Deploy Azure Cosmos DB state store component to ACA
 

@@ -23,11 +23,18 @@ has_toc: true
 
 <!-- -------------------------------- INTRO -------------------------------- -->
 
-{% include 09-bonus-assignments/04-scaling/2-1-intro.md relativeAssetsPath="../../../assets/" %}
+{% include 09-bonus-assignments/05-scaling/2-1-intro.md relativeAssetsPath="../../../assets/" %}
+
+{: .important-title }
+> Pre-requisites
+>
+> * The `Assignment 3 - Setup Azure Service Bus` is a pre-requisite for this bonus assignment. If not done yet, please follow the instructions in [Assignment 3 - Setup Azure Service Bus]({{ site.baseurl }}{% link modules/03-assignment-3-azure-pub-sub/1-azure-service-bus.md %}).
+> * Assignment 5 - [Deploying to Azure Container Apps]({{ site.baseurl }}{% link modules/05-assignment-5-aks-aca/02-aca/index.md %}) is also a pre-requisite for this assignment.
+> 
 
 <!-- --------------------------- DEPLOY AND TEST --------------------------- -->
 
-{% include 09-bonus-assignments/04-scaling/2-2-deploy-and-test.md relativeAssetsPath="../../../assets/" %}
+{% include 09-bonus-assignments/05-scaling/2-2-deploy-and-test.md relativeAssetsPath="../../../assets/" %}
 
 <!-- ------------------------------- CLEANUP ------------------------------- -->
 

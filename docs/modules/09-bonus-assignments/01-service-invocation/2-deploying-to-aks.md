@@ -24,10 +24,11 @@ has_toc: true
 In this assignment, you will deploy the service communication to Azure Kubernetes Service (AKS). You will use the [service invocation building block](https://docs.dapr.io/developing-applications/building-blocks/service-invocation/service-invocation-overview/) provided by Dapr.
 
 {: .important-title }
-> Pre-requisite
+> Pre-requisites
 >
-> The first part [Invoke Vehicle Registration Service from Fine Collection Service using Dapr]({{ site.baseurl }}{% link modules/09-bonus-assignments/01-service-invocation/1-invoke-service-using-dapr.md %}) is a pre-requisite for this assignment.
->
+> * The first part [Invoke Vehicle Registration Service from Fine Collection Service using Dapr]({{ site.baseurl }}{% link modules/09-bonus-assignments/01-service-invocation/1-invoke-service-using-dapr.md %}) is a pre-requisite for this assignment.
+> * Assignment 5 - [Deploying to Azure Kubernetes Service]({{ site.baseurl }}{% link modules/05-assignment-5-aks-aca/01-aks/index.md %}) is also a pre-requisite for this assignment.
+> 
 
 ## Step 1: Deploy service invocation to AKS
 

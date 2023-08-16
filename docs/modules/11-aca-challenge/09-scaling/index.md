@@ -22,15 +22,15 @@ has_toc: true
 
 <!-- -------------------------------- INTRO -------------------------------- -->
 
-{% include 09-bonus-assignments/04-scaling/2-1-intro.md %}
+{% include 09-bonus-assignments/05-scaling/2-1-intro.md %}
 
 This is the last step of the challenge. At the end of this assignment you should have the final state of the architecture as shown in the following diagram:
 
-![Final architecture of the challenge](../../../assets/images/fine-collection-service-secret-store.png)
+![Final architecture of the challenge](../../../assets/images/workshop-end-state.png)
 
 <!-- --------------------------- DEPLOY AND TEST --------------------------- -->
 
-{% include 09-bonus-assignments/04-scaling/2-2-deploy-and-test.md relativeAssetsPath="../../../assets/" %}
+{% include 09-bonus-assignments/05-scaling/2-2-deploy-and-test.md relativeAssetsPath="../../../assets/" %}
 
 <!-- ----------------------------- NEXT STEPS ------------------------------ -->
 

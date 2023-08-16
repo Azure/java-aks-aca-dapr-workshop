@@ -29,9 +29,10 @@ It is followed by 2 steps that can be done in any order (at least one of them mu
 - b. Use the secret store for the service bus connection string of the `pubsub` component
 
 {: .important-title }
-> Pre-requisite
+> Pre-requisites
 >
-> If the setup of the Azure Key Vault is not done yet, please follow the instructions in [Setup Azure Key Vault as a secret store]({{ site.baseurl }}{% link modules/09-bonus-assignments/03-secret-store/1-setup-azure-key-vault.md %}).
+> * If the setup of the Azure Key Vault is not done yet, please follow the instructions in [Setup Azure Key Vault as a secret store]({{ site.baseurl }}{% link modules/09-bonus-assignments/03-secret-store/1-setup-azure-key-vault.md %}).
+> * Assignment 5 - [Deploying to Azure Container Apps]({{ site.baseurl }}{% link modules/05-assignment-5-aks-aca/02-aca/index.md %}) is also a pre-requisite for this assignment.
 >
 
 <!-- ---------------- DEPLOY SECRET STORE COMPONENT TO ACA ----------------- -->

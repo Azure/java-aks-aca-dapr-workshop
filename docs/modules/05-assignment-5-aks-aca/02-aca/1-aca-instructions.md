@@ -97,7 +97,8 @@ Well done, you have successfully completed the workshop!
   - [Service invocation using Dapr]({{ site.baseurl }}{% link modules/09-bonus-assignments/01-service-invocation/index.md %})
   - [Azure Cosmos DB as a state store]({{ site.baseurl }}{% link modules/09-bonus-assignments/02-state-store/index.md %})
   - [Azure Key Vault as a secret store]({{ site.baseurl }}{% link modules/09-bonus-assignments/03-secret-store/index.md %})
-  - [Scaling Fine Collection Service using KEDA]({{ site.baseurl }}{% link modules/09-bonus-assignments/04-scaling/index.md %})
+  - [Managed Identities]({{ site.baseurl }}{% link modules/09-bonus-assignments/04-managed-identities/index.md %})
+  - [Scaling Fine Collection Service using KEDA]({{ site.baseurl }}{% link modules/09-bonus-assignments/05-scaling/index.md %})
 
 <!-- ------------------------------- CLEANUP ------------------------------- -->
 
