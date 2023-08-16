@@ -1,13 +1,13 @@
 ---
-title: Assignment 8 - Scaling Fine Collection Service in Azure Container Apps
+title: Assignment 9 - Scaling Fine Collection Service in Azure Container Apps
 parent: Azure Container Apps Challenge
 has_children: false
-nav_order: 9
+nav_order: 10
 layout: default
 has_toc: true
 ---
 
-# Assignment 8 - Scaling Fine Collection Service in Azure Container Apps
+# Assignment 9 - Scaling Fine Collection Service in Azure Container Apps
 
 {: .no_toc }
 
@@ -22,15 +22,15 @@ has_toc: true
 
 <!-- -------------------------------- INTRO -------------------------------- -->
 
-{% include 09-bonus-assignments/04-scaling/2-1-intro.md %}
+{% include 09-bonus-assignments/05-scaling/2-1-intro.md %}
 
 This is the last step of the challenge. At the end of this assignment you should have the final state of the architecture as shown in the following diagram:
 
-![Final architecture of the challenge](../../../assets/images/fine-collection-service-secret-store.png)
+![Final architecture of the challenge](../../../assets/images/workshop-end-state.png)
 
 <!-- --------------------------- DEPLOY AND TEST --------------------------- -->
 
-{% include 09-bonus-assignments/04-scaling/2-2-deploy-and-test.md relativeAssetsPath="../../../assets/" %}
+{% include 09-bonus-assignments/05-scaling/2-2-deploy-and-test.md relativeAssetsPath="../../../assets/" %}
 
 <!-- ----------------------------- NEXT STEPS ------------------------------ -->
 
@@ -57,5 +57,5 @@ As next steps, you can:
 <!-- ----------------------------- NAVIGATION ------------------------------ -->
 
 <span class="fs-3">
-[< Reference a secret in Dapr components]({{ site.baseurl }}{% link modules/11-aca-challenge/07-secret-store/3-use-secret-in-dapr-component.md %}){: .btn .mt-7 }
+[< Assignment 8 - Managed Identities]({{ site.baseurl }}{% link modules/11-aca-challenge/08-managed-identities/index.md %}){: .btn .mt-7 }
 </span>

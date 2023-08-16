@@ -5,7 +5,7 @@ nav_order: 1
 layout: home
 ---
 
-# Workshop to implement Pub/Sub and Observability in Java Applications using Dapr
+# Java Dapr Workshop for Azure Kubernetes Service and Azure Container Apps
 
 ## Introduction
 

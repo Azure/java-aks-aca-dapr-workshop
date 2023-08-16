@@ -53,11 +53,12 @@ In this step, you will rebuild and redeploy the `FineCollectionService` to use t
       --name ca-fine-collection-service \
       --resource-group rg-dapr-workshop-java \
       --image "$CONTAINER_REGISTRY.azurecr.io/fine-collection-service:2.0" \
-      --set-env-vars "VEHICLE_REGISTRATION_SERVICE=vehicle-registration-service" "VEHICLE_REGISTRATION_SERVICE_BASE_URL=not-used"
+      --set-env-vars "VEHICLE_REGISTRATION_SERVICE=vehicle-registration-service" \
+      --remove-env-vars "VEHICLE_REGISTRATION_SERVICE_BASE_URL"
+
     ```
 
-    Where `$CONTAINER_REGISTRY` is the name of your Azure Container Registry. The `VEHICLE_REGISTRATION_SERVICE_BASE_URL` is set to `not-used` because it is not used anymore. If it is used, this FQDN does not exist and the service invocation will fail.
-
+    Where `$CONTAINER_REGISTRY` is the name of your Azure Container Registry. The `VEHICLE_REGISTRATION_SERVICE_BASE_URL` is removed because it is not used anymore.
 
 <!-- -------------------------------- TEST --------------------------------- -->
 

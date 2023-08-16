@@ -91,30 +91,30 @@ Return the number of the last step in this include -->
     az keyvault create --name $KEY_VAULT --resource-group rg-dapr-workshop-java --location eastus --enable-rbac-authorization true
     ```
 
-1. Set the id of the subscription in `SUBSCRIPTION_ID`. You will need it in the next step.
+1. Set the id of the subscription in `SUBSCRIPTION`. You will need it in the next step.
 
     - Linux/Unix shell:
 
         ```bash
-        SUBSCRIPTION_ID=$(az account show --query id -o tsv)
+        SUBSCRIPTION=$(az account show --query id -o tsv)
         ```
 
     - Powershell:
 
         ```powershell
-        $SUBSCRIPTION_ID = az account show --query id -o tsv
+        $SUBSCRIPTION = az account show --query id -o tsv
         ```
 
 1. Assign a role using RBAC to the Azure AD application to access the Key Vault. The role "Key Vault Secrets User" is sufficient for this workshop.
    
     ```bash
-    az role assignment create --role "Key Vault Secrets User" --assignee $SERVICE_PRINCIPAL_ID --scope "/subscriptions/$SUBSCRIPTION_ID/resourcegroups/rg-dapr-workshop-java/providers/Microsoft.KeyVault/vaults/$KEY_VAULT"
+    az role assignment create --role "Key Vault Secrets User" --assignee $SERVICE_PRINCIPAL_ID --scope "/subscriptions/$SUBSCRIPTION/resourcegroups/rg-dapr-workshop-java/providers/Microsoft.KeyVault/vaults/$KEY_VAULT"
     ```
 
 {% assign stepNumber = stepNumber | plus: 1 %}
 ## Step {{stepNumber}}: Create a secret in the Azure Key Vault
 
-The service principal created in the previous steps has the role `Key Vault Secrets User` assigned. It means this service principal can only read secrets. When assignining a role, it is recommended to use the [least privilege principle](https://learn.microsoft.com/en-us/azure/security/fundamentals/identity-management-best-practices#use-role-based-access-control) during all stages of development and deployment. This means that in this workshop, you could have assigned the `Key Vault Secret User` to a specific role instead to the key vault itself. However, for simplicity, you assigned the role to the key vault.
+The service principal created in the previous steps has the role `Key Vault Secrets User` assigned. It means this service principal can only read secrets. When assignining a role, it is recommended to use the [principle of least privilege](https://learn.microsoft.com/en-us/azure/security/fundamentals/identity-management-best-practices#use-role-based-access-control) during all stages of development and deployment. This means that in this workshop, you could have assigned the `Key Vault Secret User` to a specific role instead to the key vault itself. However, for simplicity, you assigned the role to the key vault.
 
 To create a secret in the Azure Key Vault, you can use the Azure Portal or the Azure CLI. In this workshop, you will use the Azure CLI. First you need to assign you the role of `Key Vault Secrets Officer` to be able to create secrets in the Key Vault. To know more about the different roles, see [Azure built-in roles for Key Vault data plane operations](https://learn.microsoft.com/en-us/azure/key-vault/general/rbac-guide?tabs=azure-cli#azure-built-in-roles-for-key-vault-data-plane-operations).
 

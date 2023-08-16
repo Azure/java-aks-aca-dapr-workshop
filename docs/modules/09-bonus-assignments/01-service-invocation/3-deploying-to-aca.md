@@ -24,9 +24,10 @@ has_toc: true
 In this assignment, you will deploy the service communication to Azure Container Apps (ACA). You will use the [service invocation building block](https://docs.dapr.io/developing-applications/building-blocks/service-invocation/service-invocation-overview/) provided by Dapr.
 
 {: .important-title }
-> Pre-requisite
+> Pre-requisites
 >
-> The first part [Invoke Vehicle Registration Service from Fine Collection Service using Dapr]({{ site.baseurl }}{% link modules/09-bonus-assignments/01-service-invocation/1-invoke-service-using-dapr.md %}) is a pre-requisite for this assignment.
+> * The first part [Invoke Vehicle Registration Service from Fine Collection Service using Dapr]({{ site.baseurl }}{% link modules/09-bonus-assignments/01-service-invocation/1-invoke-service-using-dapr.md %}) is a pre-requisite for this assignment.
+> * Assignment 5 - [Deploying to Azure Container Apps]({{ site.baseurl }}{% link modules/05-assignment-5-aks-aca/02-aca/index.md %}) is also a pre-requisite for this assignment.
 >
 
 {% assign stepNumber = 1 %}

@@ -70,8 +70,7 @@ There are 2 scripts in `/scripts` folder to store the shell and environment vari
 1. Execute the following command:
 
     ```bash
-    cd scripts
-    source ./export-variable.sh
+    source ./scripts/export-variable.sh
     ```
 
     This command will store the shell variables in a file named `set-vars.sh`.
@@ -81,7 +80,7 @@ There are 2 scripts in `/scripts` folder to store the shell and environment vari
 To set the variables, you need to execute the following command at the root of the project:
 
 ```bash
-source ./scripts/set-vars.sh
+source ./set-vars.sh
 ```
 
 ### Powershell
@@ -95,8 +94,7 @@ source ./scripts/set-vars.sh
 1. Execute the following command:
 
     ```powershell
-    cd scripts
-    .\export-variable.ps1
+    .\scripts\export-variable.ps1
     ```
 
     This command will store the environment variables in a file named `set-vars.ps1`.
@@ -106,5 +104,5 @@ source ./scripts/set-vars.sh
 To set the variables, you need to execute the following command at the root of the project:
 
 ```powershell
-.\scripts\set-vars.ps1
+.\set-vars.ps1
 ```

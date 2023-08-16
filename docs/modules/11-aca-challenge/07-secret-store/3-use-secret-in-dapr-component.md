@@ -52,5 +52,5 @@ Previously, you have use a secret in `FineCollectionService` code using the `sec
 [< Retreive a secret in the application]({{ site.baseurl }}{% link modules/11-aca-challenge/07-secret-store/2-use-secret-store-in-code.md %}){: .btn .mt-7 }
 </span>
 <span class="fs-3">
-[Assignment 8 - Scaling >]({{ site.baseurl }}{% link modules/11-aca-challenge/08-scaling/index.md %}){: .btn .float-right .mt-7 }
+[Assignment 8 - Managed Identities >]({{ site.baseurl }}{% link modules/11-aca-challenge/08-managed-identities/index.md %}){: .btn .float-right .mt-7 }
 </span>

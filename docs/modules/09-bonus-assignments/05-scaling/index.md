@@ -2,7 +2,7 @@
 title: Scaling Fine Collection Service using KEDA
 parent: Bonus Assignments
 has_children: true
-nav_order: 4
+nav_order: 5
 layout: default
 ---
 
@@ -22,5 +22,5 @@ This bonus assignment is about usig [KEDA](https://keda.sh/) to scale the `FineC
 [Azure Kubernetes Service]({{ site.baseurl }}{% link modules/03-assignment-3-azure-pub-sub/1-azure-service-bus.md %}){: .btn }
 </span> -->
 <span class="fs-3">
-[Azure Container Apps]({{ site.baseurl }}{% link modules/09-bonus-assignments/04-scaling/2-scaling-in-aca.md %}){: .btn }
+[Azure Container Apps]({{ site.baseurl }}{% link modules/09-bonus-assignments/05-scaling/2-scaling-in-aca.md %}){: .btn }
 </span>

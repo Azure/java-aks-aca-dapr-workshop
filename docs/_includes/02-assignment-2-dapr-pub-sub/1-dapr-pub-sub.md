@@ -57,7 +57,7 @@ To complete this assignment, you must reach the following goals:
 
     In the `scopes` section, you specify that only the TrafficControlService and FineCollectionService should use the pub/sub building block.
 
-1. **Copy or Move** this file `dapr/kafka-pubsub.yaml` to `dapr/components/` folder (when starting Dapr applications from command line, you specify a folder `dapr/components/` where Dapr component definitions are located). From the root folder, run the following command:
+1. **Copy or Move** this file `dapr/kafka-pubsub.yaml` to `dapr/components/` folder (when starting Dapr applications from command line, you specify a folder `dapr/components/` where Dapr component manifests are located). From the root folder, run the following command:
 
     ```bash
     mkdir dapr/components

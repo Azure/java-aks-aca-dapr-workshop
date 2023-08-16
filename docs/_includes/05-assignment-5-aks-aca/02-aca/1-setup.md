@@ -44,22 +44,20 @@ Now, let's create the infrastructure for our application, so you can later deplo
      - Powershell:
         
         ```powershell
-        $LOG_ANALYTICS_WORKSPACE_CUSTOMER_ID="$(
+        $LOG_ANALYTICS_WORKSPACE_CUSTOMER_ID= `
           az monitor log-analytics workspace show `
             --resource-group rg-dapr-workshop-java `
             --workspace-name log-dapr-workshop-java `
             --query customerId  `
             --output tsv
-        )"
         Write-Output "LOG_ANALYTICS_WORKSPACE_CUSTOMER_ID=$LOG_ANALYTICS_WORKSPACE_CUSTOMER_ID"
 
-        $LOG_ANALYTICS_WORKSPACE_CLIENT_SECRET="$(
+        $LOG_ANALYTICS_WORKSPACE_CLIENT_SECRET= `
           az monitor log-analytics workspace get-shared-keys `
             --resource-group rg-dapr-workshop-java `
             --workspace-name log-dapr-workshop-java `
             --query primarySharedKey `
             --output tsv
-        )"
         Write-Output "LOG_ANALYTICS_WORKSPACE_CLIENT_SECRET=$LOG_ANALYTICS_WORKSPACE_CLIENT_SECRET"
         ```
 

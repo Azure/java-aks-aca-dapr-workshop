@@ -24,11 +24,10 @@ has_toc: true
 In this bonus assignment, you will deploy the Azure Cosmos DB state store to Azure Kubernetes Service (AKS). You will use the [Azure Cosmos DB state store component](https://docs.dapr.io/reference/components-reference/supported-state-stores/setup-azure-cosmosdb/) provided by Dapr.
 
 {: .important-title }
-> Pre-requisite
+> Pre-requisites
 >
-> The first part [Use Azure Cosmos DB to store the state of a vehicle using Dapr]({{ site.baseurl }}{% link modules/09-bonus-assignments/02-state-store/1-azure-cosmos-db-state-store.md %}) is a pre-requisite for this assignment.
->
-> The account URL and the master key of the Azure Cosmos DB instance are required for this assignment. Please use the same Azure Cosmos DB instance as used in the first part of this assignment.
+> * The first part [Use Azure Cosmos DB to store the state of a vehicle using Dapr]({{ site.baseurl }}{% link modules/09-bonus-assignments/02-state-store/1-azure-cosmos-db-state-store.md %}) is a pre-requisite for this assignment. The account URL and the master key of the Azure Cosmos DB instance are required for this assignment. Please use the same Azure Cosmos DB instance as used in the first part of this assignment.
+> * Assignment 5 - [Deploying to Azure Kubernetes Service]({{ site.baseurl }}{% link modules/05-assignment-5-aks-aca/01-aks/index.md %}) is also a pre-requisite for this assignment.
 > 
 
 ## Step 1: Deploy Azure Cosmos DB state store to AKS
