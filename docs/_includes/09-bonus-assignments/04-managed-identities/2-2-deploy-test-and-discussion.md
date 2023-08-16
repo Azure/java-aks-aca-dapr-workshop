@@ -469,7 +469,7 @@ To acccess the service bus, you will use a UMI and assign it the role `Azure Ser
       - fine-collection-service
     ```
     
-    Where <service-bus-namespace-name> should be replaced with the name of your service bus namespace (i.e. $SERVICE_BUS) and <UMI-client-id> should be replaced with the client ID of the UMI that you noted down in the previous step. As you are using a UMI, [`azureClientId` is requested in the component manifest](https://learn.microsoft.com/en-us/azure/container-apps/dapr-overview?tabs=bicep1%2Cyaml#using-managed-identity).
+    Where `<service-bus-namespace-name>` should be replaced with the name of your service bus namespace (i.e. `$SERVICE_BUS`) and `<UMI-client-id>` should be replaced with the client ID of the UMI that you noted down in the previous step. As you are using a UMI, [`azureClientId` is requested in the component manifest](https://learn.microsoft.com/en-us/azure/container-apps/dapr-overview?tabs=bicep1%2Cyaml#using-managed-identity).
 
 1. Deploy the updated component manifest:
 
@@ -617,10 +617,10 @@ To respect the principle of least privilege, the role `Azure Service Bus Data Re
 
 ### Effect of assigning UMI
 
-In this assignment instead of using two SMI to access the service bus, we use a single UMI that has both roles `Azure Service Bus Data Receiver` and `Azure Service Bus Data Sender` on service bus itself. This is not a good practice because it gives more permissions than needed to the container apps:
-- Both fine collection service and traffic control service can access all topic, queues and subscriptions in the service bus.
-- They can both, send and receive messages.
-- It means they could access data for which they are not authorized.
+In this assignment instead of using two SMI to access the service bus, we use a single UMI that has the role `Azure Service Bus Data Owner` on service bus itself. This is not a good practice because it gives more permissions than needed to the container apps:
+- Both fine collection service and traffic control service can access and manage all topics, queues and subscriptions in the service bus.
+- They can both send and receive messages.
+- It means they could access data for which they are not authorized and manage the service bus in a way that could impact other workloads.
 
 In a real world scenario, you should carrefully consider the [effect of assigning UMI](https://learn.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/managed-identity-best-practice-recommendations#consider-the-effect-of-assigning-managed-identities-to-azure-resources) to a container app. When you are assigning a UMI to a container app, you are giving all the permissions of the UMI to the container app.
 
@@ -629,17 +629,17 @@ In a real world scenario, you should carrefully consider the [effect of assignin
 [SMI are created and deleted along resources](https://learn.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/managed-identity-best-practice-recommendations#choosing-system-or-user-assigned-managed-identities), therefore role assignement cannot be created in advance. The consequences are multiple for container apps:
 
 - The deployment of the container app can fail because the user creating the resource does not have the permission to create role assignment.
-- The application deployed to the container apps required the role to be assigned to the SMI before starting. This is for example the case for Dapr components. If the role is not assigned when the application starts, the application will fail. After several minutes, the role assignment will be created and the application will start. This is not acceptable for production applications.
+- The application deployed to the container apps required the role to be assigned to the SMI before starting. This is for example the case for Dapr components. If the role is not assigned when the application starts, the application will fail. After several minutes, the role assignment will be created and the application will start. This is not the optimal for production workloads.
 
 There are several solutions to this problem:
 - Create 1 UMI per container app and assign the role to the UMI prior to the creation of the container app. The consequence is that you'll need to explicitely delete the UMI when you delete the container app.
-- Create a container app with a dummy image (e.g. [hello-world](https://learn.microsoft.com/en-us/azure/container-apps/get-started?tabs=bash#create-and-deploy-the-container-app)) and a SMI. Assign the role to the SMI. Then update the container app with the real image. This could be seen as an upsert operation.
+- Create a container app with a dummy image (e.g. [hello-world](https://learn.microsoft.com/en-us/azure/container-apps/get-started?tabs=bash#create-and-deploy-the-container-app)) and a SMI. Assign the role to the SMI. Then update the container app with the real image. This could be seen as an upsert operation. If you are using this solution, you should look at the [application lifecycle management](https://learn.microsoft.com/en-us/azure/container-apps/application-lifecycle-management) and should use [multiple revisions](https://learn.microsoft.com/en-us/azure/container-apps/revisions#multiple-revisions) to ensure zero downtime and that the hello-world image is not exposed to the public.
 
 ### Effect of UMI on Dapr components
 
-Dapr component can use managed identity of the scoped container apps to access Azure services. For example, it can use the managed identity of fine collection service to access the service bus. When you use managed identity with a Dapr Component, you don't include secret information in the component manifest. However, for UMI, you need to provide the [`azureClientId` in the component manifest](https://learn.microsoft.com/en-us/azure/container-apps/dapr-overview?tabs=bicep1%2Cyaml#using-managed-identity). This is not the case for SMI.
+Dapr components can use managed identity of the scoped container apps to access Azure services. For example, it can use the managed identity of fine collection service to access the service bus. When you use managed identity with a Dapr Component, you don't include secret information in the component manifest. However, for UMI, you need to provide the [`azureClientId` in the component manifest](https://learn.microsoft.com/en-us/azure/container-apps/dapr-overview?tabs=bicep1%2Cyaml#using-managed-identity). This is not the case for SMI.
 
-There is a consequence to this: you cannot have 1 UMI for fine collection service and 1 UMI for traffic control service to access the Azure Service Bus with the same Dapr `pubsub` component. As `azureClientId` is requested in the component manifest, you will need to create two `pubsub` components like: `pubsub-send` and `pubsub-receive`. One for sending messages and one for receiving messages. Each one will use a different UMI.
+There is a consequence to this: you cannot have 1 UMI for fine collection service and 1 UMI for traffic control service to access the Azure Service Bus with the same Dapr `pubsub` component. As `azureClientId` is requested in the component manifest, you will need to create two `pubsub` components like: `pubsub-send` and `pubsub-receive`. One for sending messages and one for receiving messages. Each one would use a different UMI.
 
 ### 4000 role assignements per subscription
 
@@ -651,4 +651,4 @@ As written at the begining of this section, the choice between SMI and UMI can b
 
 In this workshop, we have used both SMI and UMI to demonstrate the use of both types of managed identities. These choices are not necessarily the best choices for your workload and your organization.
 
-In real workload you should evaluate carefully the choice between SMI and UMI and all the considerations listed in this section. At the end the decision is yours to make.
+For real workload you should evaluate carefully the choice between SMI and UMI and all the considerations listed in this section. At the end the decision is yours to make.
