@@ -67,9 +67,9 @@ echo "LOG_ANALYTICS_WORKSPACE_CLIENT_SECRET=$LOG_ANALYTICS_WORKSPACE_CLIENT_SECR
 # --------------------------- APPLICATION INSIGHTS --------------------------- #
 
 # Application Insights
-az monitor app-insights component create --app ai-dapr-workshop-java --location $LOCATION --kind web -g $RESOURCE_GROUP --application-type web
+az monitor app-insights component create --app appi-dapr-workshop-java --location $LOCATION --kind web -g $RESOURCE_GROUP --application-type web
 # Instrumentation Key
-INSTRUMENTATION_KEY=$(az monitor app-insights component show --app ai-dapr-workshop-java -g $RESOURCE_GROUP --query instrumentationKey)
+INSTRUMENTATION_KEY=$(az monitor app-insights component show --app appi-dapr-workshop-java -g $RESOURCE_GROUP --query instrumentationKey)
 echo $INSTRUMENTATION_KEY
 
 # ------------------------- AZURE CONTAINER REGISTRY ------------------------- #
