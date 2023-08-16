@@ -10,7 +10,7 @@
 
 ## Step 2: Use the secret in the application `FineCollectionService`
 
-1. Open the file `FineCollectionService/src/main/java/dapr/fines/fines/DaprCalulator.java` in your code editor, and inspect it.
+1. Open the file `FineCollectionService/src/main/java/dapr/fines/fines/DaprFineCalulator.java` in your code editor, and inspect it.
 
     It implements the `FineCalculator` interface, which is used by the `FineCollectionService` to calculate the fine for a car. The `FineCalculator` interface has a method `calculateFine` that takes the `excessSpeed` as input and returns the amount of the fine as output. If the excess speed is too high, it return `-1`.
    
