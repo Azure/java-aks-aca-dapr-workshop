@@ -45,5 +45,5 @@ has_toc: true
 {: .important-title }
 > Cleanup
 >
-> When the workshop is done, please follow the [cleanup instructions]({{ site.baseurl }}{% link modules/10-cleanup/index.md %}) to delete the resources created in this workshop.
+> When the workshop is done, please follow the [cleanup instructions]({{ site.baseurl }}{% link modules/10-cleanup/index.md %}) to delete the resources created in this workshop. Do not forget to delete role assignements.
 >

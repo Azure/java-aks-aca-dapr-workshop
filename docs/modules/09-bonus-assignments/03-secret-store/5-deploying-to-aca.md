@@ -82,7 +82,7 @@ To deploy the retrieving of the license key of the fine calculator to Azure Cont
 {: .important-title }
 > Cleanup
 >
-> When the workshop is done, please follow the [cleanup instructions]({{ site.baseurl }}{% link modules/10-cleanup/index.md %}) to delete the resources created in this workshop.
+> When the workshop is done, please follow the [cleanup instructions]({{ site.baseurl }}{% link modules/10-cleanup/index.md %}) to delete the resources created in this workshop. Do not forget to delete application in Azure AD, its service principal and the role assigned to the service principal.
 > 
 
 <!-- ----------------------------- NAVIGATION ------------------------------ -->
