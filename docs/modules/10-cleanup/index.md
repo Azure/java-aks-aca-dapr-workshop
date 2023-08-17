@@ -16,8 +16,6 @@ az group delete --name rg-dapr-workshop-java --no-wait --yes
 {: .important }
 > Role assignement, Azure AD application and its service principal are not deleted when deleting the resource group. You need to delete them manually. Therefore follow the instruction below if you setup the secret store and/or the managed identities.
 
-// TODO add the remark in bonus assignment and aca challenge cleanup
-
 ## Secret Store cleanup
 
 The application in Azure AD, its service principal and the role assigned to the service principal are not delete when the resource group is deleted. Therefore, before deleting the resource group, you need to delete the role assignment, the service principal and the application. Follow these instructions only if you have done the bonus assignment on secret store or the assignment 7 of the container apps challenge.
