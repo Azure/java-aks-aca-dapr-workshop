@@ -34,7 +34,7 @@ has_toc: true
 
 <!-- --------------------------- DEPLOY AND TEST --------------------------- -->
 
-{% include 09-bonus-assignments/05-scaling/2-2-deploy-and-test.md relativeAssetsPath="../../../assets/" %}
+{% include 09-bonus-assignments/05-scaling/2-2-deploy-and-test.md relativeAssetsPath="../../../assets/" showWithoutSecret=true %}
 
 <!-- ------------------------------- CLEANUP ------------------------------- -->
 
