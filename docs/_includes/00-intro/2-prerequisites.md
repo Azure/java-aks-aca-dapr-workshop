@@ -56,8 +56,8 @@ Make sure you have the following prerequisites installed on your machine:
 
 There are 2 scripts in `/scripts` folder to store the shell and environment variables in a file:
 
-- `export-variable.sh` for Linux/Unix shell
-- `export-variable.ps1` for Powershell
+- `export-variables.sh` for Linux/Unix shell
+- `export-variables.ps1` for Powershell
 
 ### Linux/Unix shell
 
@@ -70,7 +70,7 @@ There are 2 scripts in `/scripts` folder to store the shell and environment vari
 1. Execute the following command:
 
     ```bash
-    source ./scripts/export-variable.sh
+    source ./scripts/export-variables.sh
     ```
 
     This command will store the shell variables in a file named `set-vars.sh`.
@@ -94,7 +94,7 @@ source ./set-vars.sh
 1. Execute the following command:
 
     ```powershell
-    .\scripts\export-variable.ps1
+    .\scripts\export-variables.ps1
     ```
 
     This command will store the environment variables in a file named `set-vars.ps1`.
