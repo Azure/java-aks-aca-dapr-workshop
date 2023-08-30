@@ -16,7 +16,7 @@ import dapr.traffic.violation.SpeedingViolation;
 import io.dapr.Topic;
 import io.dapr.client.domain.CloudEvent;
 
-//@RestController
+@RestController
 public class ViolationController {
     private final ViolationProcessor violationProcessor;
 
@@ -25,13 +25,13 @@ public class ViolationController {
     }
     
 
-//    @PostMapping(path = "/collectfine")
-//    @Topic(name = "test", pubsubName = "pubsub")
-//    public ResponseEntity<Void> registerViolation(@RequestBody final CloudEvent<SpeedingViolation> event) {
-//    	var violation = event.getData();
-//    	violationProcessor.processSpeedingViolation(violation);
-//        return ResponseEntity.ok().build();
-//    }
+   @PostMapping(path = "/collectfine")
+   @Topic(name = "test", pubsubName = "pubsub")
+   public ResponseEntity<Void> registerViolation(@RequestBody final CloudEvent<SpeedingViolation> event) {
+   	var violation = event.getData();
+   	violationProcessor.processSpeedingViolation(violation);
+       return ResponseEntity.ok().build();
+   }
     
     
 }

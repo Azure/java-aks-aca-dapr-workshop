@@ -16,8 +16,8 @@ import io.dapr.client.DaprClientBuilder;
 @Configuration
 public class FineCollectionConfiguration {
     // We need to pass this key with every invocation of the FineFines library
-    @Value("${finefines.license-key}")
-    private String fineCalculatorLicenseKey;
+    // @Value("${finefines.license-key}")
+    // private String fineCalculatorLicenseKey;
 
     @Value("${vehicle-information.address}")
     private String vehicleInformationAddress;
@@ -25,33 +25,33 @@ public class FineCollectionConfiguration {
     @Value("${vehicle-registration-service.name}")
     private String vehicleRegistrationServiceName;
 
-    @Bean
-    public FineCalculator fineCalculator() {
-        return new DefaultFineCalculator(fineCalculatorLicenseKey);
-    }
-
     // @Bean
-    // public FineCalculator fineCalculator(final DaprClient daprClient) {
-    //     return new DaprFineCalculator(daprClient);
+    // public FineCalculator fineCalculator() {
+    //     return new DefaultFineCalculator(fineCalculatorLicenseKey);
     // }
+
+    @Bean
+    public FineCalculator fineCalculator(final DaprClient daprClient) {
+        return new DaprFineCalculator(daprClient);
+    }
 
     @Bean
     public RestTemplate restTemplate() {
         return new RestTemplate();
     }
     
-//    @Bean
-//    public VehicleRegistrationClient vehicleRegistrationClient(final DaprClient daprClient) {
-//        return new DaprVehicleRegistrationClient(daprClient, vehicleRegistrationServiceName);
-//    }
+   @Bean
+   public VehicleRegistrationClient vehicleRegistrationClient(final DaprClient daprClient) {
+       return new DaprVehicleRegistrationClient(daprClient, vehicleRegistrationServiceName);
+   }
+
+    // @Bean
+    // public VehicleRegistrationClient vehicleRegistrationClient(final RestTemplate restTemplate) {
+    //     return new DefaultVehicleRegistrationClient(restTemplate, vehicleInformationAddress);
+    // }
     
    @Bean
-    public VehicleRegistrationClient vehicleRegistrationClient(final RestTemplate restTemplate) {
-        return new DefaultVehicleRegistrationClient(restTemplate, vehicleInformationAddress);
+   public DaprClient daprClient() {
+       return new DaprClientBuilder().build();
    }
-    
-//    @Bean
-//    public DaprClient daprClient() {
-//        return new DaprClientBuilder().build();
-//    }
 }
