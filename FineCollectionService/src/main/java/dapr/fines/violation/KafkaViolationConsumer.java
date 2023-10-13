@@ -14,8 +14,7 @@ public class KafkaViolationConsumer {
 	
 	@KafkaListener(topics = "test", groupId = "test", containerFactory = "kafkaListenerContainerFactory")
     public void listen(SpeedingViolation violation) {
-
-		violationProcessor.processSpeedingViolation(violation);
+        violationProcessor.processSpeedingViolation(violation);
     }
 	
 

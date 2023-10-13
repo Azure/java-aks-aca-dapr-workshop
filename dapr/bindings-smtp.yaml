@@ -1,0 +1,16 @@
+apiVersion: daprio.io/v1alpha1
+kind: Component
+metadata:
+  name: smtp
+spec:
+  type: bindings.smtp
+  metadata:
+  - name: host
+    value: smtp.office365.com
+  - name: port
+    value: "587"
+  - name: username
+    value: ""
+  - name: password
+    value: ""
+  - emailFrom: ""
